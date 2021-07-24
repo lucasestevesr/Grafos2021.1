@@ -1,7 +1,7 @@
 ## Universidade Federal de Juiz de Fora
 
 Departamento de Ciência da Computação
-Disc. DCC059 – Teoria dos Grafos – Semestre 2021-1
+Disciplina DCC059 – Teoria dos Grafos – Semestre 2021-1
 Alunos: 
 	Gabriel Antonio Esteves Matta
 	Lucas Esteves dos Reis Salgado
