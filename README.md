@@ -1,14 +1,14 @@
 ## Universidade Federal de Juiz de Fora
 
-Departamento de Ciência da Computação
-Disc. DCC059 – Teoria dos Grafos – Semestre 2021-1
-Alunos: 
-	Gabriel Antonio Esteves Matta
-	Lucas Esteves dos Reis Salgado
-	Pedro Paulo Silva Filogônio
-	Rafaela Fernandes Horta
+Departamento de Ciência da Computação</br>
+Disciplina DCC059 – Teoria dos Grafos – Semestre 2021-1</br>
+Alunos:</br>
+&emsp;&emsp;&emsp;Gabriel Antonio Esteves Matta</br>
+&emsp;&emsp;&emsp;Lucas Esteves dos Reis Salgado</br>
+&emsp;&emsp;&emsp;Pedro Paulo Silva Filogônio</br>
+&emsp;&emsp;&emsp;Rafaela Fernandes Horta</br>
 
-## Funcionalidades básicas em grafos simples
+## Trabalho 01: Funcionalidades básicas em grafos simples
 
-	• TAD usando lista de adjacência;
+	• TAD para trabalhar com grafos usando lista de adjacência;
 	• ...
