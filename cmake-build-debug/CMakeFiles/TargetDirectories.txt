@@ -1,0 +1,3 @@
+C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/cmake-build-debug/CMakeFiles/Grafos2021_1.dir
+C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/cmake-build-debug/CMakeFiles/rebuild_cache.dir
