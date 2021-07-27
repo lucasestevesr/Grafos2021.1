@@ -141,6 +141,33 @@ Grafos2021_1/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Grafos2021_1.dir\build.make CMakeFiles/Grafos2021_1.dir/build
 .PHONY : Grafos2021_1/fast
 
+Aresta.obj: Aresta.cpp.obj
+
+.PHONY : Aresta.obj
+
+# target to build an object file
+Aresta.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Grafos2021_1.dir\build.make CMakeFiles/Grafos2021_1.dir/Aresta.cpp.obj
+.PHONY : Aresta.cpp.obj
+
+Aresta.i: Aresta.cpp.i
+
+.PHONY : Aresta.i
+
+# target to preprocess a source file
+Aresta.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Grafos2021_1.dir\build.make CMakeFiles/Grafos2021_1.dir/Aresta.cpp.i
+.PHONY : Aresta.cpp.i
+
+Aresta.s: Aresta.cpp.s
+
+.PHONY : Aresta.s
+
+# target to generate assembly for a file
+Aresta.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Grafos2021_1.dir\build.make CMakeFiles/Grafos2021_1.dir/Aresta.cpp.s
+.PHONY : Aresta.cpp.s
+
 Edge.obj: Edge.cpp.obj
 
 .PHONY : Edge.obj
@@ -194,6 +221,33 @@ Graph.s: Graph.cpp.s
 Graph.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Grafos2021_1.dir\build.make CMakeFiles/Grafos2021_1.dir/Graph.cpp.s
 .PHONY : Graph.cpp.s
+
+No.obj: No.cpp.obj
+
+.PHONY : No.obj
+
+# target to build an object file
+No.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Grafos2021_1.dir\build.make CMakeFiles/Grafos2021_1.dir/No.cpp.obj
+.PHONY : No.cpp.obj
+
+No.i: No.cpp.i
+
+.PHONY : No.i
+
+# target to preprocess a source file
+No.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Grafos2021_1.dir\build.make CMakeFiles/Grafos2021_1.dir/No.cpp.i
+.PHONY : No.cpp.i
+
+No.s: No.cpp.s
+
+.PHONY : No.s
+
+# target to generate assembly for a file
+No.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Grafos2021_1.dir\build.make CMakeFiles/Grafos2021_1.dir/No.cpp.s
+.PHONY : No.cpp.s
 
 Node.obj: Node.cpp.obj
 
@@ -258,12 +312,18 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... Grafos2021_1
+	@echo ... Aresta.obj
+	@echo ... Aresta.i
+	@echo ... Aresta.s
 	@echo ... Edge.obj
 	@echo ... Edge.i
 	@echo ... Edge.s
 	@echo ... Graph.obj
 	@echo ... Graph.i
 	@echo ... Graph.s
+	@echo ... No.obj
+	@echo ... No.i
+	@echo ... No.s
 	@echo ... Node.obj
 	@echo ... Node.i
 	@echo ... Node.s

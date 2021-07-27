@@ -38,7 +38,6 @@ Graph::~Graph()
 
     while (next_node != nullptr)
     {
-
         next_node->removeAllEdges();
         Node *aux_node = next_node->getNextNode();
         delete next_node;
@@ -54,7 +53,6 @@ int Graph::getOrder()
 }
 int Graph::getNumberEdges()
 {
-
     return this->number_edges;
 }
 //Function that verifies if the graph is directed
@@ -73,7 +71,6 @@ bool Graph::getWeightedEdge()
 //Function that verifies if the graph is weighted at the nodes
 bool Graph::getWeightedNode()
 {
-
     return this->weighted_node;
 }
 
@@ -109,10 +106,21 @@ void Graph::insertNode(int id)
     }
 }
 
+void Graph::imprimir() {
+    cout << "Imprimir" << endl;
+    if(this->first_node != nullptr) {
+        for(Node* node = this->first_node; node != nullptr; node = node->getNextNode()) {
+            cout << "No: "  << node->getId() << endl;
+        }
+    }else{
+        cout << "Grafo vazio";
+    }
+}
+
 void Graph::insertEdge(int id, int target_id, float weight)
 {
-
-
+    Node* node_saida = this->getNode(id);
+    node_saida->insertEdge(target_id, weight);
 }
 
 void Graph::removeNode(int id){
@@ -180,3 +188,4 @@ Graph* agmKuskal(){
 Graph* agmPrim(){
 
 }
+
