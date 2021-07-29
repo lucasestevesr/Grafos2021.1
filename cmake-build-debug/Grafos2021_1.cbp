@@ -86,28 +86,16 @@
 		<Unit filename="C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/Aresta.h">
 			<Option target="Grafos2021_1"/>
 		</Unit>
-		<Unit filename="C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/Edge.cpp">
+		<Unit filename="C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/Grafo.cpp">
 			<Option target="Grafos2021_1"/>
 		</Unit>
-		<Unit filename="C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/Edge.h">
-			<Option target="Grafos2021_1"/>
-		</Unit>
-		<Unit filename="C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/Graph.cpp">
-			<Option target="Grafos2021_1"/>
-		</Unit>
-		<Unit filename="C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/Graph.h">
+		<Unit filename="C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/Grafo.h">
 			<Option target="Grafos2021_1"/>
 		</Unit>
 		<Unit filename="C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/No.cpp">
 			<Option target="Grafos2021_1"/>
 		</Unit>
 		<Unit filename="C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/No.h">
-			<Option target="Grafos2021_1"/>
-		</Unit>
-		<Unit filename="C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/Node.cpp">
-			<Option target="Grafos2021_1"/>
-		</Unit>
-		<Unit filename="C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/Node.h">
 			<Option target="Grafos2021_1"/>
 		</Unit>
 		<Unit filename="C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/main.cpp">

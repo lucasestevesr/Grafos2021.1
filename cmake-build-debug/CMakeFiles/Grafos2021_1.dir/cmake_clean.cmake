@@ -1,9 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/Grafos2021_1.dir/Aresta.cpp.obj"
-  "CMakeFiles/Grafos2021_1.dir/Edge.cpp.obj"
-  "CMakeFiles/Grafos2021_1.dir/Graph.cpp.obj"
+  "CMakeFiles/Grafos2021_1.dir/Grafo.cpp.obj"
   "CMakeFiles/Grafos2021_1.dir/No.cpp.obj"
-  "CMakeFiles/Grafos2021_1.dir/Node.cpp.obj"
   "CMakeFiles/Grafos2021_1.dir/main.cpp.obj"
   "Grafos2021_1.exe"
   "Grafos2021_1.exe.manifest"

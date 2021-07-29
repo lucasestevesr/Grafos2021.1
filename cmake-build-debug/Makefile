@@ -168,59 +168,32 @@ Aresta.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Grafos2021_1.dir\build.make CMakeFiles/Grafos2021_1.dir/Aresta.cpp.s
 .PHONY : Aresta.cpp.s
 
-Edge.obj: Edge.cpp.obj
+Grafo.obj: Grafo.cpp.obj
 
-.PHONY : Edge.obj
-
-# target to build an object file
-Edge.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Grafos2021_1.dir\build.make CMakeFiles/Grafos2021_1.dir/Edge.cpp.obj
-.PHONY : Edge.cpp.obj
-
-Edge.i: Edge.cpp.i
-
-.PHONY : Edge.i
-
-# target to preprocess a source file
-Edge.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Grafos2021_1.dir\build.make CMakeFiles/Grafos2021_1.dir/Edge.cpp.i
-.PHONY : Edge.cpp.i
-
-Edge.s: Edge.cpp.s
-
-.PHONY : Edge.s
-
-# target to generate assembly for a file
-Edge.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Grafos2021_1.dir\build.make CMakeFiles/Grafos2021_1.dir/Edge.cpp.s
-.PHONY : Edge.cpp.s
-
-Graph.obj: Graph.cpp.obj
-
-.PHONY : Graph.obj
+.PHONY : Grafo.obj
 
 # target to build an object file
-Graph.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Grafos2021_1.dir\build.make CMakeFiles/Grafos2021_1.dir/Graph.cpp.obj
-.PHONY : Graph.cpp.obj
+Grafo.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Grafos2021_1.dir\build.make CMakeFiles/Grafos2021_1.dir/Grafo.cpp.obj
+.PHONY : Grafo.cpp.obj
 
-Graph.i: Graph.cpp.i
+Grafo.i: Grafo.cpp.i
 
-.PHONY : Graph.i
+.PHONY : Grafo.i
 
 # target to preprocess a source file
-Graph.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Grafos2021_1.dir\build.make CMakeFiles/Grafos2021_1.dir/Graph.cpp.i
-.PHONY : Graph.cpp.i
+Grafo.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Grafos2021_1.dir\build.make CMakeFiles/Grafos2021_1.dir/Grafo.cpp.i
+.PHONY : Grafo.cpp.i
 
-Graph.s: Graph.cpp.s
+Grafo.s: Grafo.cpp.s
 
-.PHONY : Graph.s
+.PHONY : Grafo.s
 
 # target to generate assembly for a file
-Graph.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Grafos2021_1.dir\build.make CMakeFiles/Grafos2021_1.dir/Graph.cpp.s
-.PHONY : Graph.cpp.s
+Grafo.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Grafos2021_1.dir\build.make CMakeFiles/Grafos2021_1.dir/Grafo.cpp.s
+.PHONY : Grafo.cpp.s
 
 No.obj: No.cpp.obj
 
@@ -248,33 +221,6 @@ No.s: No.cpp.s
 No.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Grafos2021_1.dir\build.make CMakeFiles/Grafos2021_1.dir/No.cpp.s
 .PHONY : No.cpp.s
-
-Node.obj: Node.cpp.obj
-
-.PHONY : Node.obj
-
-# target to build an object file
-Node.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Grafos2021_1.dir\build.make CMakeFiles/Grafos2021_1.dir/Node.cpp.obj
-.PHONY : Node.cpp.obj
-
-Node.i: Node.cpp.i
-
-.PHONY : Node.i
-
-# target to preprocess a source file
-Node.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Grafos2021_1.dir\build.make CMakeFiles/Grafos2021_1.dir/Node.cpp.i
-.PHONY : Node.cpp.i
-
-Node.s: Node.cpp.s
-
-.PHONY : Node.s
-
-# target to generate assembly for a file
-Node.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Grafos2021_1.dir\build.make CMakeFiles/Grafos2021_1.dir/Node.cpp.s
-.PHONY : Node.cpp.s
 
 main.obj: main.cpp.obj
 
@@ -315,18 +261,12 @@ help:
 	@echo ... Aresta.obj
 	@echo ... Aresta.i
 	@echo ... Aresta.s
-	@echo ... Edge.obj
-	@echo ... Edge.i
-	@echo ... Edge.s
-	@echo ... Graph.obj
-	@echo ... Graph.i
-	@echo ... Graph.s
+	@echo ... Grafo.obj
+	@echo ... Grafo.i
+	@echo ... Grafo.s
 	@echo ... No.obj
 	@echo ... No.i
 	@echo ... No.s
-	@echo ... Node.obj
-	@echo ... Node.i
-	@echo ... Node.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s

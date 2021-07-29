@@ -73,7 +73,7 @@ bool No::existeAresta(int id_alvo) {
     return false;
 }
 
-void No::inserirAresta(int id_alvo, bool direcionado, float peso) {
+void No::inserirAresta(int id_alvo, float peso) {
     if(!existeAresta(id_alvo)) {
         if(this->primeira_aresta != nullptr) {
             Aresta* aresta = new Aresta(id_alvo, this->id, peso);
@@ -82,9 +82,6 @@ void No::inserirAresta(int id_alvo, bool direcionado, float peso) {
         }else {
             this->primeira_aresta = new Aresta(id_alvo, this->id, peso);
             this->ultima_aresta = this->primeira_aresta;
-        }
-        if(direcionado) {
-            inserirAresta(this->id, direcionado, peso);
         }
     }
 }

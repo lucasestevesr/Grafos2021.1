@@ -6,11 +6,39 @@
 
 #IncludeRegexTransform: 
 
-C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/Edge.h
+C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/Aresta.h
 
-C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/Graph.h
-Node.h
-C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/Node.h
+C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/Grafo.cpp
+Grafo.h
+C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/Grafo.h
+No.h
+C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/No.h
+Aresta.h
+C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/Aresta.h
+iostream
+-
+fstream
+-
+stack
+-
+queue
+-
+list
+-
+math.h
+-
+cstdlib
+-
+ctime
+-
+float.h
+-
+iomanip
+-
+
+C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/Grafo.h
+No.h
+C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/No.h
 fstream
 -
 stack
@@ -18,31 +46,7 @@ stack
 list
 -
 
-C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/Node.h
-Edge.h
-C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/Edge.h
-
-C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/main.cpp
-iostream
--
-fstream
--
-string
--
-math.h
--
-utility
--
-tuple
--
-iomanip
--
-stdlib.h
--
-chrono
--
-Graph.h
-C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/Graph.h
-Node.h
-C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/Node.h
+C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/No.h
+Aresta.h
+C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/Aresta.h
 

@@ -88,48 +88,9 @@ CMakeFiles/Grafos2021_1.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Grafos2021_1.dir/main.cpp.s"
 	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\pedro\Documents\Ufjf - Ead\Grafos\Grafos2021.1\main.cpp" -o CMakeFiles\Grafos2021_1.dir\main.cpp.s
 
-CMakeFiles/Grafos2021_1.dir/Edge.cpp.obj: CMakeFiles/Grafos2021_1.dir/flags.make
-CMakeFiles/Grafos2021_1.dir/Edge.cpp.obj: ../Edge.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="C:\Users\pedro\Documents\Ufjf - Ead\Grafos\Grafos2021.1\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/Grafos2021_1.dir/Edge.cpp.obj"
-	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\Grafos2021_1.dir\Edge.cpp.obj -c "C:\Users\pedro\Documents\Ufjf - Ead\Grafos\Grafos2021.1\Edge.cpp"
-
-CMakeFiles/Grafos2021_1.dir/Edge.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Grafos2021_1.dir/Edge.cpp.i"
-	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\pedro\Documents\Ufjf - Ead\Grafos\Grafos2021.1\Edge.cpp" > CMakeFiles\Grafos2021_1.dir\Edge.cpp.i
-
-CMakeFiles/Grafos2021_1.dir/Edge.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Grafos2021_1.dir/Edge.cpp.s"
-	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\pedro\Documents\Ufjf - Ead\Grafos\Grafos2021.1\Edge.cpp" -o CMakeFiles\Grafos2021_1.dir\Edge.cpp.s
-
-CMakeFiles/Grafos2021_1.dir/Graph.cpp.obj: CMakeFiles/Grafos2021_1.dir/flags.make
-CMakeFiles/Grafos2021_1.dir/Graph.cpp.obj: ../Graph.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="C:\Users\pedro\Documents\Ufjf - Ead\Grafos\Grafos2021.1\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/Grafos2021_1.dir/Graph.cpp.obj"
-	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\Grafos2021_1.dir\Graph.cpp.obj -c "C:\Users\pedro\Documents\Ufjf - Ead\Grafos\Grafos2021.1\Graph.cpp"
-
-CMakeFiles/Grafos2021_1.dir/Graph.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Grafos2021_1.dir/Graph.cpp.i"
-	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\pedro\Documents\Ufjf - Ead\Grafos\Grafos2021.1\Graph.cpp" > CMakeFiles\Grafos2021_1.dir\Graph.cpp.i
-
-CMakeFiles/Grafos2021_1.dir/Graph.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Grafos2021_1.dir/Graph.cpp.s"
-	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\pedro\Documents\Ufjf - Ead\Grafos\Grafos2021.1\Graph.cpp" -o CMakeFiles\Grafos2021_1.dir\Graph.cpp.s
-
-CMakeFiles/Grafos2021_1.dir/Node.cpp.obj: CMakeFiles/Grafos2021_1.dir/flags.make
-CMakeFiles/Grafos2021_1.dir/Node.cpp.obj: ../Node.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="C:\Users\pedro\Documents\Ufjf - Ead\Grafos\Grafos2021.1\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/Grafos2021_1.dir/Node.cpp.obj"
-	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\Grafos2021_1.dir\Node.cpp.obj -c "C:\Users\pedro\Documents\Ufjf - Ead\Grafos\Grafos2021.1\Node.cpp"
-
-CMakeFiles/Grafos2021_1.dir/Node.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Grafos2021_1.dir/Node.cpp.i"
-	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\pedro\Documents\Ufjf - Ead\Grafos\Grafos2021.1\Node.cpp" > CMakeFiles\Grafos2021_1.dir\Node.cpp.i
-
-CMakeFiles/Grafos2021_1.dir/Node.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Grafos2021_1.dir/Node.cpp.s"
-	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\pedro\Documents\Ufjf - Ead\Grafos\Grafos2021.1\Node.cpp" -o CMakeFiles\Grafos2021_1.dir\Node.cpp.s
-
 CMakeFiles/Grafos2021_1.dir/Aresta.cpp.obj: CMakeFiles/Grafos2021_1.dir/flags.make
 CMakeFiles/Grafos2021_1.dir/Aresta.cpp.obj: ../Aresta.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="C:\Users\pedro\Documents\Ufjf - Ead\Grafos\Grafos2021.1\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/Grafos2021_1.dir/Aresta.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="C:\Users\pedro\Documents\Ufjf - Ead\Grafos\Grafos2021.1\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/Grafos2021_1.dir/Aresta.cpp.obj"
 	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\Grafos2021_1.dir\Aresta.cpp.obj -c "C:\Users\pedro\Documents\Ufjf - Ead\Grafos\Grafos2021.1\Aresta.cpp"
 
 CMakeFiles/Grafos2021_1.dir/Aresta.cpp.i: cmake_force
@@ -142,7 +103,7 @@ CMakeFiles/Grafos2021_1.dir/Aresta.cpp.s: cmake_force
 
 CMakeFiles/Grafos2021_1.dir/No.cpp.obj: CMakeFiles/Grafos2021_1.dir/flags.make
 CMakeFiles/Grafos2021_1.dir/No.cpp.obj: ../No.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="C:\Users\pedro\Documents\Ufjf - Ead\Grafos\Grafos2021.1\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/Grafos2021_1.dir/No.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="C:\Users\pedro\Documents\Ufjf - Ead\Grafos\Grafos2021.1\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/Grafos2021_1.dir/No.cpp.obj"
 	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\Grafos2021_1.dir\No.cpp.obj -c "C:\Users\pedro\Documents\Ufjf - Ead\Grafos\Grafos2021.1\No.cpp"
 
 CMakeFiles/Grafos2021_1.dir/No.cpp.i: cmake_force
@@ -153,29 +114,38 @@ CMakeFiles/Grafos2021_1.dir/No.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Grafos2021_1.dir/No.cpp.s"
 	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\pedro\Documents\Ufjf - Ead\Grafos\Grafos2021.1\No.cpp" -o CMakeFiles\Grafos2021_1.dir\No.cpp.s
 
+CMakeFiles/Grafos2021_1.dir/Grafo.cpp.obj: CMakeFiles/Grafos2021_1.dir/flags.make
+CMakeFiles/Grafos2021_1.dir/Grafo.cpp.obj: ../Grafo.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="C:\Users\pedro\Documents\Ufjf - Ead\Grafos\Grafos2021.1\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/Grafos2021_1.dir/Grafo.cpp.obj"
+	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\Grafos2021_1.dir\Grafo.cpp.obj -c "C:\Users\pedro\Documents\Ufjf - Ead\Grafos\Grafos2021.1\Grafo.cpp"
+
+CMakeFiles/Grafos2021_1.dir/Grafo.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Grafos2021_1.dir/Grafo.cpp.i"
+	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\pedro\Documents\Ufjf - Ead\Grafos\Grafos2021.1\Grafo.cpp" > CMakeFiles\Grafos2021_1.dir\Grafo.cpp.i
+
+CMakeFiles/Grafos2021_1.dir/Grafo.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Grafos2021_1.dir/Grafo.cpp.s"
+	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\pedro\Documents\Ufjf - Ead\Grafos\Grafos2021.1\Grafo.cpp" -o CMakeFiles\Grafos2021_1.dir\Grafo.cpp.s
+
 # Object files for target Grafos2021_1
 Grafos2021_1_OBJECTS = \
 "CMakeFiles/Grafos2021_1.dir/main.cpp.obj" \
-"CMakeFiles/Grafos2021_1.dir/Edge.cpp.obj" \
-"CMakeFiles/Grafos2021_1.dir/Graph.cpp.obj" \
-"CMakeFiles/Grafos2021_1.dir/Node.cpp.obj" \
 "CMakeFiles/Grafos2021_1.dir/Aresta.cpp.obj" \
-"CMakeFiles/Grafos2021_1.dir/No.cpp.obj"
+"CMakeFiles/Grafos2021_1.dir/No.cpp.obj" \
+"CMakeFiles/Grafos2021_1.dir/Grafo.cpp.obj"
 
 # External object files for target Grafos2021_1
 Grafos2021_1_EXTERNAL_OBJECTS =
 
 Grafos2021_1.exe: CMakeFiles/Grafos2021_1.dir/main.cpp.obj
-Grafos2021_1.exe: CMakeFiles/Grafos2021_1.dir/Edge.cpp.obj
-Grafos2021_1.exe: CMakeFiles/Grafos2021_1.dir/Graph.cpp.obj
-Grafos2021_1.exe: CMakeFiles/Grafos2021_1.dir/Node.cpp.obj
 Grafos2021_1.exe: CMakeFiles/Grafos2021_1.dir/Aresta.cpp.obj
 Grafos2021_1.exe: CMakeFiles/Grafos2021_1.dir/No.cpp.obj
+Grafos2021_1.exe: CMakeFiles/Grafos2021_1.dir/Grafo.cpp.obj
 Grafos2021_1.exe: CMakeFiles/Grafos2021_1.dir/build.make
 Grafos2021_1.exe: CMakeFiles/Grafos2021_1.dir/linklibs.rsp
 Grafos2021_1.exe: CMakeFiles/Grafos2021_1.dir/objects1.rsp
 Grafos2021_1.exe: CMakeFiles/Grafos2021_1.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="C:\Users\pedro\Documents\Ufjf - Ead\Grafos\Grafos2021.1\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable Grafos2021_1.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="C:\Users\pedro\Documents\Ufjf - Ead\Grafos\Grafos2021.1\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable Grafos2021_1.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\Grafos2021_1.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
