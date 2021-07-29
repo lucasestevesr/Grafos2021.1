@@ -218,6 +218,8 @@ int main(int argc, char const *argv[]) {
     //Fechando arquivo de saída
     output_file.close();
 
+    grafo->fechoTD(2);
+    cout << "=====================" << endl;
     grafo->buscaProf(2);
 
 //    grafo->imprimir();

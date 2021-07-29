@@ -188,11 +188,32 @@ void Grafo::salvarDot() {
 
 // Funcionalidades do trabalho
 void Grafo::fechoTD(int id) {
-    if(this->direcionado) {
-
-    }else {
-        cout << "Erro: O grafo nao e direcionado!" << endl;
+    std::ofstream saida("saida2.dot");
+    if(!saida.is_open()){
+        std::cerr << "Erro na abertura do arquivo" << std::endl;
     }
+    saida << "digraph {" << std::endl;
+    bool visitados[ordem];
+    for(int i=0; i<ordem; i++)
+        visitados[i] = false;
+
+    visitados[id] = true;
+    stack<int> pilhaAux;
+    pilhaAux.push(id);
+
+    while(!pilhaAux.empty()) {
+        int topo = pilhaAux.top();
+        pilhaAux.pop();
+        for(Aresta* aresta = (this->getNo(topo))->getPrimeiraAresta(); aresta != nullptr; aresta = aresta->getProxAresta())
+        {
+            if(visitados[aresta->getIdAlvo()])
+                continue;
+            saida << "\t" << topo << " -> " << aresta->getIdAlvo() << std::endl;
+            visitados[aresta->getIdAlvo()] = true;
+            pilhaAux.push(aresta->getIdAlvo());
+        }
+    }
+    saida << "}" << std::endl;
 }
 
 void Grafo::buscaProf(int id) {
@@ -208,7 +229,7 @@ void Grafo::buscaProf(int id) {
     cout << "imprimindo lista" << endl;
     while(!listaVisitados.empty()) {
         grafo->inserirNo(listaVisitados.back());
-//        cout << listaVisitados.back() << endl;
+        cout << listaVisitados.back() << endl;
         listaVisitados.pop_back();
     }
     grafo->salvarDot();
