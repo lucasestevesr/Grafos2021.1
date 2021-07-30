@@ -13,7 +13,7 @@ Aresta::Aresta(int id_alvo, int id_origem, float peso) {
 
 Aresta::~Aresta() {
     if(this->prox_aresta != nullptr) {
-        delete this->prox_aresta;
+//        delete this->prox_aresta;
         this->prox_aresta = nullptr;
     }
 }

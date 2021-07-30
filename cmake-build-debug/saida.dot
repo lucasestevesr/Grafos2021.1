@@ -1,2 +1,18 @@
-strict graph {
-}
+Fecho transitivo direto 
+digraph { 
+	2 -> 7
+	7 -> 0
+	7 -> 5
+	7 -> 6
+} 
+---------------------
+Fecho transitivo indireto 
+digraph { 
+	4 -> 5
+	7 -> 5
+	2 -> 7
+	3 -> 7
+	1 -> 4
+	3 -> 4
+} 
+---------------------

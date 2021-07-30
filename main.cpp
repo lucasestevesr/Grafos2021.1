@@ -12,51 +12,43 @@
 
 using namespace std;
 
-Grafo* leitura(ifstream& input_file, int directed, int weightedEdge, int weightedNode){
+// Inicio da funcao para leitura do arquivo de entrada
+Grafo* leitura(ifstream& arquivo, int direcionado, int aresta_ponderado, int no_ponderado){
 
-    //Variáveis para auxiliar na criação dos nós no Grafo
     int id_no_origem;
     int id_no_alvo;
     int ordem;
 
-    //Pegando a ordem do grafo
-    input_file >> ordem;
+    // Pegando a ordem do grafo
+    arquivo >> ordem;
 
-    //Criando objeto grafo
-    Grafo* grafo = new Grafo(ordem, directed, weightedEdge, weightedNode);
+    // Criando objeto grafo
+    Grafo* grafo = new Grafo(ordem, direcionado, aresta_ponderado, no_ponderado);
 
-    //Leitura de arquivo
+    // Leitura do arquivo
     if(!grafo->getArestaPonderado() && !grafo->getNoPonderado()){
-        while(input_file >> id_no_origem >> id_no_alvo) {
+        // Primeiro caso: aresta sem peso e no sem peso
+        while(arquivo >> id_no_origem >> id_no_alvo) {
             grafo->inserirAresta(id_no_origem, id_no_alvo, 0);
         }
-
     }else if(grafo->getArestaPonderado() && !grafo->getNoPonderado() ){
-
+        // Segundo caso: aresta com peso e no sem peso
         float peso_aresta;
-
-        while(input_file >> id_no_origem >> id_no_alvo >> peso_aresta) {
-
+        while(arquivo >> id_no_origem >> id_no_alvo >> peso_aresta) {
             grafo->inserirAresta(id_no_origem, id_no_alvo, peso_aresta);
-
         }
-
     }else if(grafo->getNoPonderado() && !grafo->getArestaPonderado()){
-
+        // Terceiro caso: aresta sem peso e no com peso
         float peso_no_origem, peso_no_alvo;
-
-        while(input_file >> id_no_origem >> peso_no_origem >> id_no_alvo >> peso_no_alvo) {
+        while(arquivo >> id_no_origem >> peso_no_origem >> id_no_alvo >> peso_no_alvo) {
             grafo->inserirAresta(id_no_origem, id_no_alvo, 0);
             grafo->getNo(id_no_origem)->setPeso(peso_no_origem);
             grafo->getNo(id_no_alvo)->setPeso(peso_no_alvo);
         }
-
     }else if(grafo->getNoPonderado() && grafo->getArestaPonderado()){
-
+        // Quarto caso: aresta com peso e no com peso
         float peso_no_origem, peso_no_alvo, peso_aresta;
-
-        while(input_file >> id_no_origem >> peso_no_origem >> id_no_alvo >> peso_no_alvo) {
-
+        while(arquivo >> id_no_origem >> peso_no_origem >> id_no_alvo >> peso_no_alvo) {
             grafo->inserirAresta(id_no_origem, id_no_alvo, peso_aresta);
             grafo->getNo(id_no_origem)->setPeso(peso_no_origem);
             grafo->getNo(id_no_alvo)->setPeso(peso_no_alvo);
@@ -65,109 +57,119 @@ Grafo* leitura(ifstream& input_file, int directed, int weightedEdge, int weighte
 
     return grafo;
 }
+// Fim da funcao para leitura do arquivo de entrada
 
-//Grafo* leituraInstancia(ifstream& input_file, int directed, int weightedEdge, int weightedNode){
-//
-//    //Variáveis para auxiliar na criação dos nós no Grafo
-//    int idNodeSource;
-//    int idNodeTarget;
-//    int order;
-//    int numEdges;
-//
-//    //Pegando a ordem do grafo
-//    input_file >> order >> numEdges;
-//
-//    //Criando objeto grafo
-//    Grafo* graph = new Grafo(order, directed, weightedEdge, weightedNode);
-//
-//    //Leitura de arquivo
-//    while(input_file >> idNodeSource >> idNodeTarget) {
-//
-//        graph->inserirAresta(idNodeSource, idNodeTarget, directed, 0);
-//
-//    }
-//
-//    return graph;
-//}
+// Inicio funcao salvar string em .dot
+void salvarStringDot(string retorno, ofstream& output_file) {
+    output_file << retorno;
+}
+// Fim funcao salvar string em .dot
 
-int menu(){
+// Inicio funcao opcoes no menu
+int menu() {
     int selecao;
 
     cout << "MENU" << endl;
     cout << "----" << endl;
-    cout << "[1] Subgrafo induzido por conjunto de vertices" << endl;
-    cout << "[2] Caminho Minimo entre dois vertices - Dijkstra" << endl;
-    cout << "[3] Caminho Minimo entre dois vertices - Floyd" << endl;
-    cout << "[4] Arvore Geradora Minima de Prim" << endl;
-    cout << "[5] Arvore Geradora Minima de Kruskal" << endl;
-    cout << "[6] Imprimir caminhamento em largura" << endl;
-    cout << "[7] Imprimir ordenacao topologica" << endl;
-    cout << "[8] Algoritmo Guloso" << endl;
-    cout << "[9] Algoritmo Guloso Randomizado " << endl;
-    cout << "[10] Algoritmo Guloso Randomizado Reativo" << endl;
+    cout << "[1] Fecho Transitivo Direto" << endl;
+    cout << "[2] Fecho Transitivo Indireto" << endl;
+    cout << "[3] Caminho Minimo entre dois vertices - Dijkstra" << endl;
+    cout << "[4] Caminho Minimo entre dois vertices - Floyd" << endl;
+    cout << "[5] Arvore Geradora Minima de Prim" << endl;
+    cout << "[6] Arvore Geradora Minima de Kruskal" << endl;
+    cout << "[7] Arvore pelo Caminhamento em Profundidade" << endl;
+    cout << "[8] Imprimir Ordenacao Topologica" << endl;
     cout << "[0] Sair" << endl;
 
     cin >> selecao;
 
     return selecao;
 }
+// Fim funcao opcoes no menu
 
-void selecionar(int selecao, Grafo* grafo, ofstream& output_file){
+// Inicio funcao menu salvar arquivo
+int menuSalvar() {
+    int selecao;
 
+    cout << "Voce deseja salvar o resultado da operacao?" << endl;
+    cout << "[0] Nao" << endl;
+    cout << "[1] Sim" << endl;
+
+    cin >> selecao;
+
+    return selecao;
+}
+// Fim funcao menu salvar arquivo
+
+// Inicio funcao selecionar no menu
+void selecionar(int selecao, Grafo* grafo, ofstream& output_file) {
+    string retorno = "";
     switch (selecao) {
-        //Subgrafo induzido por um conjunto de vertices X;
+        // Fecho Transitivo Direto
         case 1:{
-            cout << "Opcao 1 nao implementada";
+            retorno = grafo->fechoTD(2);
             break;
         }
-        //Caminho minimo entre dois vertices usando Dijkstra;
+        // Fecho Transitivo Indireto
         case 2:{
-            cout << "Opcao 2 nao implementada";
+            retorno = grafo->fechoTI(5);
             break;
         }
-        //Caminho minimo entre dois vertices usando Floyd;
+        // Caminho Minimo entre dois vertices - Dijkstra
         case 3:{
-            cout << "Opcao 3 nao implementada";
+            cout << "Opcao 3 nao implementada" << endl;
             break;
         }
-        //AGM - Kruscal;
+        // Caminho Minimo entre dois vertices - Floyd
         case 4:{
-            cout << "Opcao 4 nao implementada";
+            cout << "Opcao 4 nao implementada" << endl;
             break;
         }
-        //AGM Prim;
+        // Arvore Geradora Minima de Prim
         case 5:{
-            cout << "Opcao 5 nao implementada";
+            cout << "Opcao 5 nao implementada" << endl;
             break;
         }
-        //Busca em largura;
+        // Arvore Geradora Minima de Kruskal
         case 6:{
-            cout << "Opcao 6 nao implementada";
+            cout << "Opcao 6 nao implementada" << endl;
             break;
         }
-        //Ordenação Topologica;
+        // Arvore pelo Caminhamento em Profundidade
         case 7:{
-            cout << "Opcao 7 nao implementada";
+            cout << "Opcao 7 nao implementada" << endl;
+            break;
+        }
+        // Imprimir Ordenacao Topologica
+        case 8:{
+            cout << "Opcao 7 nao implementada" << endl;
             break;
         }
         default:{
-            cout << " Error!!! invalid option!!" << endl;
+            cout << "Erro: Opcao invalida!" << endl;
         }
-
+    }
+    int selecaoSalvar = menuSalvar();
+    if(selecaoSalvar) {
+        salvarStringDot(retorno, output_file);
+    }else {
+        salvarStringDot("Voce nao salvou a operacao", output_file);
     }
 }
+// Fim funcao selecionar no menu
 
+// Inicio funcao main menu
 int mainMenu(ofstream& output_file, Grafo* grafo){
     int selecao = 1;
 
     while(selecao != 0){
-        system("@cls||clear");
+//        system("@cls||clear");
         selecao = menu();
 
         if(output_file.is_open()){
             selecionar(selecao, grafo, output_file);
         }else{
-            cout << "Unable to open the output_file" << endl;
+            cout << "Erro ao abrir o arquivo de saida!" << endl;
         }
 
         output_file << endl;
@@ -175,55 +177,51 @@ int mainMenu(ofstream& output_file, Grafo* grafo){
 
     return 0;
 }
+// Fim funcao main menu
 
-
-
+// Inicio funcao main
 int main(int argc, char const *argv[]) {
 
-//    Verificação se todos os parâmetros do programa foram entrados
+    // Verifica se todos parametros necessarios para compilar foram definidos
     if (argc != 6) {
-        cout << "ERROR: Expecting: ./<program_name> <input_file> <output_file> <directed> <weighted_edge> <weighted_node> " << endl;
+        cout << "Erro: Esperando: ./<program_name> <arquivo_entrada> <arquivo_saida> <direcionado> <aresta_ponderado> <no_ponderado> " << endl;
         return 1;
-    }else{
-        cout << "Todos parametros para rodar foram definidos";
     }
 
-    string program_name(argv[0]);
-    string input_file_name(argv[1]);
+    string nome_programa(argv[0]);
+    string nome_arquivo_entrada(argv[1]);
 
-    string instance;
-    if(input_file_name.find("v") <= input_file_name.size()){
-        string instance = input_file_name.substr(input_file_name.find("v"));
-        cout << "Running " << program_name << " with instance " << instance << " ... " << endl;
+    string instancia;
+    if(nome_arquivo_entrada.find("v") <= nome_arquivo_entrada.size()) {
+        string instancia = nome_arquivo_entrada.substr(nome_arquivo_entrada.find("v"));
+        cout << "Executando " << nome_programa << " com instancia " << instancia << " ... " << endl;
     }
 
-    //Abrindo arquivo de entrada
-    ifstream input_file;
-    ofstream output_file;
-    input_file.open(argv[1], ios::in);
-    output_file.open(argv[2], ios::out | ios::trunc);
+    // Abrindo arquivos de entrada e saida
+    ifstream arquivo_entrada;
+    ofstream arquivo_saida;
+    arquivo_entrada.open(argv[1], ios::in);
+    arquivo_saida.open(argv[2], ios::out | ios::trunc);
 
+    // Criando grafo da leitura do arquivo
     Grafo* grafo;
 
-    if(input_file.is_open()){
-        grafo = leitura(input_file, atoi(argv[3]), atoi(argv[4]), atoi(argv[5]));
-    }else
-        cout << "Unable to open " << argv[1];
+    // Verificando se conseguiu abrir o arquivo de entrada
+    if(arquivo_entrada.is_open()) {
+        grafo = leitura(arquivo_entrada, atoi(argv[3]), atoi(argv[4]), atoi(argv[5]));
+    }else {
+        cout << "Nao foi possivel abrir o arquivo de entrada: " << argv[1];
+    }
 
-//    mainMenu(output_file, grafo);
+    // Chamando main menu
+    mainMenu(arquivo_saida, grafo);
 
-    //Fechando arquivo de entrada
-    input_file.close();
+    // Fechando arquivo de entrada
+    arquivo_entrada.close();
 
-    //Fechando arquivo de saída
-    output_file.close();
-
-    grafo->fechoTD(2);
-    cout << "=====================" << endl;
-    grafo->buscaProf(2);
-
-//    grafo->imprimir();
-//    grafo->salvarDot();
+    // Fechando arquivo de saída
+    arquivo_saida.close();
 
     return 0;
 }
+// Fim funcao main

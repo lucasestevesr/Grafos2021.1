@@ -3,6 +3,7 @@
 #include "Aresta.h"
 #include <iostream>
 #include <fstream>
+#include <string>
 #include <stack>
 #include <queue>
 #include <list>
@@ -22,7 +23,7 @@ Grafo::Grafo(int ordem, bool direcionado, bool aresta_ponderado, bool no_pondera
     this->primeiro_no = this->ultimo_no = nullptr;
     this->num_arestas = 0;
 
-    for(int i = 0; i < ordem; i++){
+    for(int i = 0; i < ordem; i++) {
         this->inserirNo(i);
     }
 }
@@ -98,6 +99,7 @@ void Grafo::inserirNo(int id) {
         this->ultimo_no->setProxNo(no);
         this->ultimo_no = no;
     }
+    ordem ++;
 }
 
 void Grafo::removerNo(int id) {
@@ -187,34 +189,101 @@ void Grafo::salvarDot() {
 }
 
 // Funcionalidades do trabalho
-void Grafo::fechoTD(int id) {
-    std::ofstream saida("saida2.dot");
-    if(!saida.is_open()){
-        std::cerr << "Erro na abertura do arquivo" << std::endl;
+
+// Inicio Fecho Transitivo Direto
+string Grafo::fechoTD(int id) {
+    if(!this->direcionado) {
+        cout << "Erro: O grafo precisa ser direcionado!" << endl;
+        return "";
     }
-    saida << "digraph {" << std::endl;
+
+    // Criando string de retorno
+    string retorno = "Fecho transitivo direto \n";
+    retorno += "digraph { \n";
+
+    // Declarando vetor bool de nos visitados
     bool visitados[ordem];
-    for(int i=0; i<ordem; i++)
+
+    // Pre-definindo que nenhum no do vertice foi visitado ainda
+    for(int i = 0; i < ordem; i++)
         visitados[i] = false;
 
+    // Definindo que o no inicial foi visitado
     visitados[id] = true;
+
+    // Criando uma pilha auxiliar e colocando o no inicial no topo dela
     stack<int> pilhaAux;
     pilhaAux.push(id);
 
+    // Enquanto a pilha nao for vazia fica rodando
     while(!pilhaAux.empty()) {
-        int topo = pilhaAux.top();
+
+        // Recuperando o no do primeiro id da pilha
+        No* no = this->getNo(pilhaAux.top());
+
+        // Removendo o topo da pilha
         pilhaAux.pop();
-        for(Aresta* aresta = (this->getNo(topo))->getPrimeiraAresta(); aresta != nullptr; aresta = aresta->getProxAresta())
-        {
-            if(visitados[aresta->getIdAlvo()])
-                continue;
-            saida << "\t" << topo << " -> " << aresta->getIdAlvo() << std::endl;
-            visitados[aresta->getIdAlvo()] = true;
-            pilhaAux.push(aresta->getIdAlvo());
+
+        // Percorrendo as arestas do no que estava no topo da pilha e acabou de ser removido
+        for(Aresta* aresta = no->getPrimeiraAresta(); aresta != nullptr; aresta = aresta->getProxAresta()) {
+            // Verifica se o no alvo de cada aresta ainda nao foi visitado
+            if(!visitados[aresta->getIdAlvo()]) {
+                // Se ele ainda nao foi visitado, coloca ele como visitado
+                visitados[aresta->getIdAlvo()] = true;
+                // Exibindo para o usuario em execucao
+//                cout << "\t" << no->getId() << " -> " << aresta->getIdAlvo() << endl;
+                // Preenchendo string de retorno para salvar no arquivo .dot depois
+                retorno += "\t" + std::to_string(no->getId()) + " -> " + std::to_string(aresta->getIdAlvo()) + "\n";
+                /* Adiciona o id do alvo da aresta atual que esta no loop sendo o proximo
+                no a ser verificado, alimentando o while principal da funcao */
+                pilhaAux.push(aresta->getIdAlvo());
+            }
         }
     }
-    saida << "}" << std::endl;
+    return retorno + "} \n" + "---------------------";
 }
+// Fim Fecho Transitivo Direto
+
+// Inicio Fecho Transitivo Indireto
+string Grafo::fechoTI(int id) {
+    if(!this->direcionado) {
+        cout << "Erro: O grafo precisa ser direcionado!" << endl;
+        return "";
+    }
+
+    // Criando string de retorno
+    string retorno = "Fecho transitivo indireto \n";
+    retorno += "digraph { \n";
+
+    // Criando uma pilha auxiliar e colocando o no inicial no topo dela
+    stack<int> pilhaAux;
+    pilhaAux.push(id);
+
+    // Enquanto a pilha nao for vazia fica rodando
+    while(!pilhaAux.empty()) {
+
+        // Recuperando o no do primeiro id da pilha
+        int topo = pilhaAux.top();
+
+        // Removendo o topo da pilha
+        pilhaAux.pop();
+
+        // Percorrendo Nos do grafo a partir do No que estava no topo da pilha e acabou de ser removido
+        for(No* no = this->getPrimeiroNo(); no != nullptr; no = no->getProxNo()) {
+            // Verifica se o No alvo possui aresta com o No atual do for
+            if(no->existeAresta(topo)) {
+                // Exibindo para o usuario em execucao
+//                cout << "\t" << no->getId()  << " -> " << topo << endl;
+                // Preenchendo string de retorno para salvar no arquivo .dot depois
+                retorno += "\t" + std::to_string(no->getId())  + " -> " + std::to_string(topo) + "\n";
+                // No a ser verificado, alimentando o while principal da funcao
+                pilhaAux.push(no->getId());
+            }
+        }
+    }
+    return retorno + "} \n" + "---------------------";
+}
+// Fim Fecho Transitivo Indireto
 
 void Grafo::buscaProf(int id) {
     list<int> listaVisitados;

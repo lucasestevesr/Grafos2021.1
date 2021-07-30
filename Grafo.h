@@ -42,7 +42,8 @@ class Grafo{
         void salvarDot();
 
         // Funcionalidades do trabalho
-        void fechoTD(int id);
+        string fechoTD(int id);
+        string fechoTI(int id);
         void buscaProf(int id);
 };
 
