@@ -44,6 +44,8 @@ class Grafo{
         // Funcionalidades do trabalho
         string fechoTD(int id);
         string fechoTI(int id);
+        string djikstra(int id, int id_alvo);
+        int distMinima(bool visitados[], int dist[]);
         void buscaProf(int id);
 };
 

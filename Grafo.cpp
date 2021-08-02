@@ -13,6 +13,9 @@
 #include <float.h>
 #include <iomanip>
 
+#define INF (unsigned)!((int)0)
+
+
 using namespace std;
 
 Grafo::Grafo(int ordem, bool direcionado, bool aresta_ponderado, bool no_ponderado) {
@@ -285,6 +288,68 @@ string Grafo::fechoTI(int id) {
 }
 // Fim Fecho Transitivo Indireto
 
+// Inicio Caminho Minimo por Djikstra
+// AINDA NÃO ESTÁ COMPLETO! FALTA ARRUMAR A IMPRESSÃO NA TELA, NÃO TÁ MOSTRANDO O CAMINHO!
+
+string Grafo::djikstra(int id, int id_alvo){
+    if(!aresta_ponderado){
+        cout << "Grafo Invalido! Arestas nao ponderadas!";
+        return "";
+    }
+    bool visitados[this->ordem];
+    int dist[this->ordem];
+    int auxCaminho[this->ordem];
+    for(int i=0; i<this->ordem; i++){
+        dist[i] = INF;
+        visitados[i] = false;
+        auxCaminho[i] = id;
+    }
+    dist[id] = 0;
+    visitados[id] = true;
+    No* noAux = this->getNo(id);
+    for(Aresta* arestaAux = noAux->getPrimeiraAresta(); arestaAux != nullptr; arestaAux = arestaAux->getProxAresta()){
+        dist[arestaAux->getIdAlvo()] = arestaAux->getPeso();
+    }
+    for(int i = 0; i < this->ordem-1; i++){
+        int j = distMinima(visitados, dist);
+        if(j == id_alvo)
+            continue;
+        visitados[j] = true;
+        for(int k = 0; k < this->ordem; k++){
+            No* atual = getNo(j);
+            if(!visitados[k] && dist[j] != INF && atual->existeArestaEntre(k)){
+                Aresta* arestaEntre = atual->getArestaEntre(k);
+                if(dist[j] + arestaEntre->getPeso() < dist[k]){
+                    dist[k] = dist[j] + arestaEntre->getPeso();
+                    auxCaminho[k] = j;
+                }
+            }
+        }
+    }
+    string retorno = "";
+    int k = id_alvo;
+    do{
+        int auxK;
+        auxK = k;
+        k = auxCaminho[k];
+        retorno += "\t" + std::to_string(k)  + " -- " + std::to_string(auxK) + "\n";
+    }while(k != id);
+    return retorno;
+
+}
+
+int Grafo::distMinima(bool visitados[], int dist[]){
+    int min = INF;
+    int posMenor;
+    for(int i=0; i<ordem; i++){
+        if(visitados[i]==false && dist[i]<=min){
+            min = dist[i];
+            posMenor = i;
+        }
+    }
+    return posMenor;
+}
+
 void Grafo::buscaProf(int id) {
     list<int> listaVisitados;
     listaVisitados.push_back(id);
@@ -316,9 +381,9 @@ void Grafo::auxBuscaProf(list<int>* listaVisitados, int id) {
     }
 }
 
-bool Grafo::auxBuscaLista(list<int>* listaVisitados, int id) {
+bool Grafo::auxBuscaLista(list<int>* lista, int id) {
     list<int>::iterator it;
-    for(it = listaVisitados->begin(); it!=listaVisitados->end();it++){
+    for(it = lista->begin(); it!=lista->end();it++){
         if(*it == id) {
             return true;
         }
