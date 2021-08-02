@@ -3,6 +3,7 @@
 
 using namespace std;
 
+// Inicio construtor aresta
 Aresta::Aresta(int id_alvo, int id_origem, float peso) {
     this->id_alvo = id_alvo;
     this->id_origem = id_origem;
@@ -10,14 +11,18 @@ Aresta::Aresta(int id_alvo, int id_origem, float peso) {
     this->direcionado = false;
     this->prox_aresta = nullptr;
 }
+// Fim construtor aresta
 
+// Inicio destrutor aresta
 Aresta::~Aresta() {
     if(this->prox_aresta != nullptr) {
 //        delete this->prox_aresta;
         this->prox_aresta = nullptr;
     }
 }
+// Fim destrutor aresta
 
+// Inicio getters e setters
 int Aresta::getIdAlvo() {
     return this->id_alvo;
 }
@@ -49,3 +54,4 @@ void Aresta::setDirecionado(bool direcionado) {
 void Aresta::setProxAresta(Aresta *prox) {
     this->prox_aresta = prox;
 }
+// Fim getters e setters
