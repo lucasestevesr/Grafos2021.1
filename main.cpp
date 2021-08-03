@@ -82,7 +82,6 @@ int menu() {
     cout << "[0] Sair" << endl;
 
     cin >> selecao;
-
     return selecao;
 }
 // Fim funcao opcoes no menu
@@ -103,6 +102,7 @@ int menuSalvar() {
 
 // Inicio funcao selecionar no menu
 void selecionar(int selecao, Grafo* grafo, ofstream& output_file) {
+    //String de retorno dos resultados das funcoes, utilizada para exportar o grafo em .dot no arquivo de saida.
     string retorno = "";
     switch (selecao) {
         // Fecho Transitivo Direto
@@ -146,10 +146,15 @@ void selecionar(int selecao, Grafo* grafo, ofstream& output_file) {
             cout << "Opcao 7 nao implementada" << endl;
             break;
         }
+        case 0:{
+            cout << "Encerrando o programa" << endl;
+            return;
+        }
         default:{
             cout << "Erro: Opcao invalida!" << endl;
         }
     }
+    //Chamada da funcao para verificar se o usuario quer salvar o grafo no arquivo de saida
     int selecaoSalvar = menuSalvar();
     if(selecaoSalvar) {
         salvarStringDot(retorno, output_file);
