@@ -15,10 +15,12 @@ Aresta::Aresta(int id_alvo, int id_origem, float peso) {
 
 // Inicio destrutor aresta
 Aresta::~Aresta() {
-    if(this->prox_aresta != nullptr) {
-//        delete this->prox_aresta;
+    // Codigo abaixo deleta todas arestas
+    /* if(this->prox_aresta != nullptr) {
+        delete this->prox_aresta;
         this->prox_aresta = nullptr;
-    }
+    } */
+    this->prox_aresta = nullptr;
 }
 // Fim destrutor aresta
 

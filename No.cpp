@@ -4,6 +4,7 @@
 
 using namespace std;
 
+// Inicio construtor No
 No::No(int id) {
     this->id = id;
     this->peso = 0;
@@ -13,19 +14,22 @@ No::No(int id) {
     this->ultima_aresta = nullptr;
     this->prox_no = nullptr;
 };
+// Fim construtor No
 
+// Inicio destrutor No
 No::~No(){
     Aresta* prox_aresta = this->primeira_aresta;
 
+    // Removendo todas arestas do No
     while(prox_aresta != nullptr){
         Aresta* aux_aresta = prox_aresta->getProxAresta();
         delete prox_aresta;
         prox_aresta = aux_aresta;
     }
-
-    free(prox_aresta);
 };
+// Fim destrutor No
 
+// Inicio getters e setters
 int No::getId() {
     return this->id;
 }
@@ -61,46 +65,55 @@ void No::setPeso(float peso) {
 void No::setProxNo(No *prox_no) {
     this->prox_no = prox_no;
 }
+// Fim getters e setters
 
-bool No::existeAresta(int id_alvo) {
-    if(this->primeira_aresta != nullptr){
-        for(Aresta* aux = this->primeira_aresta; aux != nullptr; aux = aux->getProxAresta()){
-            if(aux->getIdAlvo() == id_alvo){
-                return true;
-            }
-        }
-    }
-    return false;
-}
-
+// Inicio funcao inserir aresta
 void No::inserirAresta(int id_alvo, float peso) {
-    if(!existeAresta(id_alvo)) {
+    // Verifica se a aresta ja nao existe
+    if(!existeArestaEntre(id_alvo)) {
+        // Verifica se existe outras arestas para este No
         if(this->primeira_aresta != nullptr) {
+            // Cria a nova aresta
             Aresta* aresta = new Aresta(id_alvo, this->id, peso);
+            // Nova aresta e definida como proxima da antiga ultima
             this->ultima_aresta->setProxAresta(aresta);
+            // Ultima aresta recebe a nova aresta
             this->ultima_aresta = aresta;
         }else {
+            // Se for a primeira aresta desse No
             this->primeira_aresta = new Aresta(id_alvo, this->id, peso);
+            // Cria a aresta e coloca como primeira e ultima
             this->ultima_aresta = this->primeira_aresta;
         }
     }
 }
+// Fim funcao inserir aresta
 
+// Inicio funcao remover todas arestas
 void No::removerTodasArestas() {
+    // Verifica se existe aresta para este No
     if(this->primeira_aresta != nullptr) {
+        // Cria variavel aux na primeira aresta
         Aresta* prox_aresta = this->primeira_aresta;
 
+        // Enquanto a prox aresta for diferente de null, ou seja, percorre todas
         while(prox_aresta != nullptr){
+            // Cria uma aresta aux para nao perder a referencia de onde esta
             Aresta* aux_aresta = prox_aresta->getProxAresta();
+            // Apaga a aresta atual
             delete prox_aresta;
+            // Alimenta o loop com o aresta auxiliar
             prox_aresta = aux_aresta;
         }
     }
+    // Define primeira e ultima aresta como null
     this->primeira_aresta = this->ultima_aresta = nullptr;
 }
+// Fim funcao remover todas arestas
 
+// Inicio funcao remover aresta
 int No::removerAresta(int id, bool direcionado, No* no_alvo){
-    if(this->existeAresta(id)) {
+    if(this->existeArestaEntre(id)) {
         Aresta* aux_aresta = this->primeira_aresta;
         Aresta* ante_aresta = nullptr;
 
@@ -139,25 +152,45 @@ int No::removerAresta(int id, bool direcionado, No* no_alvo){
 
     return 0;
 }
+// Fim funcao remover aresta
 
+// Inicio funcao pegar aresta entre No atual e id alvo
 Aresta* No::getArestaEntre(int id_alvo) {
-    for(Aresta* aux = this->primeira_aresta; aux != nullptr; aux = aux->getProxAresta()) {
-        if(aux->getIdAlvo() == id_alvo) {
-            return aux;
+    // Verifica se o No tem arestas
+    if(this->primeira_aresta != nullptr){
+        // Percorre as aresta do No
+        for(Aresta* aux = this->primeira_aresta; aux != nullptr; aux = aux->getProxAresta()) {
+            // Se alguma de suas aresta ja fizer ligacao com o id parametro
+            if(aux->getIdAlvo() == id_alvo) {
+                // Retorna a Aresta atual do loop, ou seja, a aresta que liga os Nos
+                return aux;
+            }
         }
     }
+    // Se chegou ate aqui e porque nao existe aresta
     return nullptr;
 }
+// Fim funcao pegar aresta entre No atual e id alvo
 
+// Inicio funcao de verificar se existe aresta entre o No atual com o id parametro
 bool No::existeArestaEntre(int id_alvo) {
-    for(Aresta* aux = this->primeira_aresta; aux != nullptr; aux = aux->getProxAresta()) {
-        if(aux->getIdAlvo() == id_alvo) {
-            return true;
+    // Verifica se o No tem arestas
+    if(this->primeira_aresta != nullptr){
+        // Percorre as aresta do No
+        for(Aresta* aux = this->primeira_aresta; aux != nullptr; aux = aux->getProxAresta()){
+            // Se alguma de suas aresta ja fizer ligacao com o id parametro
+            if(aux->getIdAlvo() == id_alvo){
+                // Retorna que ja existe aresta
+                return true;
+            }
         }
     }
+    // Se chegou ate aqui e porque nao existe aresta
     return false;
 }
+// Fim funcao de verificar se existe aresta entre o No atual com o id parametro
 
+// Inicio funcoes aumentar ou diminuir grau de entrada ou saida
 void No::aumentarGrauEntrada() {
     this->grau_entrada++;
 }
@@ -173,3 +206,4 @@ void No::aumentarGrauSaida() {
 void No::diminuirGrauSaida() {
     this->grau_saida--;
 }
+// Fim funcoes aumentar ou diminuir grau de entrada ou saida

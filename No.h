@@ -28,7 +28,6 @@ class No{
         void setPeso(float peso);
         void setProxNo(No* prox_no);
 
-        bool existeAresta(int id_alvo);
         void inserirAresta(int id_alvo, float peso);
         void removerTodasArestas();
         int removerAresta(int id, bool direcionado, No* no_alvo);

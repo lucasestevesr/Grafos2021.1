@@ -139,11 +139,23 @@ void Grafo::removerNo(int id) {
 }
 
 void Grafo::inserirAresta(int id, int id_alvo, float peso) {
-    No* no_origem = this->getNo(id);
-    no_origem->inserirAresta(id_alvo, peso);
-    if(!this->direcionado) {
+    if(existeNo(id) && existeNo(id_alvo)) {
+        No* no_origem = this->getNo(id);
         No* no_alvo = this->getNo(id_alvo);
-        no_alvo->inserirAresta(id, peso);
+        if(this->direcionado) {
+            no_origem->inserirAresta(id_alvo, peso);
+            no_origem->aumentarGrauSaida();
+            no_alvo->aumentarGrauEntrada();
+        }else {
+            no_origem->inserirAresta(id_alvo, peso);
+            no_alvo->inserirAresta(id, peso);
+            no_origem->aumentarGrauSaida();
+            no_origem->aumentarGrauEntrada();
+            no_alvo->aumentarGrauSaida();
+            no_alvo->aumentarGrauEntrada();
+        }
+    }else{
+        cout << "Erro: Algum dos Nos da aresta nao existe!" << endl;
     }
 }
 
@@ -274,7 +286,7 @@ string Grafo::fechoTI(int id) {
         // Percorrendo Nos do grafo a partir do No que estava no topo da pilha e acabou de ser removido
         for(No* no = this->getPrimeiroNo(); no != nullptr; no = no->getProxNo()) {
             // Verifica se o No alvo possui aresta com o No atual do for
-            if(no->existeAresta(topo)) {
+            if(no->existeArestaEntre(topo)) {
                 // Exibindo para o usuario em execucao
 //                cout << "\t" << no->getId()  << " -> " << topo << endl;
                 // Preenchendo string de retorno para salvar no arquivo .dot depois
