@@ -206,20 +206,22 @@ void Grafo::salvarDot() {
 
 // Inicio Fecho Transitivo Direto
 string Grafo::fechoTD(int id) {
+    // Criando string de retorno
+    string retorno = "------- Fecho Transitivo Direto ------- \n";
+
     if(!this->direcionado) {
-        cout << "Erro: O grafo precisa ser direcionado!" << endl;
-        return "";
+        retorno += "Erro: O grafo precisa ser direcionado! \n";
+        retorno += "---------------------------------------";
+        return retorno;
     }
 
-    // Criando string de retorno
-    string retorno = "Fecho Transitivo Direto \n";
     retorno += "digraph { \n";
 
     // Declarando vetor bool de nos visitados
-    bool visitados[ordem];
+    bool visitados[this->ordem];
 
     // Pre-definindo que nenhum no do vertice foi visitado ainda
-    for(int i = 0; i < ordem; i++)
+    for(int i = 0; i < this->ordem; i++)
         visitados[i] = false;
 
     // Definindo que o no inicial foi visitado
@@ -244,8 +246,6 @@ string Grafo::fechoTD(int id) {
             if(!visitados[aresta->getIdAlvo()]) {
                 // Se ele ainda nao foi visitado, coloca ele como visitado
                 visitados[aresta->getIdAlvo()] = true;
-                // Exibindo para o usuario em execucao
-//                cout << "\t" << no->getId() << " -> " << aresta->getIdAlvo() << endl;
                 // Preenchendo string de retorno para salvar no arquivo .dot depois
                 retorno += "\t" + std::to_string(no->getId()) + " -> " + std::to_string(aresta->getIdAlvo()) + "\n";
                 /* Adiciona o id do alvo da aresta atual que esta no loop sendo o proximo
@@ -254,19 +254,23 @@ string Grafo::fechoTD(int id) {
             }
         }
     }
-    return retorno + "} \n" + "---------------------";
+    retorno += "} \n";
+    retorno += "---------------------------------------";
+    return retorno;
 }
 // Fim Fecho Transitivo Direto
 
 // Inicio Fecho Transitivo Indireto
 string Grafo::fechoTI(int id) {
+    // Criando string de retorno
+    string retorno = "------- Fecho Transitivo Indireto ------- \n";
+
     if(!this->direcionado) {
-        cout << "Erro: O grafo precisa ser direcionado!" << endl;
-        return "";
+        retorno += "Erro: O grafo precisa ser direcionado! \n";
+        retorno += "---------------------------------------";
+        return retorno;
     }
 
-    // Criando string de retorno
-    string retorno = "Fecho Transitivo Indireto \n";
     retorno += "digraph { \n";
 
     // Criando uma pilha auxiliar e colocando o no inicial no topo dela
@@ -286,8 +290,6 @@ string Grafo::fechoTI(int id) {
         for(No* no = this->getPrimeiroNo(); no != nullptr; no = no->getProxNo()) {
             // Verifica se o No alvo possui aresta com o No atual do for
             if(no->existeArestaEntre(topo)) {
-                // Exibindo para o usuario em execucao
-//                cout << "\t" << no->getId()  << " -> " << topo << endl;
                 // Preenchendo string de retorno para salvar no arquivo .dot depois
                 retorno += "\t" + std::to_string(no->getId())  + " -> " + std::to_string(topo) + "\n";
                 // No a ser verificado, alimentando o while principal da funcao
@@ -295,7 +297,9 @@ string Grafo::fechoTI(int id) {
             }
         }
     }
-    return retorno + "} \n" + "---------------------";
+    retorno += "} \n";
+    retorno += "---------------------------------------";
+    return retorno;
 }
 // Fim Fecho Transitivo Indireto
 
