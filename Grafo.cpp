@@ -307,11 +307,11 @@ string Grafo::djikstra(int id, int id_alvo) {
         return "";
     }
     //Variavel infinito utilizada para numerar as distâncias entre vértices que não possuem caminho
-    int infinito = std::numeric_limits<int>::max();
+    float infinito = std::numeric_limits<float>::max();
     //Vetor booleano para verificar quais vertices foram visitados
     bool visitados[this->ordem];
     //vetor para armazenar a distância entre os vértices
-    int dist[this->ordem];
+    float dist[this->ordem];
     //Vetor para auxiliar a "gravar" o caminho entre os vértices
     int auxCaminho[this->ordem];
     //Inicializando as distâncias entre os vértices como infinito, e marcando os vértices como não visitados
@@ -377,18 +377,18 @@ string Grafo::djikstra(int id, int id_alvo) {
         k = auxCaminho[k];
         retorno += "\t" + std::to_string(k)  + " -- " + std::to_string(auxK) + "\n";
     }while(k != id);
-    return retorno + "} \n" + "---------------------";
+    return retorno + "} \n" + "Com custo de: " + std::to_string(dist[id_alvo]) + "\n---------------------";
 }
 //Fim Caminho Minimo por Djikstra
 
 //Início função auxiliar para calcular o vértice de menor distância dentre os vértices não visitados
-int Grafo::distMinima(bool visitados[], int dist[]) {
+int Grafo::distMinima(bool visitados[], float dist[]) {
     //Variável de valor mínimo, inicializada como + infinito
-    int min = std::numeric_limits<int>::max();
+    float min = std::numeric_limits<float>::max();
     //Variável para gravar o id do menor vértice
     int idMenor;
     //Laço que percorre o grafo
-    for(int i=0; i<ordem; i++){
+    for(int i=0; i<this->ordem; i++){
         //Caso o vértice não tenha sido visitado e tenha distância menor que a variável 'min', o mesmo passa a ser o menor
         if(visitados[i]==false && dist[i]<=min){
             min = dist[i];
@@ -399,6 +399,8 @@ int Grafo::distMinima(bool visitados[], int dist[]) {
     return idMenor;
 }
 //Fim função auxiliar
+
+//Inicio Caminho Minimo por Floyd
 
 string Grafo::floyd(int id, int id_alvo) {
     //Verificando se o grafo possui peso nas arestas, e retornando caso não seja.
@@ -434,16 +436,95 @@ string Grafo::floyd(int id, int id_alvo) {
             }
         }
     }
+    // Criando string de retorno
+    string retorno = "Caminho Minimo entre dois vertices - Dijkstra \n";
+    //Colocando o cabeçalho do grafo corretamente, verificando se é grafo ou digrafo.
+    if(direcionado)
+        retorno += "digraph { \n";
+    else
+        retorno += "strict graph { \n";
+    /* Caso a distância do vértice alvo ao vértice de origem seja infinito, não existe caminho entre eles.
+    Portanto, é impresso na tela uma mensagem de erro e encerrada a função */
+    if(distancia[id][id_alvo] == infinito){
+        cout << "Nao existe caminho entre os vertices." << endl;
+        return "Floyd: Vertices de entrada invalidos! \n";
+    }
             int u=id,v=id_alvo;
             while(u!=v){
-                cout << u << " -- ";
+                retorno += std::to_string(u) + " -- ";
                 u=next[u][v];
-                cout << u << endl;
+                retorno += std::to_string(u) + " [label=" + std::to_string(distancia[u][v]) + "]" + "\n";
             }
 
-            cout << endl;
-            cout << "com custo de: " << distancia[id][id_alvo];
-    return "";
+            return retorno + "} \n" + "Com custo de: " + std::to_string(distancia[id][id_alvo]) + "\n---------------------";
+}
+//Fim Caminho Minimo por Floyd
+
+string Grafo::agmPrim(int subconjunto[], int tamanho){
+    for(int i=0; i<tamanho; i++){
+        if(!this->existeNo(subconjunto[i])){
+            cout << "Subconjunto de vertices invalido!" << endl;
+            return "AGM de Prim: Subconjunto invalido! \n";
+        }
+    }
+    // Criando string de retorno
+    string retorno = "Arvore Geradora Minima de Prim \n";
+    //Colocando o cabeçalho do grafo corretamente, verificando se é grafo ou digrafo.
+    if(direcionado)
+        retorno += "digraph { \n";
+    else
+        retorno += "strict graph { \n";
+    //variável apra auxiliar a na criação do texto em .dot
+    Aresta* menorAresta = nullptr;
+    float infinito = std::numeric_limits<float>::max();
+    for(int i=0; i<tamanho; i++){
+        No* no = this->getNo(subconjunto[i]);
+        float menor = infinito;
+        for(Aresta* aresta = no->getPrimeiraAresta(); aresta != nullptr; aresta = aresta->getProxAresta()){
+            for(int j=0; j<tamanho; j++){
+                if(aresta->getIdAlvo() == j){
+                    if(aresta->getPeso() < menor){
+                        menorAresta = aresta;
+                        menor = aresta->getPeso();
+                    }
+                }
+            }
+        }
+    }
+    int auxSubconj[this->ordem];
+    for(int i=0; i<this->ordem; i++)
+        auxSubconj[0] = -1;
+    for(int i=0; i<tamanho; i++)
+        auxSubconj[subconjunto[i]] = subconjunto[i];
+    int id_origem = menorAresta->getIdOrigem();
+    bool visitados[this->ordem];
+    float distancia[this->ordem];
+    int auxCaminho[this->ordem];
+    auxCaminho[id_origem] = -1;
+    for(int i=0; i<this->ordem; i++){
+        distancia[i]=infinito;
+        if(auxSubconj[i] != -1){
+            visitados[i] = false;
+        }else
+            visitados[i] = true;
+    }
+    distancia[id_origem] = 0;
+    for(int i=0; i < this->ordem; i++){
+        int u = distMinima(visitados, distancia);
+        visitados[u] = true;
+        for(int j=0; j<this->ordem; j++){
+            No* noAux = this->getNo(u);
+            if(noAux->existeArestaEntre(j) && visitados[j] && distancia[u]){
+                Aresta* arestaAux = noAux->getArestaEntre(j);
+                if(arestaAux->getPeso() + distancia[u] < distancia[j]){
+                    auxCaminho[j] = u;
+                    distancia[j] = arestaAux->getPeso() + distancia[u];
+                    retorno += std::to_string(u) + " -- " + std::to_string(j) + "\n";
+                }
+            }
+        }
+    }
+    return retorno + "} \n" + "---------------------";
 }
 
 void Grafo::buscaProf(int id) {

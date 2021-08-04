@@ -127,7 +127,8 @@ void selecionar(int selecao, Grafo* grafo, ofstream& output_file) {
         }
         // Arvore Geradora Minima de Prim
         case 5:{
-            cout << "Opcao 5 nao implementada" << endl;
+            int v[5] = {0, 7, 2, 3, 4};
+            retorno = grafo->agmPrim(v, 5);
             break;
         }
         // Arvore Geradora Minima de Kruskal

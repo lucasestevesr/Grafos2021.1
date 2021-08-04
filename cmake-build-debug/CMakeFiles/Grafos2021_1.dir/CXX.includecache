@@ -6,15 +6,15 @@
 
 #IncludeRegexTransform: 
 
-C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/Aresta.h
+C:/Users/Gabriel/Documents/Projetos CLion/Grafos2021.1-main/Aresta.h
 
-C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/Grafo.cpp
+C:/Users/Gabriel/Documents/Projetos CLion/Grafos2021.1-main/Grafo.cpp
 Grafo.h
-C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/Grafo.h
+C:/Users/Gabriel/Documents/Projetos CLion/Grafos2021.1-main/Grafo.h
 No.h
-C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/No.h
+C:/Users/Gabriel/Documents/Projetos CLion/Grafos2021.1-main/No.h
 Aresta.h
-C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/Aresta.h
+C:/Users/Gabriel/Documents/Projetos CLion/Grafos2021.1-main/Aresta.h
 iostream
 -
 fstream
@@ -40,9 +40,9 @@ iomanip
 limits
 -
 
-C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/Grafo.h
+C:/Users/Gabriel/Documents/Projetos CLion/Grafos2021.1-main/Grafo.h
 No.h
-C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/No.h
+C:/Users/Gabriel/Documents/Projetos CLion/Grafos2021.1-main/No.h
 fstream
 -
 stack
@@ -50,7 +50,7 @@ stack
 list
 -
 
-C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/No.h
+C:/Users/Gabriel/Documents/Projetos CLion/Grafos2021.1-main/No.h
 Aresta.h
-C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/Aresta.h
+C:/Users/Gabriel/Documents/Projetos CLion/Grafos2021.1-main/Aresta.h
 
