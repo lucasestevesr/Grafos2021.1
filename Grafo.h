@@ -45,6 +45,7 @@ class Grafo{
         string fechoTD(int id);
         string fechoTI(int id);
         string djikstra(int id, int id_alvo);
+        string floyd(int id, int id_alvo);
         int distMinima(bool visitados[], int dist[]);
         void buscaProf(int id);
 };

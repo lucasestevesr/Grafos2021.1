@@ -117,13 +117,12 @@ void selecionar(int selecao, Grafo* grafo, ofstream& output_file) {
         }
         // Caminho Minimo entre dois vertices - Dijkstra
         case 3:{
-            retorno = grafo->djikstra(1,0);
-            cout << "Caminho Minimo entre os vertices por Djikstra: " << endl;
+            retorno = grafo->djikstra(3,5);
             break;
         }
         // Caminho Minimo entre dois vertices - Floyd
         case 4:{
-            cout << "Opcao 4 nao implementada" << endl;
+            retorno = grafo->floyd(3,5);
             break;
         }
         // Arvore Geradora Minima de Prim

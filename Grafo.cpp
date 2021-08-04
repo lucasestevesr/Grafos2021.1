@@ -18,7 +18,7 @@
 using namespace std;
 
 Grafo::Grafo(int ordem, bool direcionado, bool aresta_ponderado, bool no_ponderado) {
-    this->ordem = ordem;
+    this->ordem = 0;
     this->direcionado = direcionado;
     this->aresta_ponderado = aresta_ponderado;
     this->no_ponderado = no_ponderado;
@@ -212,7 +212,7 @@ string Grafo::fechoTD(int id) {
     }
 
     // Criando string de retorno
-    string retorno = "Fecho transitivo direto \n";
+    string retorno = "Fecho Transitivo Direto \n";
     retorno += "digraph { \n";
 
     // Declarando vetor bool de nos visitados
@@ -266,7 +266,7 @@ string Grafo::fechoTI(int id) {
     }
 
     // Criando string de retorno
-    string retorno = "Fecho transitivo indireto \n";
+    string retorno = "Fecho Transitivo Indireto \n";
     retorno += "digraph { \n";
 
     // Criando uma pilha auxiliar e colocando o no inicial no topo dela
@@ -300,8 +300,7 @@ string Grafo::fechoTI(int id) {
 // Fim Fecho Transitivo Indireto
 
 // Inicio Caminho Minimo por Djikstra
-
-string Grafo::djikstra(int id, int id_alvo){
+string Grafo::djikstra(int id, int id_alvo) {
     //Verificando se o grafo possui peso nas arestas, e retornando caso não seja.
     if(!aresta_ponderado){
         cout << "Grafo Invalido! Arestas nao ponderadas! \n";
@@ -356,7 +355,7 @@ string Grafo::djikstra(int id, int id_alvo){
         }
     }
     // Criando string de retorno
-    string retorno = "Fecho transitivo indireto \n";
+    string retorno = "Caminho Minimo entre dois vertices - Dijkstra \n";
     //Colocando o cabeçalho do grafo corretamente, verificando se é grafo ou digrafo.
     if(direcionado)
         retorno += "digraph { \n";
@@ -380,10 +379,10 @@ string Grafo::djikstra(int id, int id_alvo){
     }while(k != id);
     return retorno + "} \n" + "---------------------";
 }
-    //Fim Caminho Minimo por Djikstra
+//Fim Caminho Minimo por Djikstra
 
-    //Início função auxiliar para calcular o vértice de menor distância dentre os vértices não visitados
-int Grafo::distMinima(bool visitados[], int dist[]){
+//Início função auxiliar para calcular o vértice de menor distância dentre os vértices não visitados
+int Grafo::distMinima(bool visitados[], int dist[]) {
     //Variável de valor mínimo, inicializada como + infinito
     int min = std::numeric_limits<int>::max();
     //Variável para gravar o id do menor vértice
@@ -399,7 +398,53 @@ int Grafo::distMinima(bool visitados[], int dist[]){
     //Retorna o vértice de menor valor de distância
     return idMenor;
 }
-    //Fim função auxiliar
+//Fim função auxiliar
+
+string Grafo::floyd(int id, int id_alvo) {
+    //Verificando se o grafo possui peso nas arestas, e retornando caso não seja.
+    if(!aresta_ponderado) {
+        cout << "Grafo Invalido! Arestas nao ponderadas! \n";
+        return "";
+    }
+    int infinito = std::numeric_limits<int>::max();
+    int distancia[ordem][ordem];
+    int next[ordem][ordem];
+    for(int id_origem = 0; id_origem < ordem; id_origem++) {
+        for(int id_alvo = 0; id_alvo < ordem; id_alvo++) {
+            No* no = getNo(id_origem);
+            Aresta* aresta = no->getArestaEntre(id_alvo);
+            if(aresta != nullptr) {
+                distancia[id_origem][id_alvo] = aresta->getPeso();
+                next[id_origem][id_alvo] = id_alvo;
+            }else {
+                distancia[id_origem][id_alvo] = infinito;
+                next[id_origem][id_alvo] = -1;
+            }
+        }
+    }
+    for (int k = 0; k < ordem; k++) {
+        for (int i = 0; i < ordem; i++) {
+            for (int j = 0; j < ordem; j++) {
+                if (distancia[i][k] == infinito || distancia[k][j] == infinito)
+                    continue;
+                if (distancia[i][j] > distancia[i][k] + distancia[k][j]) {
+                    distancia[i][j] = distancia[i][k] + distancia[k][j];
+                    next[i][j] = next[i][k];
+                }
+            }
+        }
+    }
+            int u=id,v=id_alvo;
+            while(u!=v){
+                cout << u << " -- ";
+                u=next[u][v];
+                cout << u << endl;
+            }
+
+            cout << endl;
+            cout << "com custo de: " << distancia[id][id_alvo];
+    return "";
+}
 
 void Grafo::buscaProf(int id) {
     list<int> listaVisitados;
