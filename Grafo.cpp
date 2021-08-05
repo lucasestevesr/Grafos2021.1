@@ -523,11 +523,16 @@ string Grafo::agmPrim(int subconjunto[], int tamanho){
     }
     // Criando string de retorno
     string retorno = "Arvore Geradora Minima de Prim \n";
+    string seta = "";
     //Colocando o cabeçalho do grafo corretamente, verificando se é grafo ou digrafo.
-    if(direcionado)
+    if(direcionado){
         retorno += "digraph { \n";
-    else
+        seta = " -> ";
+    }
+    else{
         retorno += "strict graph { \n";
+        seta = " -- ";
+    }
     //variável apra auxiliar a na criação do texto em .dot
     Aresta* menorAresta = nullptr;
     float infinito = std::numeric_limits<float>::max();
@@ -545,35 +550,41 @@ string Grafo::agmPrim(int subconjunto[], int tamanho){
             }
         }
     }
+    int id_origem = menorAresta->getIdOrigem();
+    cout << menorAresta->getIdOrigem() << endl;
+    cout << id_origem << endl;
     int auxSubconj[this->ordem];
     for(int i=0; i<this->ordem; i++)
-        auxSubconj[0] = -1;
+        auxSubconj[i] = -1;
     for(int i=0; i<tamanho; i++)
         auxSubconj[subconjunto[i]] = subconjunto[i];
-    int id_origem = menorAresta->getIdOrigem();
     bool visitados[this->ordem];
     float distancia[this->ordem];
     int auxCaminho[this->ordem];
-    auxCaminho[id_origem] = -1;
     for(int i=0; i<this->ordem; i++){
         distancia[i]=infinito;
+        auxCaminho[i] = -1;
         if(auxSubconj[i] != -1){
             visitados[i] = false;
         }else
             visitados[i] = true;
     }
     distancia[id_origem] = 0;
-    for(int i=0; i < this->ordem; i++){
+    int id_alvo;
+    for(int i=0; i < tamanho; i++){
         int u = distMinima(visitados, distancia);
         visitados[u] = true;
+        if(auxCaminho[u] != -1)
+            retorno += std::to_string(u) + seta + std::to_string(auxCaminho[u]) + "\n";
+        if(auxCaminho[u] == -1 && distancia[u] == infinito)
+            retorno += std::to_string(u) + "\n";
         for(int j=0; j<this->ordem; j++){
             No* noAux = this->getNo(u);
-            if(noAux->existeArestaEntre(j) && visitados[j] && distancia[u]){
+            if(noAux->existeArestaEntre(j) && !visitados[j]){
                 Aresta* arestaAux = noAux->getArestaEntre(j);
-                if(arestaAux->getPeso() + distancia[u] < distancia[j]){
+                if(arestaAux->getPeso() < distancia[j]){
                     auxCaminho[j] = u;
-                    distancia[j] = arestaAux->getPeso() + distancia[u];
-                    retorno += std::to_string(u) + " -- " + std::to_string(j) + "\n";
+                    distancia[j] = arestaAux->getPeso();
                 }
             }
         }
@@ -582,6 +593,14 @@ string Grafo::agmPrim(int subconjunto[], int tamanho){
 }
 
 string Grafo::buscaProf(int id_origem) {
+    // Criando string de retorno
+    string retorno = "------- Caminhamento em Profundidade ------- \n";
+
+    if(this->direcionado)
+        retorno += "digraph { \n";
+    else
+        retorno += "strict graph { \n";
+
     // Criando vetor para armazenar o Nos visitados
     bool visitados[this->ordem];
 
@@ -593,20 +612,21 @@ string Grafo::buscaProf(int id_origem) {
     visitados[id_origem] = true;
 
     // Chamando funcao aux para entrar na recursividade
-    auxBuscaProf(id_origem, visitados);
+    auxBuscaProf(id_origem, visitados, &retorno);
 
-    // Exibindo no console como teste, depois passar para arquivo .dot
-    for(int id = 0; id < this->ordem; id++) {
-        if(visitados[id]) {
-            cout << "No: " << id << endl;
-        }
-    }
-    return "";
+    retorno += "} \n";
+    retorno += "---------------------------------------";
+    return retorno;
 }
 
-void Grafo::auxBuscaProf(int id_origem, bool visitados[]) {
+void Grafo::auxBuscaProf(int id_origem, bool visitados[], string* retorno) {
     // Pegando No referente ao id origem
     No* no = this->getNo(id_origem);
+
+    // Criando variavel seta de acordo com o tipo de grafo
+    string seta = " -- ";
+    if(this->direcionado)
+        seta = " -> ";
 
     // Percorrendo todas arestas do No de origem
     for(Aresta* aresta = no->getPrimeiraAresta(); aresta != nullptr; aresta = aresta->getProxAresta()) {
@@ -619,11 +639,14 @@ void Grafo::auxBuscaProf(int id_origem, bool visitados[]) {
                 // Marcando, tambem, a aresta invertida auxiliar como visitado
                 visitados[no->getId()] = true;
             }
+            // Preenchendo string de retorno
+            *retorno += "\t" + std::to_string(no->getId()) + seta + std::to_string(aresta->getIdAlvo()) + "\n";
             // Chamando recursividade novamente
-            this->auxBuscaProf(aresta->getIdAlvo(), visitados);
+            this->auxBuscaProf(aresta->getIdAlvo(), visitados, retorno);
         }
     }
 }
+
 
 // Nao usada
 //bool Grafo::auxBuscaLista(list<int>* lista, int id) {

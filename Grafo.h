@@ -20,8 +20,8 @@ class Grafo{
 
         // Funcionalidades privadas do trabalho
         int distMinima(bool visitados[], float dist[]);
-        void auxBuscaProf(int id_origem, bool visitados[]);
-        bool auxBuscaLista(list<int>* listaVisitados, int id);
+        void auxBuscaProf(int id_origem, bool visitados[], string* retorno);
+//        bool auxBuscaLista(list<int>* listaVisitados, int id);
 
     public:
         Grafo(int ordem, bool direcionado, bool aresta_ponderado, bool no_ponderado);
