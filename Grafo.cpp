@@ -581,43 +581,57 @@ string Grafo::agmPrim(int subconjunto[], int tamanho){
     return retorno + "} \n" + "---------------------";
 }
 
-void Grafo::buscaProf(int id) {
-    list<int> listaVisitados;
-    listaVisitados.push_back(id);
+string Grafo::buscaProf(int id_origem) {
+    // Criando vetor para armazenar o Nos visitados
+    bool visitados[this->ordem];
 
-    auxBuscaProf(&listaVisitados, id);
+    // Marcando todos Nos como nao visitados
+    for(int i = 0; i < this->ordem; i++)
+        visitados[i] = false;
 
-    Grafo* grafo = new Grafo(listaVisitados.size(), 0, 0, 0);
+    // Marcando No de origem como visitado
+    visitados[id_origem] = true;
 
-    // imprimindo lista
-    list<int>::iterator it;
-    cout << "imprimindo lista" << endl;
-    while(!listaVisitados.empty()) {
-        grafo->inserirNo(listaVisitados.back());
-        cout << listaVisitados.back() << endl;
-        listaVisitados.pop_back();
+    // Chamando funcao aux para entrar na recursividade
+    auxBuscaProf(id_origem, visitados);
+
+    // Exibindo no console como teste, depois passar para arquivo .dot
+    for(int id = 0; id < this->ordem; id++) {
+        if(visitados[id]) {
+            cout << "No: " << id << endl;
+        }
     }
-    grafo->salvarDot();
-    cout << "fim imprimindo lista" << endl;
+    return "";
 }
 
-void Grafo::auxBuscaProf(list<int>* listaVisitados, int id) {
-    No* no = this->getNo(id);
+void Grafo::auxBuscaProf(int id_origem, bool visitados[]) {
+    // Pegando No referente ao id origem
+    No* no = this->getNo(id_origem);
 
+    // Percorrendo todas arestas do No de origem
     for(Aresta* aresta = no->getPrimeiraAresta(); aresta != nullptr; aresta = aresta->getProxAresta()) {
-        if(!auxBuscaLista(listaVisitados, aresta->getIdAlvo())){
-            listaVisitados->push_back(aresta->getIdAlvo());
-            auxBuscaProf(listaVisitados, aresta->getIdAlvo());
+        // Se o vertice do alvo da aresta ainda nao foi visitado
+        if(!visitados[aresta->getIdAlvo()]) {
+            // Marcando o vertice do alvo da aresta como visitado
+            visitados[aresta->getIdAlvo()] = true;
+            // Se nao for direcionado
+            if(!this->direcionado) {
+                // Marcando, tambem, a aresta invertida auxiliar como visitado
+                visitados[no->getId()] = true;
+            }
+            // Chamando recursividade novamente
+            this->auxBuscaProf(aresta->getIdAlvo(), visitados);
         }
     }
 }
 
-bool Grafo::auxBuscaLista(list<int>* lista, int id) {
-    list<int>::iterator it;
-    for(it = lista->begin(); it!=lista->end();it++){
-        if(*it == id) {
-            return true;
-        }
-    }
-    return false;
-}
+// Nao usada
+//bool Grafo::auxBuscaLista(list<int>* lista, int id) {
+//    list<int>::iterator it;
+//    for(it = lista->begin(); it!=lista->end();it++){
+//        if(*it == id) {
+//            return true;
+//        }
+//    }
+//    return false;
+//}

@@ -138,7 +138,7 @@ void selecionar(int selecao, Grafo* grafo, ofstream& output_file) {
         }
         // Arvore pelo Caminhamento em Profundidade
         case 7:{
-            cout << "Opcao 7 nao implementada" << endl;
+            retorno = grafo->buscaProf(1);
             break;
         }
         // Imprimir Ordenacao Topologica

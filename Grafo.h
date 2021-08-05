@@ -18,7 +18,9 @@ class Grafo{
         No* primeiro_no;
         No* ultimo_no;
 
-        void auxBuscaProf(list<int>* listaVisitados, int id);
+        // Funcionalidades privadas do trabalho
+        int distMinima(bool visitados[], float dist[]);
+        void auxBuscaProf(int id_origem, bool visitados[]);
         bool auxBuscaLista(list<int>* listaVisitados, int id);
 
     public:
@@ -46,9 +48,8 @@ class Grafo{
         string fechoTI(int id);
         string djikstra(int id, int id_alvo);
         string floyd(int id, int id_alvo);
-        int distMinima(bool visitados[], float dist[]);
         string agmPrim(int subconjunto[], int tamanho);
-        void buscaProf(int id);
+        string buscaProf(int id_origem);
 };
 
 #endif // GRAFO_H_INCLUDED
