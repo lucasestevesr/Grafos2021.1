@@ -153,6 +153,7 @@ void Grafo::inserirAresta(int id, int id_alvo, float peso) {
             no_alvo->aumentarGrauSaida();
             no_alvo->aumentarGrauEntrada();
         }
+        this->num_arestas++;
     }else{
         cout << "Erro: Algum dos Nos da aresta nao existe!" << endl;
     }
@@ -305,162 +306,211 @@ string Grafo::fechoTI(int id) {
 
 // Inicio Caminho Minimo por Djikstra
 string Grafo::djikstra(int id, int id_alvo) {
-    //Verificando se o grafo possui peso nas arestas, e retornando caso não seja.
-    if(!aresta_ponderado){
-        cout << "Grafo Invalido! Arestas nao ponderadas! \n";
-        return "";
+    // Criando string de retorno
+    string retorno = "------- Caminho Minimo Dijkstra ------- \n";
+
+    // Verificando se o grafo possui peso nas arestas, e retornando caso nao seja.
+    if(!this->aresta_ponderado) {
+        retorno += "Erro: O grafo precisa ter Arestas ponderadas! \n";
+        retorno += "---------------------------------------";
+        return retorno;
     }
-    //Variavel infinito utilizada para numerar as distâncias entre vértices que não possuem caminho
+
+    // Variavel infinito utilizada para numerar as distancias entre vertices que nao possuem caminho
     float infinito = std::numeric_limits<float>::max();
-    //Vetor booleano para verificar quais vertices foram visitados
+    // Vetor booleano para verificar quais vertices foram visitados
     bool visitados[this->ordem];
-    //vetor para armazenar a distância entre os vértices
+    // Vetor para armazenar a distancia entre os vertices
     float dist[this->ordem];
-    //Vetor para auxiliar a "gravar" o caminho entre os vértices
+    // Vetor para auxiliar a "gravar" o caminho entre os vertices
     int auxCaminho[this->ordem];
-    //Inicializando as distâncias entre os vértices como infinito, e marcando os vértices como não visitados
-    for(int i=0; i<this->ordem; i++){
+    // Inicializando as distancias entre os vertices como infinito, e marcando os vertices como nao visitados
+    for(int i=0; i<this->ordem; i++) {
         dist[i] = infinito;
         visitados[i] = false;
         auxCaminho[i] = id;
     }
-    //Inicializando a distância do vértice de origem para ele mesmo como 0, e marcando-o como visitado
+    // Inicializando a distancia do vertice de origem para ele mesmo como 0, e marcando-o como visitado
     dist[id] = 0;
     visitados[id] = true;
     No* noAux = this->getNo(id);
-    /* Percorrendo as arestas do vértice de origem, calculando as distâncias entre ele e seus adjacentes,
+    /* Percorrendo as arestas do vertice de origem, calculando as distancias entre ele e seus adjacentes,
     e gravando-as no vetor dist[] */
-    for(Aresta* arestaAux = noAux->getPrimeiraAresta(); arestaAux != nullptr; arestaAux = arestaAux->getProxAresta()){
+    for(Aresta* arestaAux = noAux->getPrimeiraAresta(); arestaAux != nullptr; arestaAux = arestaAux->getProxAresta()) {
         dist[arestaAux->getIdAlvo()] = arestaAux->getPeso();
     }
-    //Laço que percorre todos os vértices do grafo
-    for(int i = 0; i < this->ordem-1; i++){
-        //Chamada da função que calcula o id do vértice de menor distância (entre os vértices não visitados) aos já visitados
+    // Laco que percorre todos os vertices do grafo
+    for(int i = 0; i < this->ordem-1; i++) {
+        // Chamada da funcao que calcula o id do vertice de menor distancia (entre os vertices nao visitados) aos ja visitados
         int j = distMinima(visitados, dist);
         if(j == id_alvo)
             continue;
-        //Marca o vértice de menor distância como visitado
+        // Marca o vertice de menor distancia como visitado
         visitados[j] = true;
-        //Laço que percorre os vértices do grafo
-        for(int k = 0; k < this->ordem; k++){
+        // Laco que percorre os vertices do grafo
+        for(int k = 0; k < this->ordem; k++) {
             No* atual = getNo(j);
-            /* condição que atualiza o valor de dist caso o vértice sendo verificado (k) não tenha sido visitado,
-            a distância do nó atual (j) até o nó de origem não seja infinito, e caso exista aresta entre os nós k e j */
-            if(!visitados[k] && dist[j] != infinito && atual->existeArestaEntre(k)){
+            /* Condicao que atualiza o valor de dist caso o vertice sendo verificado (k) nao tenha sido visitado,
+            a distancia do No atual (j) ate o No de origem nao seja infinito, e caso exista aresta entre os Nos k e j */
+            if(!visitados[k] && dist[j] != infinito && atual->existeArestaEntre(k)) {
                 Aresta* arestaEntre = atual->getArestaEntre(k);
-                //Atualiza o valor da distância caso o novo cálculo seja menor do que o anterior.
+                // Atualiza o valor da distancia caso o novo calculo seja menor do que o anterior.
                 if(dist[j] + arestaEntre->getPeso() < dist[k]){
                     dist[k] = dist[j] + arestaEntre->getPeso();
-                    /*"Grava" o caminho no vetor auxCaminho, para ser realizada a impressão no arquivo de saida no final
-                    A ideia é gravar de onde o vértice k veio, armazenando na posiçao k o id de j */
+                    /*"Grava" o caminho no vetor auxCaminho, para ser realizada a impressao no arquivo de saida no final
+                    A ideia e gravar de onde o vertice k veio, armazenando na posiçao k o id de j */
                     auxCaminho[k] = j;
                 }
             }
         }
     }
-    // Criando string de retorno
-    string retorno = "Caminho Minimo entre dois vertices - Dijkstra \n";
-    //Colocando o cabeçalho do grafo corretamente, verificando se é grafo ou digrafo.
-    if(direcionado)
+
+    // Colocando o cabecalho do grafo corretamente, verificando se e grafo ou digrafo.
+    string seta;
+    if(this->direcionado) {
         retorno += "digraph { \n";
-    else
+        seta = " -> ";
+    }else {
         retorno += "strict graph { \n";
-    /* Caso a distância do vértice alvo ao vértice de origem seja infinito, não existe caminho entre eles.
-    Portanto, é impresso na tela uma mensagem de erro e encerrada a função */
-    if(dist[id_alvo] == infinito){
-        cout << "Nao existe caminho entre os vertices." << endl;
-        return "Djikstra: Vertices de entrada invalidos! \n";
+        seta = " -- ";
     }
-    //variável apra auxiliar a na criação do texto em .dot
+
+    /* Caso a distancia do vertice alvo ao vertice de origem seja infinito, nao existe caminho entre eles.
+    Portanto, e impresso na tela uma mensagem de erro e encerrada a função */
+    if(dist[id_alvo] == infinito){
+        retorno += "Erro: Nao existe caminho entre os vertices! \n";
+        retorno += "---------------------------------------";
+        return retorno;
+    }
+    // Variavel apra auxiliar a na criacao do texto em .dot
     int k = id_alvo;
-    //Criação do texto em .dot, que é colocado na string de retorno
-    do{
+    // Criacao do texto em .dot, que e colocado na string de retorno
+    do {
         int auxK;
         auxK = k;
-        //Aqui, utilizamos o vetor auxiliar para ir "retornando" no caminho que fazemos do vértice origem até o alvo
+        // Aqui, utilizamos o vetor auxiliar para ir "retornando" no caminho que fazemos do vertice origem ate o alvo
         k = auxCaminho[k];
-        retorno += "\t" + std::to_string(k)  + " -- " + std::to_string(auxK) + "\n";
-    }while(k != id);
-    return retorno + "} \n" + "Com custo de: " + std::to_string(dist[id_alvo]) + "\n---------------------";
+        retorno += "\t" + std::to_string(k) + seta + std::to_string(auxK) + "\n";
+    } while(k != id);
+    retorno += "} \n";
+    retorno += "Custo caminho: " + std::to_string(dist[id_alvo]) + "\n";
+    retorno += "---------------------------------------";
+    return retorno;
 }
 //Fim Caminho Minimo por Djikstra
 
-//Início função auxiliar para calcular o vértice de menor distância dentre os vértices não visitados
+// Inicio função auxiliar para calcular o vertice de menor distancia dentre os vertices nao visitados
 int Grafo::distMinima(bool visitados[], float dist[]) {
-    //Variável de valor mínimo, inicializada como + infinito
+    // Variavel de valor minimo, inicializada como + infinito
     float min = std::numeric_limits<float>::max();
-    //Variável para gravar o id do menor vértice
+    // Variavel para gravar o id do menor vertice
     int idMenor;
-    //Laço que percorre o grafo
+    // Laco que percorre o grafo
     for(int i=0; i<this->ordem; i++){
-        //Caso o vértice não tenha sido visitado e tenha distância menor que a variável 'min', o mesmo passa a ser o menor
+        // Caso o vertice não tenha sido visitado e tenha distancia menor que a variavel 'min', o mesmo passa a ser o menor
         if(visitados[i]==false && dist[i]<=min){
             min = dist[i];
             idMenor = i;
         }
     }
-    //Retorna o vértice de menor valor de distância
+    // Retorna o vertice de menor valor de distancia
     return idMenor;
 }
-//Fim função auxiliar
+// Fim função auxiliar menor distancia
 
-//Inicio Caminho Minimo por Floyd
-
+// Inicio Caminho Minimo por Floyd
 string Grafo::floyd(int id, int id_alvo) {
-    //Verificando se o grafo possui peso nas arestas, e retornando caso não seja.
-    if(!aresta_ponderado) {
-        cout << "Grafo Invalido! Arestas nao ponderadas! \n";
-        return "";
+    // Criando string de retorno
+    string retorno = "------- Caminho Minimo Floyd ------- \n";
+
+    // Verificando se o grafo possui peso nas arestas, e retornando caso nao seja.
+    if(!this->aresta_ponderado) {
+        retorno += "Erro: O grafo precisa ter Arestas ponderadas! \n";
+        retorno += "---------------------------------------";
+        return retorno;
     }
-    int infinito = std::numeric_limits<int>::max();
-    int distancia[ordem][ordem];
-    int next[ordem][ordem];
-    for(int id_origem = 0; id_origem < ordem; id_origem++) {
-        for(int id_alvo = 0; id_alvo < ordem; id_alvo++) {
-            No* no = getNo(id_origem);
-            Aresta* aresta = no->getArestaEntre(id_alvo);
-            if(aresta != nullptr) {
-                distancia[id_origem][id_alvo] = aresta->getPeso();
-                next[id_origem][id_alvo] = id_alvo;
+    // Declarando variavel infinito para usar quando nao tiver caminho
+    float infinito = std::numeric_limits<float>::max();
+    // Criando matriz de distancia entre todos vertices
+    float distancia[this->ordem][this->ordem];
+    // Criando matriz auxiliar para guardar o proximo vertice
+    int proximo[this->ordem][this->ordem];
+    // Percorrendo a matriz de distancia e proximo para fazer o primeiro preenchimento
+    for(int id_o = 0; id_o < this->ordem; id_o++) {
+        for(int id_a = 0; id_a < this->ordem; id_a++) {
+            if(id_o == id_a) {
+                distancia[id_o][id_a] = 0;
+                proximo[id_o][id_a] = -1;
             }else {
-                distancia[id_origem][id_alvo] = infinito;
-                next[id_origem][id_alvo] = -1;
-            }
-        }
-    }
-    for (int k = 0; k < ordem; k++) {
-        for (int i = 0; i < ordem; i++) {
-            for (int j = 0; j < ordem; j++) {
-                if (distancia[i][k] == infinito || distancia[k][j] == infinito)
-                    continue;
-                if (distancia[i][j] > distancia[i][k] + distancia[k][j]) {
-                    distancia[i][j] = distancia[i][k] + distancia[k][j];
-                    next[i][j] = next[i][k];
+                // Pegando o No referente ao id origem do primeiro for para percorrer as Arestas dele
+                No* no = getNo(id_o);
+                // Pegando aresta entre o No de origem do passo anterior e o No alvo do loop
+                Aresta* aresta = no->getArestaEntre(id_a);
+                // Verificando se existe a aresta
+                if(aresta != nullptr) {
+                    // Se existe preenche a distancia da origem para o alvo sendo o peso
+                    distancia[id_o][id_a] = aresta->getPeso();
+                    // Inicialmente o caminho mais curto da origem para o alvo e passando direto pela aresta origem/alvo
+                    proximo[id_o][id_a] = id_a;
+                }else {
+                    // Se nao existe aresta a distancia recebe infinito
+                    distancia[id_o][id_a] = infinito;
+                    // E o proximo recebe -1, ou seja, nao tem proximo
+                    proximo[id_o][id_a] = -1;
                 }
             }
         }
     }
-    // Criando string de retorno
-    string retorno = "Caminho Minimo entre dois vertices - Dijkstra \n";
-    //Colocando o cabeçalho do grafo corretamente, verificando se é grafo ou digrafo.
-    if(direcionado)
-        retorno += "digraph { \n";
-    else
-        retorno += "strict graph { \n";
-    /* Caso a distância do vértice alvo ao vértice de origem seja infinito, não existe caminho entre eles.
-    Portanto, é impresso na tela uma mensagem de erro e encerrada a função */
-    if(distancia[id][id_alvo] == infinito){
-        cout << "Nao existe caminho entre os vertices." << endl;
-        return "Floyd: Vertices de entrada invalidos! \n";
-    }
-            int u=id,v=id_alvo;
-            while(u!=v){
-                retorno += std::to_string(u) + " -- ";
-                u=next[u][v];
-                retorno += std::to_string(u) + " [label=" + std::to_string(distancia[u][v]) + "]" + "\n";
+    /* Percorre dois for novamente, igual anteriormente, um para o No de origem (id_o), outro para
+    o No alvo (id_a) e agora um terceiro for para um No intermediario (id_i) */
+    for (int id_i = 0; id_i < this->ordem; id_i++) {
+        for (int id_o = 0; id_o < this->ordem; id_o++) {
+            for (int id_a = 0; id_a < this->ordem; id_a++) {
+                // Se a distancia entre o No origem para o No alvo for infinita passa para o proximo
+                if (distancia[id_o][id_i] == infinito || distancia[id_i][id_a] == infinito)
+                    continue;
+                /* Se a distancia entre o No origem para o No alvo for maior do que a distancia
+                do No origem para um No intermediario + a distancia do No intermediario para o No alvo */
+                if (distancia[id_o][id_a] > distancia[id_o][id_i] + distancia[id_i][id_a]) {
+                    // Se sim, significa que achou um caminho mais curto, entao atualiza as matrizes
+                    distancia[id_o][id_a] = distancia[id_o][id_i] + distancia[id_i][id_a];
+                    proximo[id_o][id_a] = proximo[id_o][id_i];
+                }
             }
+        }
+    }
 
-            return retorno + "} \n" + "Com custo de: " + std::to_string(distancia[id][id_alvo]) + "\n---------------------";
+    // Colocando o cabecalho do grafo corretamente, verificando se e grafo ou digrafo.
+    string seta;
+    if(this->direcionado) {
+        retorno += "digraph { \n";
+        seta = " -> ";
+    }else {
+        retorno += "strict graph { \n";
+        seta = " -- ";
+    }
+
+    /* Caso a distancia do vertice alvo ao vertice de origem seja infinito, nao existe caminho entre eles.
+    Portanto, e impresso na tela uma mensagem de erro e encerrada a funcao */
+    if(distancia[id][id_alvo] == infinito) {
+        retorno += "Erro: Nao existe caminho entre os vertices! \n";
+        retorno += "---------------------------------------";
+        return retorno;
+    }
+    // Variaveis auxiliares para recuperar o caminho mais curto
+    int id_o = id, id_a = id_alvo;
+    float pesoAresta;
+    // Partindo do Id de Origem, enquanto nao chegar no Alvo nao para
+    while(id_o != id_a) {
+        pesoAresta = distancia[id_o][proximo[id_o][id_a]];
+        retorno += "\t" + std::to_string(id_o) + seta;
+        id_o = proximo[id_o][id_a];
+        retorno += std::to_string(id_o) + " [label=" + std::to_string(pesoAresta) + "]" + "\n";
+    }
+    retorno += "} \n";
+    retorno += "Custo caminho: " + std::to_string(distancia[id][id_alvo]) + "\n";
+    retorno += "---------------------------------------";
+    return retorno;
 }
 //Fim Caminho Minimo por Floyd
 
