@@ -127,8 +127,8 @@ void selecionar(int selecao, Grafo* grafo, ofstream& output_file) {
         }
         // Arvore Geradora Minima de Prim
         case 5:{
-            int v[5] = {0, 7, 5, 3, 4};
-            retorno = grafo->agmPrim(v, 5);
+            int v[5] = {1, 2, 3, 4, 5};
+            retorno = grafo->prim(5, v);
             break;
         }
         // Arvore Geradora Minima de Kruskal

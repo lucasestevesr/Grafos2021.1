@@ -1,7 +1,2 @@
-------- Caminhamento em Profundidade ------- 
-digraph { 
-	1 -> 4
-	4 -> 5
-	1 -> 6
-} 
----------------------------------------
+Voce nao salvou a operacao
+

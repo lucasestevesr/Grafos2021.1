@@ -48,7 +48,9 @@ class Grafo{
         string fechoTI(int id);
         string djikstra(int id, int id_alvo);
         string floyd(int id, int id_alvo);
-        string agmPrim(int subconjunto[], int tamanho);
+//        string prim(int tamanho, int conjunto[]);
+        string agmPrim();
+//        Grafo* subgrafo(int tamanho, int conjunto[], bool direcao, bool aresta_ponderada, bool no_ponderado, Grafo* origem);
         string buscaProf(int id_origem);
 };
 

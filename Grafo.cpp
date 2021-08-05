@@ -514,83 +514,82 @@ string Grafo::floyd(int id, int id_alvo) {
 }
 //Fim Caminho Minimo por Floyd
 
-string Grafo::agmPrim(int subconjunto[], int tamanho){
-    for(int i=0; i<tamanho; i++){
-        if(!this->existeNo(subconjunto[i])){
-            cout << "Subconjunto de vertices invalido!" << endl;
-            return "AGM de Prim: Subconjunto invalido! \n";
-        }
-    }
-    // Criando string de retorno
-    string retorno = "Arvore Geradora Minima de Prim \n";
-    string seta = "";
-    //Colocando o cabeçalho do grafo corretamente, verificando se é grafo ou digrafo.
-    if(direcionado){
-        retorno += "digraph { \n";
-        seta = " -> ";
-    }
-    else{
-        retorno += "strict graph { \n";
-        seta = " -- ";
-    }
-    //variável apra auxiliar a na criação do texto em .dot
-    Aresta* menorAresta = nullptr;
+string Grafo::agmPrim(){
+    bool visitados[this->ordem];
+    float distancia[this->ordem];
+    int caminho[this->ordem];
     float infinito = std::numeric_limits<float>::max();
-    for(int i=0; i<tamanho; i++){
-        No* no = this->getNo(subconjunto[i]);
-        float menor = infinito;
+    float menorPeso = infinito;
+    Aresta* menorAresta;
+    for(No* no = this->getPrimeiroNo(); no != nullptr; no = no->getProxNo()){
         for(Aresta* aresta = no->getPrimeiraAresta(); aresta != nullptr; aresta = aresta->getProxAresta()){
-            for(int j=0; j<tamanho; j++){
-                if(aresta->getIdAlvo() == j){
-                    if(aresta->getPeso() < menor){
-                        menorAresta = aresta;
-                        menor = aresta->getPeso();
-                    }
-                }
+            if(aresta->getPeso() <= menorPeso){
+                menorPeso = aresta->getPeso();
+                menorAresta = aresta;
             }
         }
     }
     int id_origem = menorAresta->getIdOrigem();
-    cout << menorAresta->getIdOrigem() << endl;
-    cout << id_origem << endl;
-    int auxSubconj[this->ordem];
-    for(int i=0; i<this->ordem; i++)
-        auxSubconj[i] = -1;
-    for(int i=0; i<tamanho; i++)
-        auxSubconj[subconjunto[i]] = subconjunto[i];
-    bool visitados[this->ordem];
-    float distancia[this->ordem];
-    int auxCaminho[this->ordem];
-    for(int i=0; i<this->ordem; i++){
-        distancia[i]=infinito;
-        auxCaminho[i] = -1;
-        if(auxSubconj[i] != -1){
-            visitados[i] = false;
-        }else
-            visitados[i] = true;
+    for(int i=0;i<this->ordem;i++){
+        visitados[i] = false;
+        distancia[i] = infinito;
+        caminho[i] = -1;
     }
     distancia[id_origem] = 0;
-    int id_alvo;
-    for(int i=0; i < tamanho; i++){
+    for(int i=0; i<this->ordem; i++){
         int u = distMinima(visitados, distancia);
         visitados[u] = true;
-        if(auxCaminho[u] != -1)
-            retorno += std::to_string(u) + seta + std::to_string(auxCaminho[u]) + "\n";
-        if(auxCaminho[u] == -1 && distancia[u] == infinito)
-            retorno += std::to_string(u) + "\n";
-        for(int j=0; j<this->ordem; j++){
-            No* noAux = this->getNo(u);
-            if(noAux->existeArestaEntre(j) && !visitados[j]){
-                Aresta* arestaAux = noAux->getArestaEntre(j);
-                if(arestaAux->getPeso() < distancia[j]){
-                    auxCaminho[j] = u;
-                    distancia[j] = arestaAux->getPeso();
-                }
+        No* noAux = this->getNo(u);
+        for(Aresta* adjacente = noAux->getPrimeiraAresta(); adjacente != nullptr; adjacente = adjacente->getProxAresta()){
+            if(!visitados[adjacente->getIdAlvo()] && adjacente->getPeso() < distancia[adjacente->getIdAlvo()]){
+                distancia[adjacente->getIdAlvo()] = adjacente->getPeso();
+                caminho[adjacente->getIdAlvo()] = u;
             }
         }
     }
-    return retorno + "} \n" + "---------------------";
+    string retorno = "AGM por Prim\n";
+    string seta;
+    if(this->direcionado) {
+        retorno += "digraph { \n";
+        seta = " -> ";
+    }else {
+        retorno += "strict graph { \n";
+        seta = " -- ";
+    }
+    for(int i=0; i<this->ordem; i++){
+        if(caminho[i] != -1)
+            retorno += std::to_string(caminho[i]) + seta + std::to_string(i) + "\n";
+        if(caminho[i] == -1 && i != id_origem)
+            retorno += std::to_string(i) + "\n";
+    }
+    retorno += "} \n";
+    retorno += "---------------------------------------";
+    return retorno;
 }
+
+//Grafo* Grafo::subgrafo(int tamanho, int conjunto[], bool direcao, bool aresta_ponderada, bool no_ponderado, Grafo* origem){
+//    Grafo* subgrafo = new Grafo(tamanho, direcao, aresta_ponderada, no_ponderado);
+//    for(No* no = origem->getPrimeiroNo(); no != nullptr; no = no->getProxNo()){
+//        for(int i=0; i<tamanho; i++){
+//            if(no->getId() == conjunto[i]){
+//                for(int j=0; j<tamanho; j++){
+//                    if(no->existeArestaEntre(conjunto[j])){
+//                        Aresta* aresta = no->getArestaEntre(conjunto[j]);
+//                        subgrafo->inserirAresta(conjunto[i], conjunto[j], aresta->getPeso());
+//                    }
+//                }
+//            }
+//        }
+//    }
+//    return subgrafo;
+//}
+
+//string Grafo::prim(int tamanho, int conjunto[]){
+//    Grafo* subgrafo = this->subgrafo(tamanho, conjunto, this->direcionado, this->aresta_ponderado, this->no_ponderado, this);
+//    string retorno = "";
+//    retorno = subgrafo->agmPrim();
+//    return retorno;
+//}
 
 string Grafo::buscaProf(int id_origem) {
     // Criando string de retorno
