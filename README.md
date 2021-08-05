@@ -11,4 +11,13 @@ Alunos:</br>
 ## Trabalho 01: Funcionalidades básicas em grafos simples
 
 	• TAD para trabalhar com grafos usando lista de adjacência;
-	• ...
+    • Arquivo de entrada em formato .txt
+    • Arquivo de saída em formato .dot
+	• [1] Fecho Transitivo Direto;
+    • [2] Fecho Transitivo Indireto;
+    • [3] Caminho Minimo entre dois vertices - Dijkstra;
+    • [4] Caminho Minimo entre dois vertices - Floyd;
+    • [5] Arvore Geradora Minima de Prim;
+    • [6] Arvore Geradora Minima de Kruskal;
+    • [7] Arvore pelo Caminhamento em Profundidade;
+    • [8] Imprimir Ordenacao Topologica;
