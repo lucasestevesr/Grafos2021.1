@@ -28,10 +28,13 @@ Grafo* leitura(ifstream& arquivo, int direcionado, int aresta_ponderado, int no_
     // Leitura do arquivo
     if(!grafo->getArestaPonderado() && !grafo->getNoPonderado()){
         // Primeiro caso: aresta sem peso e no sem peso
-        while(arquivo >> id_no_origem >> id_no_alvo) {
-            grafo->inserirAresta(id_no_origem, id_no_alvo, 0);
+        float peso_aresta;
+        while(arquivo >> id_no_origem >> id_no_alvo >> peso_aresta) {
+            // Aresta sem peso por padrao recebe peso 1
+            peso_aresta = 1;
+            grafo->inserirAresta(id_no_origem, id_no_alvo, peso_aresta);
         }
-    }else if(grafo->getArestaPonderado() && !grafo->getNoPonderado() ){
+    }else if(grafo->getArestaPonderado() && !grafo->getNoPonderado()){
         // Segundo caso: aresta com peso e no sem peso
         float peso_aresta;
         while(arquivo >> id_no_origem >> id_no_alvo >> peso_aresta) {
@@ -128,7 +131,7 @@ void selecionar(int selecao, Grafo* grafo, ofstream& output_file) {
         // Arvore Geradora Minima de Prim
         case 5:{
             int v[5] = {1, 2, 3, 4, 5};
-            retorno = grafo->prim(5, v);
+            retorno = grafo->agmPrim();
             break;
         }
         // Arvore Geradora Minima de Kruskal

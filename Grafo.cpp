@@ -309,13 +309,6 @@ string Grafo::djikstra(int id, int id_alvo) {
     // Criando string de retorno
     string retorno = "------- Caminho Minimo Dijkstra ------- \n";
 
-    // Verificando se o grafo possui peso nas arestas, e retornando caso nao seja.
-    if(!this->aresta_ponderado) {
-        retorno += "Erro: O grafo precisa ter Arestas ponderadas! \n";
-        retorno += "---------------------------------------";
-        return retorno;
-    }
-
     // Variavel infinito utilizada para numerar as distancias entre vertices que nao possuem caminho
     float infinito = std::numeric_limits<float>::max();
     // Vetor booleano para verificar quais vertices foram visitados
@@ -423,12 +416,6 @@ string Grafo::floyd(int id, int id_alvo) {
     // Criando string de retorno
     string retorno = "------- Caminho Minimo Floyd ------- \n";
 
-    // Verificando se o grafo possui peso nas arestas, e retornando caso nao seja.
-    if(!this->aresta_ponderado) {
-        retorno += "Erro: O grafo precisa ter Arestas ponderadas! \n";
-        retorno += "---------------------------------------";
-        return retorno;
-    }
     // Declarando variavel infinito para usar quando nao tiver caminho
     float infinito = std::numeric_limits<float>::max();
     // Criando matriz de distancia entre todos vertices

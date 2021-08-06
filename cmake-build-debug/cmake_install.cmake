@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/Gabriel/Documents/Projetos CLion/Grafos2021.1-main
+# Install script for directory: C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "C:/Users/Gabriel/Documents/Projetos CLion/Grafos2021.1-main/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
