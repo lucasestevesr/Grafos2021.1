@@ -14,9 +14,9 @@
 #include <iomanip>
 # include <limits>
 
-
 using namespace std;
 
+// Inicio construtor do Grafo
 Grafo::Grafo(int ordem, bool direcionado, bool aresta_ponderado, bool no_ponderado) {
     this->ordem = 0;
     this->direcionado = direcionado;
@@ -24,12 +24,10 @@ Grafo::Grafo(int ordem, bool direcionado, bool aresta_ponderado, bool no_pondera
     this->no_ponderado = no_ponderado;
     this->primeiro_no = this->ultimo_no = nullptr;
     this->num_arestas = 0;
-
-    for(int i = 0; i < ordem; i++) {
-        this->inserirNo(i);
-    }
 }
+// Fim construtor do Grafo
 
+// Inicio destrutor do Grafo
 Grafo::~Grafo() {
     No* prox_no = this->primeiro_no;
 
@@ -40,7 +38,9 @@ Grafo::~Grafo() {
         prox_no = aux_no;
     }
 }
+// Fim destrutor do Grafo
 
+// Inicio getters e setters
 int Grafo::getOrdem() {
     return this->ordem;
 }
@@ -68,21 +68,81 @@ No* Grafo::getPrimeiroNo() {
 No* Grafo::getUltimoNo() {
     return this->ultimo_no;
 }
+// Fim getters e setters
 
+// Inicio funcao get No por Id
 No* Grafo::getNo(int id) {
+    // Veririca se tem No nesse grafo
     if(this->primeiro_no != nullptr) {
+        // Percorre os Nos do grafo
         for (No* no = this->primeiro_no; no != nullptr; no = no->getProxNo()) {
+            // Se encontrar o No pelo Id, retorna ele
             if(no->getId() == id) {
                 return no;
             }
         }
     }
-    return NULL;
+    return nullptr;
 }
+// Fim funcao get No por Id
 
-bool Grafo::existeNo(int id) {
+// Inicio funcao get No por Id Aux
+No* Grafo::getNoPorIdAux(int id_aux) {
+    // Veririca se tem No nesse grafo
     if(this->primeiro_no != nullptr) {
+        // Percorre os Nos do grafo
+        for (No* no = this->primeiro_no; no != nullptr; no = no->getProxNo()) {
+            // Se encontrar o No pelo Id Aux, retorna ele
+            if(no->getIdAux() == id_aux) {
+                return no;
+            }
+        }
+    }
+    return nullptr;
+}
+// Fim funcao get No por Id Aux
+
+// Inicio funcao converter Id aux em Id interno
+int Grafo::getIdPorIdAux(int id_aux) {
+    // Veririca se tem No nesse grafo
+    if(this->primeiro_no != nullptr) {
+        // Percorre os Nos do grafo
+        for (No* no = this->primeiro_no; no != nullptr; no = no->getProxNo()) {
+            // Se encontrar o No pelo Id Aux, retorna o id interno dele
+            if(no->getIdAux() == id_aux) {
+                return no->getId();
+            }
+        }
+    }
+    // Se nao encontrar retorna -1
+    return -1;
+}
+// Fim funcao converter Id aux em Id interno
+
+// Inicio funcao converter Id Interno em Id Aux
+int Grafo::getIdAuxPorId(int id) {
+    // Veririca se tem No nesse grafo
+    if(this->primeiro_no != nullptr) {
+        // Percorre os Nos do grafo
+        for (No* no = this->primeiro_no; no != nullptr; no = no->getProxNo()) {
+            // Se encontrar o No pelo Id, retorna o id aux dele
+            if(no->getId() == id) {
+                return no->getIdAux();
+            }
+        }
+    }
+    // Se nao encontrar retorna -1
+    return -1;
+}
+// Fim funcao converter Id Interno em Id Aux
+
+// Inicio funcao verificar existe No por Id
+bool Grafo::existeNo(int id) {
+    // Veririca se tem No nesse grafo
+    if(this->primeiro_no != nullptr) {
+        // Percorre os Nos do grafo
         for (No* no = this->primeiro_no; no != nullptr ; no = no->getProxNo()) {
+            // Se encontrar o No pelo Id, retorna verdadeiro
             if(no->getId() == id) {
                 return true;
             }
@@ -90,123 +150,194 @@ bool Grafo::existeNo(int id) {
     }
     return false;
 }
+// Fim funcao verificar existe No por Id
 
-void Grafo::inserirNo(int id) {
-    No* no = new No(id);
+// Inicio funcao verificar existe No por Id Aux
+bool Grafo::existeNoPorIdAux(int id_aux) {
+    // Veririca se tem No nesse grafo
+    if(this->primeiro_no != nullptr) {
+        // Percorre os Nos do grafo
+        for (No* no = this->primeiro_no; no != nullptr ; no = no->getProxNo()) {
+            // Se encontrar o No pelo Id Aux, retorna verdadeiro
+            if(no->getIdAux() == id_aux) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+// Fim funcao verificar existe No por Id Aux
 
+// Inicio funcao verificar se tem alguma aresta em um No
+bool Grafo::existeAresta(int id_aux) {
+    // Veririca se tem No nesse grafo
+    if(this->primeiro_no != nullptr) {
+        // Percorre os Nos do grafo
+        for (No* no = this->primeiro_no; no != nullptr ; no = no->getProxNo()) {
+            // Percorre as Arestas dos Nos
+            for(Aresta* aresta = no->getPrimeiraAresta(); aresta != nullptr; aresta = aresta->getProxAresta()) {
+                // Verifica se essa aresta chega ou sai do id
+                if(aresta->getIdAuxOrigem() == id_aux || aresta->getIdAuxAlvo() == id_aux) {
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+}
+// Fim funcao verificar se tem alguma aresta em um No
+
+// Inicio funcao inserir No
+void Grafo::inserirNo(int id_aux) {
+
+    // Cria o No com Id interno (ordem) e Id personalizado
+    No* no = new No(this->ordem, id_aux);
+
+    // Verifica se e o primeiro No do Grafo
     if(this->primeiro_no == nullptr){
+        // Atualiza a referencia de primeiro e ultimo
         this->primeiro_no = no;
         this->ultimo_no = no;
     }else{
+        // Se nao for o primeiro, atualiza a referencia do ultimo
         this->ultimo_no->setProxNo(no);
         this->ultimo_no = no;
     }
-    ordem ++;
+    // Incrementa a ordem do Grafo
+    this->ordem ++;
 }
+// Fim funcao inserir No
 
+// Inicio funcao remover No
 void Grafo::removerNo(int id) {
+    // Verificando se o No existe
     if(existeNo(id)) {
-        No* node = this->getPrimeiroNo();
+        // Criando No de partida e No temp de auxilio
+        No* no = this->primeiro_no;
         No* temp = nullptr;
 
-        while(node->getId() != id) {
-            temp = node;
-            node = node->getProxNo();
+        // Procurando No a ser excluido e salvando o temp
+        while(no->getId() != id) {
+            temp = no;
+            no = no->getProxNo();
         }
 
-        if(temp != nullptr)
-            temp->setProxNo(node->getProxNo());
-        else
-            this->primeiro_no = node->getProxNo();
+        if(temp != nullptr) {
+            temp->setProxNo(no->getProxNo());
+        } else{
+            this->primeiro_no = no->getProxNo();
+        }
 
-        if(node == this->ultimo_no)
+        if(no == this->ultimo_no) {
             this->ultimo_no = temp;
+        }
 
-        if(node->getProxNo() == this->ultimo_no)
-            this->ultimo_no = node->getProxNo();
+        if(no->getProxNo() == this->ultimo_no) {
+            this->ultimo_no = no->getProxNo();
+        }
 
         No* aux = this->getPrimeiroNo();
 
+        // Removendo arestas que incidam neste No
         while(aux != nullptr) {
-            aux->removerAresta(node->getId(), this->direcionado, node);
+            aux->removerAresta(no, this->direcionado);
             aux = aux->getProxNo();
         }
 
-        delete node;
+        // Deletando No
+        delete no;
+
+        // Decrementando ordem do Grafo
         this->ordem--;
     }
 }
+// Fim funcao remover No
 
-void Grafo::inserirAresta(int id, int id_alvo, float peso) {
-    if(existeNo(id) && existeNo(id_alvo)) {
-        No* no_origem = this->getNo(id);
-        No* no_alvo = this->getNo(id_alvo);
-        if(this->direcionado) {
-            no_origem->inserirAresta(id_alvo, peso);
-            no_origem->aumentarGrauSaida();
-            no_alvo->aumentarGrauEntrada();
-        }else {
-            no_origem->inserirAresta(id_alvo, peso);
-            no_alvo->inserirAresta(id, peso);
-            no_origem->aumentarGrauSaida();
-            no_origem->aumentarGrauEntrada();
-            no_alvo->aumentarGrauSaida();
-            no_alvo->aumentarGrauEntrada();
-        }
-        this->num_arestas++;
-    }else{
-        cout << "Erro: Algum dos Nos da aresta nao existe!" << endl;
+// Inicio funcao de inserir Aresta
+void Grafo::inserirAresta(int id_aux, int id_alvo_aux, float peso) {
+    // Cria o No de origem se ele nao existir
+    if(!this->existeNoPorIdAux(id_aux))
+        inserirNo(id_aux);
+
+    // Cria o No alvo se ele nao existir
+    if(!this->existeNoPorIdAux(id_alvo_aux))
+        inserirNo(id_alvo_aux);
+
+    // Pega o No de origem e o No alvo
+    No* no_origem = this->getNoPorIdAux(id_aux);
+    No* no_alvo = this->getNoPorIdAux(id_alvo_aux);
+
+    // Verifica se o grafo e direcionado
+    if(this->direcionado) {
+        // Se for direcionado insere a aresta com a direcao
+        no_origem->inserirAresta(no_alvo->getId(), no_alvo->getIdAux(), peso);
+        // Atualiza os graus de entrada e saida
+        no_origem->aumentarGrauSaida();
+        no_alvo->aumentarGrauEntrada();
+    }else {
+        // Se nao for direcionado insere a aresta de ida e de volta
+        no_origem->inserirAresta(no_alvo->getId(), no_alvo->getIdAux(), peso);
+        // Na aresta de volta evidencia que e uma aresta auxiliar no ultimo parametro
+        no_alvo->inserirAresta(no_origem->getId(), no_origem->getIdAux(), peso, true);
+        // Atualiza os graus de entrada e saida
+        no_origem->aumentarGrauSaida();
+        no_origem->aumentarGrauEntrada();
+        no_alvo->aumentarGrauSaida();
+        no_alvo->aumentarGrauEntrada();
     }
+    // Incrementa o numero de arestas do Grafo
+    this->num_arestas++;
 }
+// Fim funcao de inserir Aresta
 
-void Grafo::imprimir() {
-    cout << "Funcao imprimir Grafo: " << endl;
-    if(this->primeiro_no != nullptr) {
-        for(No* no = this->primeiro_no; no != nullptr; no = no->getProxNo()) {
-            cout << "No: "  << no->getId() << endl;
-            for(Aresta* aresta = no->getPrimeiraAresta(); aresta != nullptr; aresta = aresta->getProxAresta()){
-                if(!aresta->getDirecionado() || this->direcionado){
-                    cout << no->getId()  << " " << aresta->getIdAlvo() << endl;
-                }
+// Inicio funcao imprimir Grafo
+string Grafo::imprimir() {
+    // Criando string de retorno
+    string retorno = "--------- Imprimindo Grafo --------- \n";
+
+    // Verificando se o grafo e vazio
+    if(this->primeiro_no == nullptr) {
+        retorno += "Erro: Grafo vazio! \n";
+        retorno += "---------------------------------------";
+        return retorno;
+    }
+
+    // Configurando cabecalho e seta do Grafo
+    string seta;
+    if(this->direcionado) {
+        retorno += "digraph { \n";
+        seta += " -> ";
+    } else {
+        retorno += "graph { \n";
+        seta += " -- ";
+    }
+
+    // Percorrendo todos os Nos do Grafo
+    for(No* no = this->primeiro_no; no != nullptr; no = no->getProxNo()) {
+        // Escrevendo o No sozinho caso ele nao tenha arestas
+        if(!this->existeAresta(no->getIdAux())) {
+            retorno += "\t" + std::to_string(no->getIdAux()) + "\n";
+        }
+        // Percorrendo todas arestas do No
+        for(Aresta* aresta = no->getPrimeiraAresta(); aresta != nullptr; aresta = aresta->getProxAresta()) {
+            // Verifica se nao e aresta de retorno
+            if(!aresta->getAux()) {
+                // Escreve o No com a aresta e o No de destino
+                retorno += "\t" + std::to_string(aresta->getIdAuxOrigem()) + seta + std::to_string(aresta->getIdAuxAlvo()) + " [label=" + std::to_string(aresta->getPeso()) + "]" + "\n";
             }
         }
-    }else {
-        cout << "Grafo vazio" << endl;
     }
+    retorno += "} \n";
+    retorno += "---------------------------------------";
+    return retorno;
 }
+// Fim funcao imprimir Grafo
 
-void Grafo::salvarDot() {
-    std::ofstream saida("saida.dot");
-
-    if(!saida.is_open()){
-        std::cerr << "Erro na abertura do arquivo" << std::endl;
-    }
-
-    if(this->primeiro_no != nullptr) {
-        if(this->direcionado) {
-            saida << "digraph {" << std::endl;
-        }else {
-            saida << "strict graph {" << std::endl;
-        }
-        for(No* no = this->primeiro_no; no != nullptr; no = no->getProxNo()) {
-            for(Aresta* aresta = no->getPrimeiraAresta(); aresta != nullptr; aresta = aresta->getProxAresta()){
-                if(this->direcionado) {
-                    saida << "\t" << no->getId()  << " -> " << aresta->getIdAlvo() << ";" << std::endl;
-                }else {
-                    saida << "\t" << no->getId()  << " -- " << aresta->getIdAlvo() << ";" << std::endl;
-                }
-            }
-        }
-        saida << "}" << std::endl;
-    }else {
-        saida << "Erro: Grafo vazio" << std::endl;
-    }
-}
 
 // Funcionalidades do trabalho
 
 // Inicio Fecho Transitivo Direto
-string Grafo::fechoTD(int id) {
+string Grafo::fechoTD(int id_aux) {
     // Criando string de retorno
     string retorno = "------- Fecho Transitivo Direto ------- \n";
 
@@ -216,7 +347,11 @@ string Grafo::fechoTD(int id) {
         return retorno;
     }
 
+    // Cabecalho do Grafo em .dot
     retorno += "digraph { \n";
+
+    // Convertendo id auxiliar para id interno
+    int id = this->getIdPorIdAux(id_aux);
 
     // Declarando vetor bool de nos visitados
     bool visitados[this->ordem];
@@ -248,7 +383,7 @@ string Grafo::fechoTD(int id) {
                 // Se ele ainda nao foi visitado, coloca ele como visitado
                 visitados[aresta->getIdAlvo()] = true;
                 // Preenchendo string de retorno para salvar no arquivo .dot depois
-                retorno += "\t" + std::to_string(no->getId()) + " -> " + std::to_string(aresta->getIdAlvo()) + "\n";
+                retorno += "\t" + std::to_string(aresta->getIdAuxOrigem()) + " -> " + std::to_string(aresta->getIdAuxAlvo()) + "\n";
                 /* Adiciona o id do alvo da aresta atual que esta no loop sendo o proximo
                 no a ser verificado, alimentando o while principal da funcao */
                 pilhaAux.push(aresta->getIdAlvo());
@@ -262,7 +397,7 @@ string Grafo::fechoTD(int id) {
 // Fim Fecho Transitivo Direto
 
 // Inicio Fecho Transitivo Indireto
-string Grafo::fechoTI(int id) {
+string Grafo::fechoTI(int id_aux) {
     // Criando string de retorno
     string retorno = "------- Fecho Transitivo Indireto ------- \n";
 
@@ -272,7 +407,11 @@ string Grafo::fechoTI(int id) {
         return retorno;
     }
 
+    // Cabecalho do Grafo em .dot
     retorno += "digraph { \n";
+
+    // Convertendo id auxiliar para id interno
+    int id = this->getIdPorIdAux(id_aux);
 
     // Criando uma pilha auxiliar e colocando o no inicial no topo dela
     stack<int> pilhaAux;
@@ -292,7 +431,7 @@ string Grafo::fechoTI(int id) {
             // Verifica se o No alvo possui aresta com o No atual do for
             if(no->existeArestaEntre(topo)) {
                 // Preenchendo string de retorno para salvar no arquivo .dot depois
-                retorno += "\t" + std::to_string(no->getId())  + " -> " + std::to_string(topo) + "\n";
+                retorno += "\t" + std::to_string(no->getIdAux())  + " -> " + std::to_string(getIdAuxPorId(topo)) + "\n";
                 // No a ser verificado, alimentando o while principal da funcao
                 pilhaAux.push(no->getId());
             }
@@ -305,10 +444,13 @@ string Grafo::fechoTI(int id) {
 // Fim Fecho Transitivo Indireto
 
 // Inicio Caminho Minimo por Djikstra
-string Grafo::djikstra(int id, int id_alvo) {
+string Grafo::djikstra(int id_aux_origem, int id_aux_alvo) {
     // Criando string de retorno
     string retorno = "------- Caminho Minimo Dijkstra ------- \n";
 
+    // Convertendo id aux origem e id aux alvo para id e id alvo
+    int id_origem = getIdPorIdAux(id_aux_origem);
+    int id_alvo = getIdPorIdAux(id_aux_alvo);
     // Variavel infinito utilizada para numerar as distancias entre vertices que nao possuem caminho
     float infinito = std::numeric_limits<float>::max();
     // Vetor booleano para verificar quais vertices foram visitados
@@ -321,12 +463,12 @@ string Grafo::djikstra(int id, int id_alvo) {
     for(int i=0; i<this->ordem; i++) {
         dist[i] = infinito;
         visitados[i] = false;
-        auxCaminho[i] = id;
+        auxCaminho[i] = id_origem;
     }
     // Inicializando a distancia do vertice de origem para ele mesmo como 0, e marcando-o como visitado
-    dist[id] = 0;
-    visitados[id] = true;
-    No* noAux = this->getNo(id);
+    dist[id_origem] = 0;
+    visitados[id_origem] = true;
+    No* noAux = this->getNo(id_origem);
     /* Percorrendo as arestas do vertice de origem, calculando as distancias entre ele e seus adjacentes,
     e gravando-as no vetor dist[] */
     for(Aresta* arestaAux = noAux->getPrimeiraAresta(); arestaAux != nullptr; arestaAux = arestaAux->getProxAresta()) {
@@ -383,8 +525,8 @@ string Grafo::djikstra(int id, int id_alvo) {
         auxK = k;
         // Aqui, utilizamos o vetor auxiliar para ir "retornando" no caminho que fazemos do vertice origem ate o alvo
         k = auxCaminho[k];
-        retorno += "\t" + std::to_string(k) + seta + std::to_string(auxK) + "\n";
-    } while(k != id);
+        retorno += "\t" + std::to_string(this->getIdAuxPorId(k)) + seta + std::to_string(this->getIdAuxPorId(auxK)) + "\n";
+    } while(k != id_origem);
     retorno += "} \n";
     retorno += "Custo caminho: " + std::to_string(dist[id_alvo]) + "\n";
     retorno += "---------------------------------------";
@@ -412,7 +554,7 @@ int Grafo::distMinima(bool visitados[], float dist[]) {
 // Fim função auxiliar menor distancia
 
 // Inicio Caminho Minimo por Floyd
-string Grafo::floyd(int id, int id_alvo) {
+string Grafo::floyd(int id_aux_origem, int id_aux_alvo) {
     // Criando string de retorno
     string retorno = "------- Caminho Minimo Floyd ------- \n";
 
@@ -477,30 +619,35 @@ string Grafo::floyd(int id, int id_alvo) {
         seta = " -- ";
     }
 
+    // Convertendo id aux origem e id aux alvo para id e id alvo
+    int id_origem = getIdPorIdAux(id_aux_origem);
+    int id_alvo = getIdPorIdAux(id_aux_alvo);
+
     /* Caso a distancia do vertice alvo ao vertice de origem seja infinito, nao existe caminho entre eles.
     Portanto, e impresso na tela uma mensagem de erro e encerrada a funcao */
-    if(distancia[id][id_alvo] == infinito) {
+    if(distancia[id_origem][id_alvo] == infinito) {
         retorno += "Erro: Nao existe caminho entre os vertices! \n";
         retorno += "---------------------------------------";
         return retorno;
     }
     // Variaveis auxiliares para recuperar o caminho mais curto
-    int id_o = id, id_a = id_alvo;
+    int id_o = id_origem, id_a = id_alvo;
     float pesoAresta;
     // Partindo do Id de Origem, enquanto nao chegar no Alvo nao para
     while(id_o != id_a) {
         pesoAresta = distancia[id_o][proximo[id_o][id_a]];
-        retorno += "\t" + std::to_string(id_o) + seta;
+        retorno += "\t" + std::to_string(this->getIdAuxPorId(id_o)) + seta;
         id_o = proximo[id_o][id_a];
-        retorno += std::to_string(id_o) + " [label=" + std::to_string(pesoAresta) + "]" + "\n";
+        retorno += std::to_string(this->getIdAuxPorId(id_o)) + " [label=" + std::to_string(pesoAresta) + "]" + "\n";
     }
     retorno += "} \n";
-    retorno += "Custo caminho: " + std::to_string(distancia[id][id_alvo]) + "\n";
+    retorno += "Custo caminho: " + std::to_string(distancia[id_origem][id_alvo]) + "\n";
     retorno += "---------------------------------------";
     return retorno;
 }
-//Fim Caminho Minimo por Floyd
+// Fim Caminho Minimo por Floyd
 
+// Inicio AGM de Prim
 string Grafo::agmPrim(){
     bool visitados[this->ordem];
     float distancia[this->ordem];
@@ -545,40 +692,57 @@ string Grafo::agmPrim(){
     }
     for(int i=0; i<this->ordem; i++){
         if(caminho[i] != -1)
-            retorno += std::to_string(caminho[i]) + seta + std::to_string(i) + "\n";
+            retorno += std::to_string(this->getIdAuxPorId(caminho[i])) + seta + std::to_string(this->getIdAuxPorId(i)) + "\n";
         if(caminho[i] == -1 && i != id_origem)
-            retorno += std::to_string(i) + "\n";
+            retorno += std::to_string(this->getIdAuxPorId(i)) + "\n";
     }
     retorno += "} \n";
     retorno += "---------------------------------------";
     return retorno;
 }
+// Fim AGM de Prim
 
-//Grafo* Grafo::subgrafo(int tamanho, int conjunto[], bool direcao, bool aresta_ponderada, bool no_ponderado, Grafo* origem){
-//    Grafo* subgrafo = new Grafo(tamanho, direcao, aresta_ponderada, no_ponderado);
-//    for(No* no = origem->getPrimeiroNo(); no != nullptr; no = no->getProxNo()){
-//        for(int i=0; i<tamanho; i++){
-//            if(no->getId() == conjunto[i]){
-//                for(int j=0; j<tamanho; j++){
-//                    if(no->existeArestaEntre(conjunto[j])){
-//                        Aresta* aresta = no->getArestaEntre(conjunto[j]);
-//                        subgrafo->inserirAresta(conjunto[i], conjunto[j], aresta->getPeso());
-//                    }
-//                }
-//            }
-//        }
-//    }
-//    return subgrafo;
-//}
+// Inicio funcao retornar subgrafo vertice induzido
+Grafo* Grafo::subgrafo(int vertices[], int tamanho) {
+    // Cria um subgrafo
+    Grafo* subGrafo = new Grafo(tamanho, this->direcionado, this->aresta_ponderado, this->no_ponderado);
+    // Percorre todos Nos do grafo fonte
+    for(No* no = this->primeiro_no; no != nullptr; no = no->getProxNo()) {
+        // Verifica se o No atual do loop esta no conjunto de vertices induzidos
+        if(this->auxBuscaVetor(vertices, tamanho, no->getIdAux())) {
+            // Verifica se o No ja existe no subgrafo
+            if(!subGrafo->existeNoPorIdAux(no->getIdAux())) {
+                // Se nao existe cria ele no subgrafo
+                subGrafo->inserirNo(no->getIdAux());
+            }
+            // Percorre as arestas do No atual do loop
+            for(Aresta* aresta = no->getPrimeiraAresta(); aresta != nullptr; aresta = aresta->getProxAresta()) {
+                // Se o No do alvo da aresta tiver no conjunto vertice induzido
+                if(this->auxBuscaVetor(vertices, tamanho, aresta->getIdAuxAlvo())) {
+                    // Cria a aresta e la dentro cria o No alvo caso nao exista ainda
+                    subGrafo->inserirAresta(aresta->getIdAuxOrigem(), aresta->getIdAuxAlvo(), aresta->getPeso());
+                }
+            }
+        }
+    }
+    return subGrafo;
+}
+// Fim funcao retornar subgrafo vertice induzido
 
-//string Grafo::prim(int tamanho, int conjunto[]){
-//    Grafo* subgrafo = this->subgrafo(tamanho, conjunto, this->direcionado, this->aresta_ponderado, this->no_ponderado, this);
-//    string retorno = "";
-//    retorno = subgrafo->agmPrim();
-//    return retorno;
-//}
+// Funcao auxiliar verificar se um ID esta em um vetor
+bool Grafo::auxBuscaVetor(int vertices[], int tamanho, int id_aux) {
+    // Percorre o vetor
+    for(int i = 0; i < tamanho; i++) {
+        // Se encontrar, retorna true
+        if(vertices[i] == id_aux) {
+            return true;
+        }
+    }
+    return false;
+}
+// Fim auxiliar verificar se um ID esta em um vetor
 
-string Grafo::buscaProf(int id_origem) {
+string Grafo::buscaProf(int id_aux_origem) {
     // Criando string de retorno
     string retorno = "------- Caminhamento em Profundidade ------- \n";
 
@@ -586,6 +750,9 @@ string Grafo::buscaProf(int id_origem) {
         retorno += "digraph { \n";
     else
         retorno += "strict graph { \n";
+
+    // Convertendo id aux origem para id
+    int id_origem = getIdPorIdAux(id_aux_origem);
 
     // Criando vetor para armazenar o Nos visitados
     bool visitados[this->ordem];
@@ -598,7 +765,7 @@ string Grafo::buscaProf(int id_origem) {
     visitados[id_origem] = true;
 
     // Chamando funcao aux para entrar na recursividade
-    auxBuscaProf(id_origem, visitados, &retorno);
+    this->auxBuscaProf(id_origem, visitados, &retorno);
 
     retorno += "} \n";
     retorno += "---------------------------------------";
@@ -626,21 +793,103 @@ void Grafo::auxBuscaProf(int id_origem, bool visitados[], string* retorno) {
                 visitados[no->getId()] = true;
             }
             // Preenchendo string de retorno
-            *retorno += "\t" + std::to_string(no->getId()) + seta + std::to_string(aresta->getIdAlvo()) + "\n";
+            *retorno += "\t" + std::to_string(aresta->getIdAuxOrigem()) + seta + std::to_string(aresta->getIdAuxAlvo()) + " [color=red] " + "\n";
             // Chamando recursividade novamente
             this->auxBuscaProf(aresta->getIdAlvo(), visitados, retorno);
         }
     }
 }
 
+string Grafo::ordTopologica() {
+    // Criando string de retorno
+    string retorno = "------- Ordenacao Topologica ------- \n";
 
-// Nao usada
-//bool Grafo::auxBuscaLista(list<int>* lista, int id) {
-//    list<int>::iterator it;
-//    for(it = lista->begin(); it!=lista->end();it++){
-//        if(*it == id) {
-//            return true;
-//        }
-//    }
-//    return false;
-//}
+    if(!this->direcionado) {
+        retorno += "Erro: O grafo precisa ser direcionado! \n";
+        retorno += "---------------------------------------";
+        return retorno;
+    }
+    if(this->verificarCiclo()) {
+        retorno += "Erro: O grafo nao pode ter ciclo! \n";
+        retorno += "---------------------------------------";
+        return retorno;
+    }
+
+    stack<int> pilhaAux;
+    bool visitados[this->ordem];
+    int grauEntrada[this->ordem];
+    for(int i = 0; i < this->ordem; i++) {
+        visitados[i] = false;
+        grauEntrada[i] = this->getNo(i)->getGrauEntrada();
+    }
+
+    while(pilhaAux.size() != this->ordem) {
+        for(int i = 0; i < this->ordem; i++) {
+            if(grauEntrada[i] == 0 && !visitados[i]) {
+                No* no = getNo(i);
+                pilhaAux.push(i);
+                visitados[i] = true;
+                for(Aresta* aresta = no->getPrimeiraAresta(); aresta != nullptr; aresta = aresta->getProxAresta()) {
+                    grauEntrada[aresta->getIdAlvo()] = grauEntrada[aresta->getIdAlvo()] - 1;
+                }
+            }
+        }
+    }
+
+    stack<int> pilhaSaida;
+    while(!pilhaAux.empty()) {
+        pilhaSaida.push(pilhaAux.top());
+        pilhaAux.pop();
+    }
+
+    retorno += "[";
+    retorno += std::to_string(this->getIdAuxPorId(pilhaSaida.top()));
+    pilhaSaida.pop();
+    while(!pilhaSaida.empty()) {
+        retorno += "," + std::to_string(this->getIdAuxPorId(pilhaSaida.top()));
+        pilhaSaida.pop();
+    }
+    retorno += "]";
+
+    retorno += "\n ---------------------------------------";
+    return retorno;
+}
+
+bool Grafo::auxVerificarCiclo(int id_origem, bool visitados[], bool* auxRecursiva) {
+    if(!visitados[id_origem]) {
+        visitados[id_origem] = true;
+        auxRecursiva[id_origem] = true;
+        No* no = this->getNo(id_origem);
+        for(Aresta* aresta = no->getPrimeiraAresta(); aresta != nullptr; aresta = aresta->getProxAresta()) {
+            if(!visitados[aresta->getIdAlvo()] && auxVerificarCiclo(aresta->getIdAlvo(), visitados, auxRecursiva)) {
+                return true;
+            }else if(auxRecursiva[aresta->getIdAlvo()]) {
+                return true;
+            }
+        }
+    }
+    auxRecursiva[id_origem] = false;
+    return false;
+}
+
+bool Grafo::verificarCiclo() {
+    // Criando vetor para armazenar o Nos visitados
+    bool visitados[this->ordem];
+    // Criando vetor auxiliar
+    bool auxRecursiva[this->ordem];
+
+    // Marcando todos Nos como nao visitados
+    for(int i = 0; i < this->ordem; i++) {
+        visitados[i] = false;
+        auxRecursiva[i] = false;
+    }
+
+    for(int id_origem = 0; id_origem < this->ordem; id_origem++) {
+        // Chamando funcao aux para entrar na recursividade
+        if(this->auxVerificarCiclo(id_origem, visitados, auxRecursiva)) {
+            return true;
+        }
+    }
+    return false;
+}
+

@@ -7,7 +7,8 @@ using namespace std;
 class No{
 
     private:
-        int id;
+        int id;             // -> Id interno do sistema (ordem++)
+        int id_aux;         // -> Id personalizado do usuario
         float peso;
         unsigned int grau_entrada;
         unsigned int grau_saida;
@@ -16,9 +17,10 @@ class No{
         No* prox_no;
 
     public:
-        No(int id);
+        No(int id, int id_aux);
         ~No();
         int getId();
+        int getIdAux();
         float getPeso();
         int getGrauEntrada();
         int getGrauSaida();
@@ -28,9 +30,9 @@ class No{
         void setPeso(float peso);
         void setProxNo(No* prox_no);
 
-        void inserirAresta(int id_alvo, float peso);
+        void inserirAresta(int id_alvo, int id_aux_alvo, float peso, bool aux = false);
         void removerTodasArestas();
-        int removerAresta(int id, bool direcionado, No* no_alvo);
+        void removerAresta(No* no_alvo, bool direcionado);
         Aresta* getArestaEntre(int id_alvo);
         bool existeArestaEntre(int id_alvo);
         void aumentarGrauEntrada();

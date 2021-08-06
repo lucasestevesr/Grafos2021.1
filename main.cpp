@@ -32,6 +32,7 @@ Grafo* leitura(ifstream& arquivo, int direcionado, int aresta_ponderado, int no_
         while(arquivo >> id_no_origem >> id_no_alvo >> peso_aresta) {
             // Aresta sem peso por padrao recebe peso 1
             peso_aresta = 1;
+            cout << "No: " << id_no_origem << endl;
             grafo->inserirAresta(id_no_origem, id_no_alvo, peso_aresta);
         }
     }else if(grafo->getArestaPonderado() && !grafo->getNoPonderado()){
@@ -42,16 +43,17 @@ Grafo* leitura(ifstream& arquivo, int direcionado, int aresta_ponderado, int no_
         }
     }else if(grafo->getNoPonderado() && !grafo->getArestaPonderado()){
         // Terceiro caso: aresta sem peso e no com peso
-        float peso_no_origem, peso_no_alvo;
+        float peso_no_origem, peso_no_alvo, peso_aresta;
         while(arquivo >> id_no_origem >> peso_no_origem >> id_no_alvo >> peso_no_alvo) {
-            grafo->inserirAresta(id_no_origem, id_no_alvo, 0);
+            peso_aresta = 1;
+            grafo->inserirAresta(id_no_origem, id_no_alvo, peso_aresta);
             grafo->getNo(id_no_origem)->setPeso(peso_no_origem);
             grafo->getNo(id_no_alvo)->setPeso(peso_no_alvo);
         }
     }else if(grafo->getNoPonderado() && grafo->getArestaPonderado()){
         // Quarto caso: aresta com peso e no com peso
         float peso_no_origem, peso_no_alvo, peso_aresta;
-        while(arquivo >> id_no_origem >> peso_no_origem >> id_no_alvo >> peso_no_alvo) {
+        while(arquivo >> id_no_origem >> peso_no_origem >> id_no_alvo >> peso_no_alvo >> peso_aresta) {
             grafo->inserirAresta(id_no_origem, id_no_alvo, peso_aresta);
             grafo->getNo(id_no_origem)->setPeso(peso_no_origem);
             grafo->getNo(id_no_alvo)->setPeso(peso_no_alvo);
@@ -63,8 +65,8 @@ Grafo* leitura(ifstream& arquivo, int direcionado, int aresta_ponderado, int no_
 // Fim da funcao para leitura do arquivo de entrada
 
 // Inicio funcao salvar string em .dot
-void salvarStringDot(string retorno, ofstream& output_file) {
-    output_file << retorno;
+void salvarStringDot(string retorno, ofstream& arquivo_saida) {
+    arquivo_saida << retorno;
 }
 // Fim funcao salvar string em .dot
 
@@ -82,6 +84,7 @@ int menu() {
     cout << "[6] Arvore Geradora Minima de Kruskal" << endl;
     cout << "[7] Arvore pelo Caminhamento em Profundidade" << endl;
     cout << "[8] Imprimir Ordenacao Topologica" << endl;
+    cout << "[9] Imprimir Grafo de Entrada" << endl;
     cout << "[0] Sair" << endl;
 
     cin >> selecao;
@@ -104,7 +107,7 @@ int menuSalvar() {
 // Fim funcao menu salvar arquivo
 
 // Inicio funcao selecionar no menu
-void selecionar(int selecao, Grafo* grafo, ofstream& output_file) {
+void selecionar(int selecao, Grafo* grafo, ofstream& arquivo_saida) {
     //String de retorno dos resultados das funcoes, utilizada para exportar o grafo em .dot no arquivo de saida.
     string retorno = "";
     switch (selecao) {
@@ -130,8 +133,10 @@ void selecionar(int selecao, Grafo* grafo, ofstream& output_file) {
         }
         // Arvore Geradora Minima de Prim
         case 5:{
-            int v[5] = {1, 2, 3, 4, 5};
-            retorno = grafo->agmPrim();
+            int vertices[5] = {1, 2, 3, 4, 5};
+            int tamanho = sizeof(vertices)/sizeof(vertices[0]);
+            Grafo* subGrafo = grafo->subgrafo(vertices, tamanho);
+            retorno = subGrafo->agmPrim();
             break;
         }
         // Arvore Geradora Minima de Kruskal
@@ -146,7 +151,12 @@ void selecionar(int selecao, Grafo* grafo, ofstream& output_file) {
         }
         // Imprimir Ordenacao Topologica
         case 8:{
-            cout << "Opcao 7 nao implementada" << endl;
+            retorno = grafo->ordTopologica();
+            break;
+        }
+        // Imprimir Grafo de Entrada
+        case 9:{
+            retorno = grafo->imprimir();
             break;
         }
         case 0:{
@@ -160,28 +170,28 @@ void selecionar(int selecao, Grafo* grafo, ofstream& output_file) {
     //Chamada da funcao para verificar se o usuario quer salvar o grafo no arquivo de saida
     int selecaoSalvar = menuSalvar();
     if(selecaoSalvar) {
-        salvarStringDot(retorno, output_file);
+        salvarStringDot(retorno, arquivo_saida);
     }else {
-        salvarStringDot("Voce nao salvou a operacao", output_file);
+        salvarStringDot("Voce nao salvou a operacao", arquivo_saida);
     }
 }
 // Fim funcao selecionar no menu
 
 // Inicio funcao main menu
-int mainMenu(ofstream& output_file, Grafo* grafo){
+int mainMenu(ofstream& arquivo_saida, Grafo* grafo){
     int selecao = 1;
 
     while(selecao != 0){
 //        system("@cls||clear");
         selecao = menu();
 
-        if(output_file.is_open()){
-            selecionar(selecao, grafo, output_file);
+        if(arquivo_saida.is_open()){
+            selecionar(selecao, grafo, arquivo_saida);
         }else{
             cout << "Erro ao abrir o arquivo de saida!" << endl;
         }
 
-        output_file << endl;
+        arquivo_saida << endl;
     }
 
     return 0;
