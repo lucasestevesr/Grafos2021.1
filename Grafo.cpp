@@ -674,6 +674,11 @@ string Grafo::floyd(int id_aux_origem, int id_aux_alvo) {
 
 // Inicio AGM de Prim
 string Grafo::agmPrim(){
+    string retorno = "AGM por Prim\n";
+    if(this->direcionado){
+        retorno += "Erro! Grafo direcionado!";
+        return retorno;
+    }
     bool visitados[this->ordem];
     float distancia[this->ordem];
     int caminho[this->ordem];
@@ -706,15 +711,9 @@ string Grafo::agmPrim(){
             }
         }
     }
-    string retorno = "AGM por Prim\n";
-    string seta;
-    if(this->direcionado) {
-        retorno += "digraph { \n";
-        seta = " -> ";
-    }else {
-        retorno += "strict graph { \n";
-        seta = " -- ";
-    }
+    string seta = " -- ";
+    retorno += "strict graph { \n";
+
     for(int i=0; i<this->ordem; i++){
         if(caminho[i] != -1)
             retorno += std::to_string(this->getIdAuxPorId(caminho[i])) + seta + std::to_string(this->getIdAuxPorId(i)) + "\n";
@@ -728,6 +727,11 @@ string Grafo::agmPrim(){
 // Fim AGM de Prim
 
 string Grafo::agmKruskal(){
+    string retorno = "AGM por Kruskal\n";
+    if(this->direcionado){
+        retorno += "Erro! Grafo direcionado!";
+        return retorno;
+    }
     stack<Aresta*> pilhaAux;
     Aresta* saida[this->ordem - 1];
     for(No* no = this->getPrimeiroNo(); no != nullptr; no = no->getProxNo()){
@@ -771,15 +775,9 @@ string Grafo::agmKruskal(){
             subarvores[a] = b;
         }
     }
-    string retorno = "AGM por Kruskal\n";
     string seta;
-    if(this->direcionado) {
-        retorno += "digraph { \n";
-        seta = " -> ";
-    }else {
-        retorno += "strict graph { \n";
-        seta = " -- ";
-    }
+    retorno += "strict graph { \n";
+    seta = " -- ";
     for(int i=0; i<this->ordem - 1; i++){
         retorno += "\t" + std::to_string(saida[i]->getIdAuxOrigem()) + seta + std::to_string(saida[i]->getIdAuxAlvo()) + "\n";
     }

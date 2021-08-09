@@ -59,6 +59,9 @@ Grafo* leitura(ifstream& arquivo, int direcionado, int aresta_ponderado, int no_
             grafo->getNo(id_no_alvo)->setPeso(peso_no_alvo);
         }
     }
+    while(grafo->getOrdem() != ordem){
+        grafo->inserirNo((grafo->getUltimoNo()->getId()) +2);
+    }
 
     return grafo;
 }
@@ -151,32 +154,34 @@ void selecionar(int selecao, Grafo* grafo, ofstream& arquivo_saida) {
         }
         // Arvore Geradora Minima de Prim
         case 5:{
-            cout<<"Digite a ordem do subgrafo de entrada: ";
-            int tamanho;
-            cin >> tamanho;
-            int vertices[tamanho];
-            for(int i=0; i<tamanho; i++){
-                cout << "Digite o " << std::to_string(i+1) << "o vertice: ";
-                cin >> vertices[i];
-                cout << endl;
-            }
-            Grafo* subGrafo = grafo->subgrafo(vertices, tamanho);
-            retorno = subGrafo->agmPrim();
+            retorno = grafo->agmPrim();
+//            cout<<"Digite a ordem do subgrafo de entrada: ";
+//            int tamanho;
+//            cin >> tamanho;
+//            int vertices[tamanho];
+//            for(int i=0; i<tamanho; i++){
+//                cout << "Digite o " << std::to_string(i+1) << "o vertice: ";
+//                cin >> vertices[i];
+//                cout << endl;
+//            }
+//            Grafo* subGrafo = grafo->subgrafo(vertices, tamanho);
+//            retorno = subGrafo->agmPrim();
             break;
         }
         // Arvore Geradora Minima de Kruskal
         case 6:{
-            cout<<"Digite a ordem do subgrafo de entrada: ";
-            int tamanho;
-            cin >> tamanho;
-            int vertices[tamanho];
-            for(int i=0; i<tamanho; i++){
-                cout << "Digite o " << std::to_string(i+1) << "o vertice: ";
-                cin >> vertices[i];
-                cout << endl;
-            }
-            Grafo* subGrafo = grafo->subgrafo(vertices, tamanho);
-            retorno = subGrafo->agmKruskal();
+            retorno = grafo->agmKruskal();
+//            cout<<"Digite a ordem do subgrafo de entrada: ";
+//            int tamanho;
+//            cin >> tamanho;
+//            int vertices[tamanho];
+//            for(int i=0; i<tamanho; i++){
+//                cout << "Digite o " << std::to_string(i+1) << "o vertice: ";
+//                cin >> vertices[i];
+//                cout << endl;
+//            }
+//            Grafo* subGrafo = grafo->subgrafo(vertices, tamanho);
+//            retorno = subGrafo->agmKruskal();
             break;
         }
         // Arvore pelo Caminhamento em Profundidade
@@ -194,6 +199,7 @@ void selecionar(int selecao, Grafo* grafo, ofstream& arquivo_saida) {
         }
         // Imprimir Grafo de Entrada
         case 9:{
+            cout << grafo->getOrdem() << endl;
             retorno = grafo->imprimir();
             break;
         }
