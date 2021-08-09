@@ -113,40 +113,78 @@ void selecionar(int selecao, Grafo* grafo, ofstream& arquivo_saida) {
     switch (selecao) {
         // Fecho Transitivo Direto
         case 1:{
-            retorno = grafo->fechoTD(2);
+            cout << "Digite o ID do vertice de origem: "<<endl;
+            int id;
+            cin >> id;
+            retorno = grafo->fechoTD(id);
             break;
         }
         // Fecho Transitivo Indireto
         case 2:{
-            retorno = grafo->fechoTI(5);
+            cout << "Digite o ID do vertice de origem: "<<endl;
+            int id;
+            cin >> id;
+            retorno = grafo->fechoTI(id);
             break;
         }
         // Caminho Minimo entre dois vertices - Dijkstra
         case 3:{
-            retorno = grafo->djikstra(3,5);
+            cout << "Digite o ID do vertice de origem: "<<endl;
+            int id;
+            cin >> id;
+            cout << "Digite o ID do vertice alvo: "<<endl;
+            int id_alvo;
+            cin >> id_alvo;
+            retorno = grafo->djikstra(id, id_alvo);
             break;
         }
         // Caminho Minimo entre dois vertices - Floyd
         case 4:{
-            retorno = grafo->floyd(3,5);
+            cout << "Digite o ID do vertice de origem: "<<endl;
+            int id;
+            cin >> id;
+            cout << "Digite o ID do vertice alvo: "<<endl;
+            int id_alvo;
+            cin >> id_alvo;
+            retorno = grafo->floyd(id, id_alvo);
             break;
         }
         // Arvore Geradora Minima de Prim
         case 5:{
-            int vertices[5] = {1, 2, 3, 4, 5};
-            int tamanho = sizeof(vertices)/sizeof(vertices[0]);
+            cout<<"Digite a ordem do subgrafo de entrada: ";
+            int tamanho;
+            cin >> tamanho;
+            int vertices[tamanho];
+            for(int i=0; i<tamanho; i++){
+                cout << "Digite o " << std::to_string(i+1) << "o vertice: ";
+                cin >> vertices[i];
+                cout << endl;
+            }
             Grafo* subGrafo = grafo->subgrafo(vertices, tamanho);
             retorno = subGrafo->agmPrim();
             break;
         }
         // Arvore Geradora Minima de Kruskal
         case 6:{
-            cout << "Opcao 6 nao implementada" << endl;
+            cout<<"Digite a ordem do subgrafo de entrada: ";
+            int tamanho;
+            cin >> tamanho;
+            int vertices[tamanho];
+            for(int i=0; i<tamanho; i++){
+                cout << "Digite o " << std::to_string(i+1) << "o vertice: ";
+                cin >> vertices[i];
+                cout << endl;
+            }
+            Grafo* subGrafo = grafo->subgrafo(vertices, tamanho);
+            retorno = subGrafo->agmKruskal();
             break;
         }
         // Arvore pelo Caminhamento em Profundidade
         case 7:{
-            retorno = grafo->buscaProf(1);
+            int id;
+            cout << "Digite o id de origem: ";
+            cin >> id;
+            retorno = grafo->buscaProf(id);
             break;
         }
         // Imprimir Ordenacao Topologica

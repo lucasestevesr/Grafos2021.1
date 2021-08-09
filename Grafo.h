@@ -23,6 +23,10 @@ class Grafo{
         void auxBuscaProf(int id_origem, bool visitados[], string* retorno);
         bool auxVerificarCiclo(int id_origem, bool visitados[], bool* auxRecursiva);
         bool auxBuscaVetor(int vertices[], int tamanho, int id_no);
+        bool verificaPesoNegativo(int id, int id_alvo);
+        bool verificarCiclo();
+        void arestaMenorPeso(stack<Aresta*>* pilha, Aresta* arestas[]);
+        int verificaSubarvore(int v,int auxBuscaCiclo[]);
 
     public:
         Grafo(int ordem, bool direcionado, bool aresta_ponderado, bool no_ponderado);
@@ -54,8 +58,8 @@ class Grafo{
         string djikstra(int id_aux_origem, int id_aux_alvo);
         string floyd(int id_aux_origem, int id_aux_alvo);
         string agmPrim();
+        string agmKruskal();
         string buscaProf(int id_aux_origem);
-        bool verificarCiclo();
         Grafo* subgrafo(int vertices[], int tamanho);
         string ordTopologica();
 };

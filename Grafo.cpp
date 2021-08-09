@@ -5,6 +5,7 @@
 #include <fstream>
 #include <string>
 #include <stack>
+#include <iterator>
 #include <queue>
 #include <list>
 #include <math.h>
@@ -443,8 +444,23 @@ string Grafo::fechoTI(int id_aux) {
 }
 // Fim Fecho Transitivo Indireto
 
+//Função auxiliar para verificar se a aresta entre dois vértices possui peso negativo.
+bool Grafo::verificaPesoNegativo(int id, int id_alvo){
+    No* no = this->getNo(id);
+    Aresta* aresta = no->getArestaEntre(id_alvo);
+    if(aresta->getPeso() < 0)
+        return true;
+    return false;
+}
+//Fim função auxiliar
+
 // Inicio Caminho Minimo por Djikstra
 string Grafo::djikstra(int id_aux_origem, int id_aux_alvo) {
+    //Verificando se os vertices existem no grafo
+    if(!this->existeNoPorIdAux(id_aux_origem) || !this->existeNoPorIdAux(id_aux_alvo)){
+        cout << "Algum dos vertices nao existe! Favor inserir outros vertices!";
+        return "";
+    }
     // Criando string de retorno
     string retorno = "------- Caminho Minimo Dijkstra ------- \n";
 
@@ -525,6 +541,10 @@ string Grafo::djikstra(int id_aux_origem, int id_aux_alvo) {
         auxK = k;
         // Aqui, utilizamos o vetor auxiliar para ir "retornando" no caminho que fazemos do vertice origem ate o alvo
         k = auxCaminho[k];
+        //Caso haja alguma aresta com peso negativo, retornar erro.
+        if(verificaPesoNegativo(k, auxK)){
+            return "\tCaminho Minimo por Dijkstra: Erro! Aresta com peso negativo! \n";
+        }
         retorno += "\t" + std::to_string(this->getIdAuxPorId(k)) + seta + std::to_string(this->getIdAuxPorId(auxK)) + "\n";
     } while(k != id_origem);
     retorno += "} \n";
@@ -555,6 +575,11 @@ int Grafo::distMinima(bool visitados[], float dist[]) {
 
 // Inicio Caminho Minimo por Floyd
 string Grafo::floyd(int id_aux_origem, int id_aux_alvo) {
+    //Verificando se os vertices existem no grafo
+    if(!this->existeNoPorIdAux(id_aux_origem) || !this->existeNoPorIdAux(id_aux_alvo)){
+        cout << "Algum dos vertices nao existe! Favor inserir outros vertices!";
+        return "";
+    }
     // Criando string de retorno
     string retorno = "------- Caminho Minimo Floyd ------- \n";
 
@@ -702,10 +727,99 @@ string Grafo::agmPrim(){
 }
 // Fim AGM de Prim
 
+string Grafo::agmKruskal(){
+    stack<Aresta*> pilhaAux;
+    Aresta* saida[this->ordem - 1];
+    for(No* no = this->getPrimeiroNo(); no != nullptr; no = no->getProxNo()){
+        for(Aresta* aresta = no->getPrimeiraAresta(); aresta != nullptr; aresta = aresta->getProxAresta()){
+            if(!aresta->getAux())
+                pilhaAux.push(aresta);
+        }
+    }
+    Aresta* arestas[pilhaAux.size()];
+    int i = 0;
+    while(!pilhaAux.empty()){
+        arestas[i] = pilhaAux.top();
+        pilhaAux.pop();
+        i++;
+    }
+    int contador = 0;
+    while(contador < this->num_arestas){
+        arestaMenorPeso(&pilhaAux, arestas);
+        contador++;
+    }
+    stack<Aresta*> pilha;
+    while(!pilhaAux.empty()){
+        pilha.push(pilhaAux.top());
+        pilhaAux.pop();
+    }
+    //Cria vetor auxiliar para verificação de ciclos nas subarvores "criadas"
+    int subarvores[this->ordem];
+    for(int i=0; i<this->ordem; i++){
+        //"Cria" subárvores com nós sozinhos
+        subarvores[i] = i;
+    }
+    contador = 0;
+    while(contador != this->ordem - 1){
+        Aresta* atual = pilha.top();
+        pilha.pop();
+        int a = verificaSubarvore(atual->getIdOrigem(), subarvores);
+        int b = verificaSubarvore(atual->getIdAlvo(), subarvores);
+        if(a != b){
+            saida[contador] = atual;
+            contador++;
+            subarvores[a] = b;
+        }
+    }
+    string retorno = "AGM por Kruskal\n";
+    string seta;
+    if(this->direcionado) {
+        retorno += "digraph { \n";
+        seta = " -> ";
+    }else {
+        retorno += "strict graph { \n";
+        seta = " -- ";
+    }
+    for(int i=0; i<this->ordem - 1; i++){
+        retorno += "\t" + std::to_string(saida[i]->getIdAuxOrigem()) + seta + std::to_string(saida[i]->getIdAuxAlvo()) + "\n";
+    }
+    retorno += "} \n";
+    retorno += "---------------------------------------";
+    return retorno;
+}
+
+int Grafo::verificaSubarvore(int v,int subarvores[]){
+
+    if(subarvores[v]==v)
+        return v;
+    return verificaSubarvore(subarvores[v],subarvores);
+}
+
+void Grafo::arestaMenorPeso(stack<Aresta*>* pilha, Aresta* arestas[]){
+    float infinito = std::numeric_limits<float>::max();
+    float menorPeso = infinito;
+    int posMenor;
+    for(int i=0; i<this->num_arestas; i++){
+        if(arestas[i] != nullptr && arestas[i]->getPeso() <= menorPeso){
+            menorPeso = arestas[i]->getPeso();
+            posMenor = i;
+        }
+    }
+    pilha->push(arestas[posMenor]);
+    arestas[posMenor] = nullptr;
+}
+
 // Inicio funcao retornar subgrafo vertice induzido
 Grafo* Grafo::subgrafo(int vertices[], int tamanho) {
     // Cria um subgrafo
     Grafo* subGrafo = new Grafo(tamanho, this->direcionado, this->aresta_ponderado, this->no_ponderado);
+    //Verifica se os vertices passados existem no grafo principal.
+    for(int i=0; i<tamanho; i++){
+        if(!this->existeNoPorIdAux(vertices[i])){
+            cout << "Vertice nao existe no grafo! Favor inserir outros vertices!";
+            return subGrafo;
+        }
+    }
     // Percorre todos Nos do grafo fonte
     for(No* no = this->primeiro_no; no != nullptr; no = no->getProxNo()) {
         // Verifica se o No atual do loop esta no conjunto de vertices induzidos
@@ -743,6 +857,11 @@ bool Grafo::auxBuscaVetor(int vertices[], int tamanho, int id_aux) {
 // Fim auxiliar verificar se um ID esta em um vetor
 
 string Grafo::buscaProf(int id_aux_origem) {
+    //Verificando se os vertices existem no grafo
+    if(!this->existeNoPorIdAux(id_aux_origem)){
+        cout << "Vertice nao existe no grafo! Favor inserir outro vertice!";
+        return "";
+    }
     // Criando string de retorno
     string retorno = "------- Caminhamento em Profundidade ------- \n";
 
