@@ -716,9 +716,9 @@ string Grafo::agmPrim(){
 
     for(int i=0; i<this->ordem; i++){
         if(caminho[i] != -1)
-            retorno += std::to_string(this->getIdAuxPorId(caminho[i])) + seta + std::to_string(this->getIdAuxPorId(i)) + "\n";
+            retorno += "\t" + std::to_string(this->getIdAuxPorId(i)) + seta + std::to_string(this->getIdAuxPorId(caminho[i])) + "\n";
         if(caminho[i] == -1 && i != id_origem)
-            retorno += std::to_string(this->getIdAuxPorId(i)) + "\n";
+            retorno += "\t" + std::to_string(this->getIdAuxPorId(i)) + "\n";
     }
     retorno += "} \n";
     retorno += "---------------------------------------";
@@ -726,21 +726,42 @@ string Grafo::agmPrim(){
 }
 // Fim AGM de Prim
 
+//Início AGM de Kruskal
 string Grafo::agmKruskal(){
+    //Criando string de retorno
     string retorno = "AGM por Kruskal\n";
+    //Caso seja um grafo direcionado, retornar erro
     if(this->direcionado){
         retorno += "Erro! Grafo direcionado!";
         return retorno;
     }
+    //Criando pilha auxiliar para guardar as arestas não auxiliares do grafo.
     stack<Aresta*> pilhaAux;
-    Aresta* saida[this->ordem - 1];
+    //Variável para guardar a quantidade de arestas
+    int qtdArestas = 0;
     for(No* no = this->getPrimeiroNo(); no != nullptr; no = no->getProxNo()){
         for(Aresta* aresta = no->getPrimeiraAresta(); aresta != nullptr; aresta = aresta->getProxAresta()){
-            if(!aresta->getAux())
+            if(!aresta->getAux()){
+                //Colocando as arestas na pilha e aumentando o valor de qtdArestas
                 pilhaAux.push(aresta);
+                qtdArestas++;
+            }
         }
     }
-    Aresta* arestas[pilhaAux.size()];
+    //Vetor de arestas saida com tamanho igual a quantidade de arestas, utilizado para imprimir o resultado mais a frente
+    Aresta* saida[qtdArestas];
+    //Caso o grafo não contenha arestas, imprimir somente os vertices isolados e retornar
+    if(qtdArestas == 0){
+        retorno += "strict graph { \n";
+        for(int i=0; i<this->ordem; i++){
+            retorno += "\t" + std::to_string(this->getIdAuxPorId(i)) + "\n";
+        }
+        retorno += "} \n";
+        retorno += "---------------------------------------";
+        return retorno;
+    }
+    //Vetor para armazenar as arestas do grafo
+    Aresta* arestas[qtdArestas];
     int i = 0;
     while(!pilhaAux.empty()){
         arestas[i] = pilhaAux.top();
@@ -748,62 +769,91 @@ string Grafo::agmKruskal(){
         i++;
     }
     int contador = 0;
-    while(contador < this->num_arestas){
-        arestaMenorPeso(&pilhaAux, arestas);
+    //Laço para colocar as arestas em ordem de maior para menor peso
+    while(contador < qtdArestas){
+        arestaMenorPeso(&pilhaAux, arestas, qtdArestas);
         contador++;
     }
     stack<Aresta*> pilha;
+    //Invertendo a ordem das arestas, para que o topo da pilha sempre seja a aresta de menor peso
     while(!pilhaAux.empty()){
         pilha.push(pilhaAux.top());
         pilhaAux.pop();
     }
     //Cria vetor auxiliar para verificação de ciclos nas subarvores "criadas"
     int subarvores[this->ordem];
-    for(int i=0; i<this->ordem; i++){
-        //"Cria" subárvores com nós sozinhos
-        subarvores[i] = i;
+    for(No* noAux = this->getPrimeiroNo(); noAux != nullptr; noAux = noAux->getProxNo()){
+        //Cria subarvores com vertices sozinhos
+        subarvores[noAux->getId()] = noAux->getId();
     }
     contador = 0;
-    while(contador != this->ordem - 1){
+    /*Laço para realizar a operação até que todas as arestas necessarias para se formar a arvore tenham sido colocadas,
+    ou até a pilha estar vazia */
+    while(contador != this->ordem -1 && !pilha.empty()){
+        //Pega a aresta de menor valor, e a retira da pilha
         Aresta* atual = pilha.top();
         pilha.pop();
+        //Chama a função para identificar a subarvore dos vértices de origem e alvo da aresta
         int a = verificaSubarvore(atual->getIdOrigem(), subarvores);
         int b = verificaSubarvore(atual->getIdAlvo(), subarvores);
+        //Caso estejam em subarvores diferentes, adiciona a aresta na saida (resoloução)
         if(a != b){
             saida[contador] = atual;
+            //Aumenta o número de arestas na saída
             contador++;
+            //Coloca os vértices na mesma subarvore
             subarvores[a] = b;
         }
     }
+    //Cria o cabeçalho do arquivo .dot
     string seta;
     retorno += "strict graph { \n";
     seta = " -- ";
-    for(int i=0; i<this->ordem - 1; i++){
+    //Imprime as arestas do retorno
+    for(int i=0; i<contador; i++){
         retorno += "\t" + std::to_string(saida[i]->getIdAuxOrigem()) + seta + std::to_string(saida[i]->getIdAuxAlvo()) + "\n";
+    }
+    //Imprime os vértices isolados da árvore
+    for(No* no = this->getPrimeiroNo(); no != nullptr; no = no->getProxNo()){
+        if(no->getPrimeiraAresta() == nullptr){
+            retorno += "\t" + std::to_string(no->getIdAux()) + "\n";
+        }
     }
     retorno += "} \n";
     retorno += "---------------------------------------";
     return retorno;
 }
+//Fim AGM de Kruskal
 
-int Grafo::verificaSubarvore(int v,int subarvores[]){
-
-    if(subarvores[v]==v)
-        return v;
-    return verificaSubarvore(subarvores[v],subarvores);
+//Início função auxiliar de Kruskal para identificação de subárvores
+int Grafo::verificaSubarvore(int id,int subarvores[]){
+    //Caso a subárvore do id seja ele mesmo, retorna o id
+     if(subarvores[id]==id)
+        return id;
+     //Caso contrário, chama recursivamente a função com o id da subárvore do id atual
+    return verificaSubarvore(subarvores[id],subarvores);
 }
+//Fim função auxiliar verificaSubarvore
 
-void Grafo::arestaMenorPeso(stack<Aresta*>* pilha, Aresta* arestas[]){
+//Início função auxiliar para encontrar a aresta de menor peso
+void Grafo::arestaMenorPeso(stack<Aresta*>* pilhaAux, Aresta* arestas[], int qtdArestas){
+    //Cria valor infinito (limite numérico da classe float)
     float infinito = std::numeric_limits<float>::max();
+    //Define uma variável menorPeso e inicializa-a com o valor infinito
     float menorPeso = infinito;
+    //variável para guardar a posição do menor valor
     int posMenor;
-    for(int i=0; i<this->num_arestas; i++){
+    //Laço que percorre a quantidade de arestas do grafo
+    for(int i=0; i<qtdArestas; i++){
+        //Caso a aresta na posição i não seja NULL, e seu peso seja menor ou igual ao menor peso, ela se torna a de menor peso
         if(arestas[i] != nullptr && arestas[i]->getPeso() <= menorPeso){
             menorPeso = arestas[i]->getPeso();
             posMenor = i;
         }
     }
-    pilha->push(arestas[posMenor]);
+    //Coloca a aresta de menor peso na pilha
+    pilhaAux->push(arestas[posMenor]);
+    //Modifica a aresta de menor peso para o ponteiro nulo, "retirando-a" da lista de arestas
     arestas[posMenor] = nullptr;
 }
 

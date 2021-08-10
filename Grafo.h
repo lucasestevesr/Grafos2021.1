@@ -25,7 +25,7 @@ class Grafo{
         bool auxBuscaVetor(int vertices[], int tamanho, int id_no);
         bool verificaPesoNegativo(int id, int id_alvo);
         bool verificarCiclo();
-        void arestaMenorPeso(stack<Aresta*>* pilha, Aresta* arestas[]);
+        void arestaMenorPeso(stack<Aresta*>* pilha, Aresta* arestas[], int qtdArestas);
         int verificaSubarvore(int v,int auxBuscaCiclo[]);
 
     public:

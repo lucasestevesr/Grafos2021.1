@@ -32,7 +32,6 @@ Grafo* leitura(ifstream& arquivo, int direcionado, int aresta_ponderado, int no_
         while(arquivo >> id_no_origem >> id_no_alvo >> peso_aresta) {
             // Aresta sem peso por padrao recebe peso 1
             peso_aresta = 1;
-            cout << "No: " << id_no_origem << endl;
             grafo->inserirAresta(id_no_origem, id_no_alvo, peso_aresta);
         }
     }else if(grafo->getArestaPonderado() && !grafo->getNoPonderado()){
@@ -59,9 +58,9 @@ Grafo* leitura(ifstream& arquivo, int direcionado, int aresta_ponderado, int no_
             grafo->getNo(id_no_alvo)->setPeso(peso_no_alvo);
         }
     }
-    while(grafo->getOrdem() != ordem){
-        grafo->inserirNo((grafo->getUltimoNo()->getId()) +2);
-    }
+//    while(grafo->getOrdem() != ordem){
+//        grafo->inserirNo((grafo->getUltimoNo()->getId()) +2);
+//    }
 
     return grafo;
 }
@@ -85,7 +84,7 @@ int menu() {
     cout << "[4] Caminho Minimo entre dois vertices - Floyd" << endl;
     cout << "[5] Arvore Geradora Minima de Prim" << endl;
     cout << "[6] Arvore Geradora Minima de Kruskal" << endl;
-    cout << "[7] Arvore pelo Caminhamento em Profundidade" << endl;
+    cout << "[7] Arvore do Caminhamento em Profundidade" << endl;
     cout << "[8] Imprimir Ordenacao Topologica" << endl;
     cout << "[9] Imprimir Grafo de Entrada" << endl;
     cout << "[0] Sair" << endl;
@@ -199,7 +198,6 @@ void selecionar(int selecao, Grafo* grafo, ofstream& arquivo_saida) {
         }
         // Imprimir Grafo de Entrada
         case 9:{
-            cout << grafo->getOrdem() << endl;
             retorno = grafo->imprimir();
             break;
         }
