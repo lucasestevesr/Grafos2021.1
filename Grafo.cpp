@@ -351,6 +351,13 @@ string Grafo::fechoTD(int id_aux) {
         return retorno;
     }
 
+    //Verificando se os vertices existem no grafo
+    if(!this->existeNoPorIdAux(id_aux)){
+        retorno += "O vertice nao existe! Favor inserir outro vertice!";
+        retorno += "---------------------------------------";
+        return retorno;
+    }
+
     // Cabecalho do Grafo em .dot
     retorno += "digraph { \n";
 
@@ -402,50 +409,50 @@ string Grafo::fechoTD(int id_aux) {
 
 // Inicio Fecho Transitivo Indireto
 // Nao esta funcionando para Grafo grandes
-string Grafo::fechoTI(int id_aux) {
-    // Criando string de retorno
-    string retorno = "------- Fecho Transitivo Indireto ------- \n";
-
-    if(!this->direcionado) {
-        retorno += "Erro: O grafo precisa ser direcionado! \n";
-        retorno += "---------------------------------------";
-        return retorno;
-    }
-
-    // Cabecalho do Grafo em .dot
-    retorno += "digraph { \n";
-
-    // Convertendo id auxiliar para id interno
-    int id = this->getIdPorIdAux(id_aux);
-
-    // Criando uma pilha auxiliar e colocando o no inicial no topo dela
-    stack<int> pilhaAux;
-    pilhaAux.push(id);
-
-    // Enquanto a pilha nao for vazia fica rodando
-    while(!pilhaAux.empty()) {
-
-        // Recuperando o no do primeiro id da pilha
-        int topo = pilhaAux.top();
-
-        // Removendo o topo da pilha
-        pilhaAux.pop();
-
-        // Percorrendo Nos do grafo a partir do No que estava no topo da pilha e acabou de ser removido
-        for(No* no = this->getPrimeiroNo(); no != nullptr; no = no->getProxNo()) {
-            // Verifica se o No alvo possui aresta com o No atual do for
-            if(no->existeArestaEntre(topo)) {
-                // Preenchendo string de retorno para salvar no arquivo .dot depois
-                retorno += "\t" + std::to_string(no->getIdAux())  + " -> " + std::to_string(getIdAuxPorId(topo)) + "\n";
-                // No a ser verificado, alimentando o while principal da funcao
-                pilhaAux.push(no->getId());
-            }
-        }
-    }
-    retorno += "} \n";
-    retorno += "---------------------------------------";
-    return retorno;
-}
+//string Grafo::fechoTI(int id_aux) {
+//    // Criando string de retorno
+//    string retorno = "------- Fecho Transitivo Indireto ------- \n";
+//
+//    if(!this->direcionado) {
+//        retorno += "Erro: O grafo precisa ser direcionado! \n";
+//        retorno += "---------------------------------------";
+//        return retorno;
+//    }
+//
+//    // Cabecalho do Grafo em .dot
+//    retorno += "digraph { \n";
+//
+//    // Convertendo id auxiliar para id interno
+//    int id = this->getIdPorIdAux(id_aux);
+//
+//    // Criando uma pilha auxiliar e colocando o no inicial no topo dela
+//    stack<int> pilhaAux;
+//    pilhaAux.push(id);
+//
+//    // Enquanto a pilha nao for vazia fica rodando
+//    while(!pilhaAux.empty()) {
+//
+//        // Recuperando o no do primeiro id da pilha
+//        int topo = pilhaAux.top();
+//
+//        // Removendo o topo da pilha
+//        pilhaAux.pop();
+//
+//        // Percorrendo Nos do grafo a partir do No que estava no topo da pilha e acabou de ser removido
+//        for(No* no = this->getPrimeiroNo(); no != nullptr; no = no->getProxNo()) {
+//            // Verifica se o No alvo possui aresta com o No atual do for
+//            if(no->existeArestaEntre(topo)) {
+//                // Preenchendo string de retorno para salvar no arquivo .dot depois
+//                retorno += "\t" + std::to_string(no->getIdAux())  + " -> " + std::to_string(getIdAuxPorId(topo)) + "\n";
+//                // No a ser verificado, alimentando o while principal da funcao
+//                pilhaAux.push(no->getId());
+//            }
+//        }
+//    }
+//    retorno += "} \n";
+//    retorno += "---------------------------------------";
+//    return retorno;
+//}
 // Fim Fecho Transitivo Indireto
 
 // Inicio Fecho Transitivo Indireto Recursiva
@@ -455,6 +462,13 @@ string Grafo::fechoTIRec(int id_aux) {
 
     if(!this->direcionado) {
         retorno += "Erro: O grafo precisa ser direcionado! \n";
+        retorno += "---------------------------------------";
+        return retorno;
+    }
+
+    //Verificando se os vertices existem no grafo
+    if(!this->existeNoPorIdAux(id_aux)){
+        retorno += "O vertice nao existe! Favor inserir outro vertice!";
         retorno += "---------------------------------------";
         return retorno;
     }
@@ -514,14 +528,16 @@ bool Grafo::verificaPesoNegativo(int id, int id_alvo){
 
 // Inicio Caminho Minimo por Djikstra
 string Grafo::djikstra(int id_aux_origem, int id_aux_alvo) {
-    //Verificando se os vertices existem no grafo
-    if(!this->existeNoPorIdAux(id_aux_origem) || !this->existeNoPorIdAux(id_aux_alvo)){
-        cout << "Algum dos vertices nao existe! Favor inserir outros vertices!";
-        return "";
-    }
+
     // Criando string de retorno
     string retorno = "------- Caminho Minimo Dijkstra ------- \n";
 
+    //Verificando se os vertices existem no grafo
+    if(!this->existeNoPorIdAux(id_aux_origem) || !this->existeNoPorIdAux(id_aux_alvo)){
+        retorno += "Algum dos vertices nao existe! Favor inserir outros vertices!";
+        retorno += "---------------------------------------";
+        return retorno;
+    }
     // Convertendo id aux origem e id aux alvo para id e id alvo
     int id_origem = getIdPorIdAux(id_aux_origem);
     int id_alvo = getIdPorIdAux(id_aux_alvo);
@@ -633,13 +649,14 @@ int Grafo::distMinima(bool visitados[], float dist[]) {
 
 // Inicio Caminho Minimo por Floyd
 string Grafo::floyd(int id_aux_origem, int id_aux_alvo) {
-    //Verificando se os vertices existem no grafo
-    if(!this->existeNoPorIdAux(id_aux_origem) || !this->existeNoPorIdAux(id_aux_alvo)){
-        cout << "Algum dos vertices nao existe! Favor inserir outros vertices!";
-        return "";
-    }
     // Criando string de retorno
     string retorno = "------- Caminho Minimo Floyd ------- \n";
+    //Verificando se os vertices existem no grafo
+    if(!this->existeNoPorIdAux(id_aux_origem) || !this->existeNoPorIdAux(id_aux_alvo)){
+        retorno += "Algum dos vertices nao existe! Favor inserir outros vertices!";
+        retorno += "---------------------------------------";
+        return retorno;
+    }
 
     // Declarando variavel infinito para usar quando nao tiver caminho
     float infinito = std::numeric_limits<float>::max();
@@ -869,7 +886,7 @@ string Grafo::agmKruskal(){
     seta = " -- ";
     //Imprime as arestas do retorno
     for(int i=0; i<contador; i++){
-        retorno += "\t" + std::to_string(saida[i]->getIdAuxOrigem()) + seta + std::to_string(saida[i]->getIdAuxAlvo()) + "\n";
+        retorno += "\t" + std::to_string(saida[i]->getIdAuxOrigem()) + seta + std::to_string(saida[i]->getIdAuxAlvo()) + " [label=" + std::to_string(saida[i]->getPeso()) + "]" + "\n";
     }
     //Imprime os vértices isolados da árvore
     for(No* no = this->getPrimeiroNo(); no != nullptr; no = no->getProxNo()){
