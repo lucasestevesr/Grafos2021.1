@@ -6,6 +6,12 @@
 
 #IncludeRegexTransform: 
 
+C:/Users/Gabriel/Documents/Projetos CLion/Grafos2021.1-main/Aresta.cpp
+Aresta.h
+C:/Users/Gabriel/Documents/Projetos CLion/Grafos2021.1-main/Aresta.h
+iostream
+-
+
 C:/Users/Gabriel/Documents/Projetos CLion/Grafos2021.1-main/Aresta.h
 
 C:/Users/Gabriel/Documents/Projetos CLion/Grafos2021.1-main/Grafo.cpp
@@ -52,7 +58,39 @@ stack
 list
 -
 
+C:/Users/Gabriel/Documents/Projetos CLion/Grafos2021.1-main/No.cpp
+No.h
 C:/Users/Gabriel/Documents/Projetos CLion/Grafos2021.1-main/No.h
 Aresta.h
 C:/Users/Gabriel/Documents/Projetos CLion/Grafos2021.1-main/Aresta.h
+iostream
+-
+
+C:/Users/Gabriel/Documents/Projetos CLion/Grafos2021.1-main/No.h
+Aresta.h
+C:/Users/Gabriel/Documents/Projetos CLion/Grafos2021.1-main/Aresta.h
+
+C:/Users/Gabriel/Documents/Projetos CLion/Grafos2021.1-main/main.cpp
+iostream
+-
+fstream
+-
+string
+-
+math.h
+-
+utility
+-
+tuple
+-
+iomanip
+-
+stdlib.h
+-
+chrono
+-
+Grafo.h
+C:/Users/Gabriel/Documents/Projetos CLion/Grafos2021.1-main/Grafo.h
+No.h
+C:/Users/Gabriel/Documents/Projetos CLion/Grafos2021.1-main/No.h
 

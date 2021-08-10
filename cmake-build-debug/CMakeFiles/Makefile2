@@ -62,7 +62,7 @@ CMAKE_BINARY_DIR = "C:\Users\Gabriel\Documents\Projetos CLion\Grafos2021.1-main\
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: CMakeFiles/Grafos2021_1.dir/all
+all: CMakeFiles/execGrupo2.dir/all
 .PHONY : all
 
 # The main recursive "preinstall" target.
@@ -70,34 +70,34 @@ preinstall:
 .PHONY : preinstall
 
 # The main recursive "clean" target.
-clean: CMakeFiles/Grafos2021_1.dir/clean
+clean: CMakeFiles/execGrupo2.dir/clean
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/Grafos2021_1.dir
+# Target rules for target CMakeFiles/execGrupo2.dir
 
 # All Build rule for target.
-CMakeFiles/Grafos2021_1.dir/all:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Grafos2021_1.dir\build.make CMakeFiles/Grafos2021_1.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Grafos2021_1.dir\build.make CMakeFiles/Grafos2021_1.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="C:\Users\Gabriel\Documents\Projetos CLion\Grafos2021.1-main\cmake-build-debug\CMakeFiles" --progress-num=1,2,3,4,5 "Built target Grafos2021_1"
-.PHONY : CMakeFiles/Grafos2021_1.dir/all
+CMakeFiles/execGrupo2.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\execGrupo2.dir\build.make CMakeFiles/execGrupo2.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\execGrupo2.dir\build.make CMakeFiles/execGrupo2.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="C:\Users\Gabriel\Documents\Projetos CLion\Grafos2021.1-main\cmake-build-debug\CMakeFiles" --progress-num=1,2,3,4,5 "Built target execGrupo2"
+.PHONY : CMakeFiles/execGrupo2.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/Grafos2021_1.dir/rule: cmake_check_build_system
+CMakeFiles/execGrupo2.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start "C:\Users\Gabriel\Documents\Projetos CLion\Grafos2021.1-main\cmake-build-debug\CMakeFiles" 5
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CMakeFiles/Grafos2021_1.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CMakeFiles/execGrupo2.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start "C:\Users\Gabriel\Documents\Projetos CLion\Grafos2021.1-main\cmake-build-debug\CMakeFiles" 0
-.PHONY : CMakeFiles/Grafos2021_1.dir/rule
+.PHONY : CMakeFiles/execGrupo2.dir/rule
 
 # Convenience name for target.
-Grafos2021_1: CMakeFiles/Grafos2021_1.dir/rule
-.PHONY : Grafos2021_1
+execGrupo2: CMakeFiles/execGrupo2.dir/rule
+.PHONY : execGrupo2
 
 # clean rule for target.
-CMakeFiles/Grafos2021_1.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Grafos2021_1.dir\build.make CMakeFiles/Grafos2021_1.dir/clean
-.PHONY : CMakeFiles/Grafos2021_1.dir/clean
+CMakeFiles/execGrupo2.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\execGrupo2.dir\build.make CMakeFiles/execGrupo2.dir/clean
+.PHONY : CMakeFiles/execGrupo2.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

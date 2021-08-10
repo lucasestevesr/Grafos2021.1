@@ -717,7 +717,7 @@ string Grafo::agmPrim(){
     for(int i=0; i<this->ordem; i++){
         if(caminho[i] != -1)
             retorno += "\t" + std::to_string(this->getIdAuxPorId(i)) + seta + std::to_string(this->getIdAuxPorId(caminho[i])) + "\n";
-        if(caminho[i] == -1 && i != id_origem)
+        else if(caminho[i] == -1 && i != id_origem)
             retorno += "\t" + std::to_string(this->getIdAuxPorId(i)) + "\n";
     }
     retorno += "} \n";
