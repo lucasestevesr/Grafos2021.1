@@ -36,8 +36,10 @@ Grafo* leitura(ifstream& arquivo, int direcionado, int aresta_ponderado, int no_
         }
     }else if(grafo->getArestaPonderado() && !grafo->getNoPonderado()){
         // Segundo caso: aresta com peso e no sem peso
+        cout << "tem que cair aqui" << endl;
         float peso_aresta;
         while(arquivo >> id_no_origem >> id_no_alvo >> peso_aresta) {
+            cout << "inserindo No: " << id_no_origem << " e no: " << id_no_alvo << " com peso " << peso_aresta << endl;
             grafo->inserirAresta(id_no_origem, id_no_alvo, peso_aresta);
         }
     }else if(grafo->getNoPonderado() && !grafo->getArestaPonderado()){
@@ -123,7 +125,7 @@ void selecionar(int selecao, Grafo* grafo, ofstream& arquivo_saida) {
             cout << "Digite o ID do vertice de origem: "<<endl;
             int id;
             cin >> id;
-            retorno = grafo->fechoTI(id);
+            retorno = grafo->fechoTIRec(id);
             break;
         }
         // Caminho Minimo entre dois vertices - Dijkstra

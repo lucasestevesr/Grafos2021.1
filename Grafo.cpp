@@ -398,6 +398,7 @@ string Grafo::fechoTD(int id_aux) {
 // Fim Fecho Transitivo Direto
 
 // Inicio Fecho Transitivo Indireto
+// Nao esta funcionando para Grafo grandes
 string Grafo::fechoTI(int id_aux) {
     // Criando string de retorno
     string retorno = "------- Fecho Transitivo Indireto ------- \n";
@@ -443,6 +444,60 @@ string Grafo::fechoTI(int id_aux) {
     return retorno;
 }
 // Fim Fecho Transitivo Indireto
+
+// Inicio Fecho Transitivo Indireto Recursiva
+string Grafo::fechoTIRec(int id_aux) {
+    // Criando string de retorno
+    string retorno = "------- Fecho Transitivo Indireto ------- \n";
+
+    if(!this->direcionado) {
+        retorno += "Erro: O grafo precisa ser direcionado! \n";
+        retorno += "---------------------------------------";
+        return retorno;
+    }
+
+    // Cabecalho do Grafo em .dot
+    retorno += "digraph { \n";
+
+    // Convertendo id auxiliar para id interno
+    int id = this->getIdPorIdAux(id_aux);
+
+    // Criando vetor de vertices visitados
+    bool visitados[this->ordem];
+
+    // Marcando todos vertices como nao visitados
+    for(int i = 0; i < this->ordem; i++)
+        visitados[i] = false;
+
+    // Marcando No de origem como visitado
+    visitados[id] = true;
+
+    // Chamando funcao recursiva auxiliar
+    this->auxFTIRec(id, visitados, &retorno);
+
+    retorno += "} \n";
+    retorno += "---------------------------------------";
+    return retorno;
+}
+// Fim Fecho Transitivo Indireto Recursiva
+
+void Grafo::auxFTIRec(int id, bool visitados[], string* retorno) {
+    // Pegando No referente ao id origem
+    No* no = this->getNo(id);
+
+    // Percorrendo todas arestas do No de origem
+    for(Aresta* aresta = no->getPrimeiraAresta(); aresta != nullptr; aresta = aresta->getProxAresta()) {
+        // Se o vertice do alvo da aresta ainda nao foi visitado
+        if(!visitados[aresta->getIdAlvo()]) {
+            // Marcando o vertice do alvo da aresta como visitado
+            visitados[aresta->getIdAlvo()] = true;
+            // Preenchendo string de retorno
+            *retorno += "\t" + std::to_string(aresta->getIdAuxOrigem()) + " -> " + std::to_string(aresta->getIdAuxAlvo()) + " [label=" + std::to_string(aresta->getPeso()) + "]" + "\n";
+            // Chamando recursividade novamente
+            this->auxFTIRec(aresta->getIdAlvo(), visitados, retorno);
+        }
+    }
+}
 
 //Função auxiliar para verificar se a aresta entre dois vértices possui peso negativo.
 bool Grafo::verificaPesoNegativo(int id, int id_alvo){

@@ -27,6 +27,7 @@ class Grafo{
         bool verificarCiclo();
         void arestaMenorPeso(stack<Aresta*>* pilha, Aresta* arestas[], int qtdArestas);
         int verificaSubarvore(int v,int auxBuscaCiclo[]);
+        void auxFTIRec(int id, bool visitados[], string* retorno);
 
     public:
         Grafo(int ordem, bool direcionado, bool aresta_ponderado, bool no_ponderado);
@@ -55,6 +56,7 @@ class Grafo{
         // Funcionalidades do trabalho
         string fechoTD(int id_aux);
         string fechoTI(int id_aux);
+        string fechoTIRec(int id_aux);
         string djikstra(int id_aux_origem, int id_aux_alvo);
         string floyd(int id_aux_origem, int id_aux_alvo);
         string agmPrim();
