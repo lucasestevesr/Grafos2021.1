@@ -36,10 +36,8 @@ Grafo* leitura(ifstream& arquivo, int direcionado, int aresta_ponderado, int no_
         }
     }else if(grafo->getArestaPonderado() && !grafo->getNoPonderado()){
         // Segundo caso: aresta com peso e no sem peso
-        cout << "tem que cair aqui" << endl;
         float peso_aresta;
         while(arquivo >> id_no_origem >> id_no_alvo >> peso_aresta) {
-            cout << "inserindo No: " << id_no_origem << " e no: " << id_no_alvo << " com peso " << peso_aresta << endl;
             grafo->inserirAresta(id_no_origem, id_no_alvo, peso_aresta);
         }
     }else if(grafo->getNoPonderado() && !grafo->getArestaPonderado()){
@@ -59,6 +57,11 @@ Grafo* leitura(ifstream& arquivo, int direcionado, int aresta_ponderado, int no_
             grafo->getNo(id_no_origem)->setPeso(peso_no_origem);
             grafo->getNo(id_no_alvo)->setPeso(peso_no_alvo);
         }
+    }
+
+    // Inserindo Nos que faltam
+    while(grafo->getOrdem() != ordem) {
+        grafo->inserirNo(grafo->getOrdem()+1);
     }
 
     return grafo;
@@ -210,8 +213,10 @@ void selecionar(int selecao, Grafo* grafo, ofstream& arquivo_saida) {
     int selecaoSalvar = menuSalvar();
     if(selecaoSalvar) {
         salvarStringDot(retorno, arquivo_saida);
+        cout << retorno << endl;
     }else {
         salvarStringDot("Voce nao salvou a operacao", arquivo_saida);
+        cout << "Voce nao salvou a operacao" << endl;
     }
 }
 // Fim funcao selecionar no menu

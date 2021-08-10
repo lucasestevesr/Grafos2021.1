@@ -303,6 +303,9 @@ string Grafo::imprimir() {
         return retorno;
     }
 
+    // Escrevendo ordem do grafo
+    retorno += "Ordem: " + std::to_string(this->ordem) + "\n";
+
     // Configurando cabecalho e seta do Grafo
     string seta;
     if(this->direcionado) {
