@@ -538,9 +538,17 @@ string Grafo::djikstra(int id_aux_origem, int id_aux_alvo) {
         retorno += "---------------------------------------";
         return retorno;
     }
+
     // Convertendo id aux origem e id aux alvo para id e id alvo
     int id_origem = getIdPorIdAux(id_aux_origem);
     int id_alvo = getIdPorIdAux(id_aux_alvo);
+
+    if(id_origem == id_alvo) {
+        retorno += "Custo caminho: 0 \n";
+        retorno += "---------------------------------------";
+        return retorno;
+    }
+
     // Variavel infinito utilizada para numerar as distancias entre vertices que nao possuem caminho
     float infinito = std::numeric_limits<float>::max();
     // Vetor booleano para verificar quais vertices foram visitados
@@ -600,7 +608,7 @@ string Grafo::djikstra(int id_aux_origem, int id_aux_alvo) {
         seta = " -- ";
     }
 
-    /* Caso a distancia do vertice alvo ao vertice de origem seja infinito, nao existe caminho entre eles.
+    /* Caso a distancia do vertice alvo ao vertice de origem seja infinito ou 0, nao existe caminho entre eles.
     Portanto, e impresso na tela uma mensagem de erro e encerrada a função */
     if(dist[id_alvo] == infinito){
         retorno += "Erro: Nao existe caminho entre os vertices! \n";
