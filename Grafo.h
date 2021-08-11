@@ -20,7 +20,7 @@ class Grafo{
 
         // Funcionalidades privadas do trabalho
         int distMinima(bool visitados[], float dist[]);
-        void auxBuscaProf(int id_origem, bool visitados[], string* retorno);
+        void auxBuscaProf(int id_origem, bool visitados[], string* retorno, bool verificaCor[]);
         bool auxVerificarCiclo(int id_origem, bool visitados[], bool* auxRecursiva);
         bool auxBuscaVetor(int vertices[], int tamanho, int id_no);
         bool verificaPesoNegativo(int id, int id_alvo);

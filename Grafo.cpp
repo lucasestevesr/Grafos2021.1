@@ -998,23 +998,26 @@ string Grafo::buscaProf(int id_aux_origem) {
 
     // Criando vetor para armazenar o Nos visitados
     bool visitados[this->ordem];
+    bool verificaCor[this->ordem];
 
     // Marcando todos Nos como nao visitados
-    for(int i = 0; i < this->ordem; i++)
+    for(int i = 0; i < this->ordem; i++){
         visitados[i] = false;
+        verificaCor[i] = false;
+    }
 
     // Marcando No de origem como visitado
     visitados[id_origem] = true;
 
     // Chamando funcao aux para entrar na recursividade
-    this->auxBuscaProf(id_origem, visitados, &retorno);
+    this->auxBuscaProf(id_origem, visitados, &retorno, verificaCor);
 
     retorno += "} \n";
     retorno += "---------------------------------------";
     return retorno;
 }
 
-void Grafo::auxBuscaProf(int id_origem, bool visitados[], string* retorno) {
+void Grafo::auxBuscaProf(int id_origem, bool visitados[], string* retorno, bool verificaCor[]) {
     // Pegando No referente ao id origem
     No* no = this->getNo(id_origem);
 
@@ -1035,11 +1038,15 @@ void Grafo::auxBuscaProf(int id_origem, bool visitados[], string* retorno) {
                 visitados[no->getId()] = true;
             }
             // Preenchendo string de retorno
-            *retorno += "\t" + std::to_string(aresta->getIdAuxOrigem()) + seta + std::to_string(aresta->getIdAuxAlvo()) + " [color=red] " + "\n";
+            *retorno += "\t" + std::to_string(aresta->getIdAuxOrigem()) + seta + std::to_string(aresta->getIdAuxAlvo()) + "\n";
             // Chamando recursividade novamente
-            this->auxBuscaProf(aresta->getIdAlvo(), visitados, retorno);
+            this->auxBuscaProf(aresta->getIdAlvo(), visitados, retorno, verificaCor);
+        }
+        if(visitados[aresta->getIdAlvo()] && !verificaCor[aresta->getIdAlvo()] && !aresta->getAux()){
+            *retorno += "\t" + std::to_string(aresta->getIdAuxOrigem()) + seta + std::to_string(aresta->getIdAuxAlvo()) + " [color=red] " + "\n";
         }
     }
+    verificaCor[id_origem] = true;
 }
 
 string Grafo::ordTopologica() {
