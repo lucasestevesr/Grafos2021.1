@@ -209,6 +209,27 @@ void Grafo::inserirNo(int id_aux) {
 }
 // Fim funcao inserir No
 
+// Inicio funcao inserir No
+void Grafo::inserirNoComGrupo(int grupo) {
+
+    // Cria o No com Id interno (ordem) com grupo
+    No* no = new No(this->ordem, this->ordem, grupo);
+
+    // Verifica se e o primeiro No do Grafo
+    if(this->primeiro_no == nullptr){
+        // Atualiza a referencia de primeiro e ultimo
+        this->primeiro_no = no;
+        this->ultimo_no = no;
+    }else{
+        // Se nao for o primeiro, atualiza a referencia do ultimo
+        this->ultimo_no->setProxNo(no);
+        this->ultimo_no = no;
+    }
+    // Incrementa a ordem do Grafo
+    this->ordem ++;
+}
+// Fim funcao inserir No
+
 // Inicio funcao remover No
 void Grafo::removerNo(int id) {
     // Verificando se o No existe

@@ -10,7 +10,7 @@ class No{
         int id;             // -> Id interno do sistema (ordem++)
         int id_aux;         // -> Id personalizado do usuario
         float peso;
-        int grupo = 0;
+        int grupo;
         unsigned int grau_entrada;
         unsigned int grau_saida;
         Aresta* primeira_aresta;
@@ -19,6 +19,7 @@ class No{
 
     public:
         No(int id, int id_aux);
+        No(int id, int id_aux, int grupo);
         ~No();
         int getId();
         int getIdAux();

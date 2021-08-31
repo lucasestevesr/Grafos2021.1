@@ -7,6 +7,7 @@
 #include <iomanip>
 #include <stdlib.h>
 #include <chrono>
+#include <vector>
 #include "Grafo.h"
 #include "No.h"
 
@@ -68,6 +69,48 @@ Grafo* leitura(ifstream& arquivo, int direcionado, int aresta_ponderado, int no_
 }
 // Fim da funcao para leitura do arquivo de entrada
 
+// Inicio da funcao para leitura do arquivo de entrada do segundo trabalho
+Grafo* leituraInstancias(ifstream& arquivo, int direcionado, int aresta_ponderado, int no_ponderado){
+
+    // Criando objeto grafo
+    int ordem = 0;
+    Grafo* grafo = new Grafo(ordem, direcionado, aresta_ponderado, no_ponderado);
+
+    // Flag de controle para saber se está lendo os Nos ou as arestas
+    bool inserindoNos = true;
+
+    // Percorrendo linha por linha do arquivo de entrada
+    for(string line; getline(arquivo, line);) {
+        if(line == ""){
+            inserindoNos = false;
+        }
+        if(inserindoNos) {
+            cout << "Inserindo No: " << grafo->getOrdem() << " no grupo: " << stoi(line) << endl;
+            grafo->inserirNoComGrupo(stoi(line));
+        }else {
+            int id_no_origem, id_no_alvo;
+            float peso_aresta;
+            while(arquivo >> id_no_origem >> id_no_alvo >> peso_aresta) {
+                cout << "Inserindo Aresta com origem em: " << id_no_origem << " e destino: " << id_no_alvo << " com peso: " << peso_aresta << endl;
+                grafo->inserirAresta(id_no_origem, id_no_alvo, peso_aresta);
+            }
+            break;
+        }
+    }
+
+    cout << "Leitura concluida com sucesso! Nos: " << grafo->getOrdem() << " e Arestas: " << grafo->getNumArestas() << endl;
+    int num_vertices = grafo->getOrdem();
+    int num_esperado_arestas = ((num_vertices * (num_vertices - 1)) / 2);
+    if(num_esperado_arestas == grafo->getNumArestas()) {
+        cout << "O numero de arestas esta correto!" << endl;
+    }else {
+        cout << "O numero de arestas esta errado! Era esperado: " << num_esperado_arestas << " arestas" << endl;
+    }
+
+    return grafo;
+}
+// Fim da funcao para leitura do arquivo de entrada do segundo trabalho
+
 // Inicio funcao salvar string em .dot
 void salvarStringDot(string retorno, ofstream& arquivo_saida) {
     arquivo_saida << retorno;
@@ -90,6 +133,8 @@ int menu() {
     cout << "[8] Imprimir Ordenacao Topologica" << endl;
     cout << "[9] Imprimir Grafo de Entrada" << endl;
     cout << "[10] Algoritmo Guloso AGMG" << endl;
+    cout << "[11] Algoritmo Guloso AGMG Randomizado" << endl;
+    cout << "[12] Algoritmo Guloso AGMG Randomizado Reativo" << endl;
     cout << "[0] Sair" << endl;
 
     cin >> selecao;
@@ -202,9 +247,19 @@ void selecionar(int selecao, Grafo* grafo, ofstream& arquivo_saida) {
             retorno = grafo->imprimir();
             break;
         }
-        // Imprimir AGMG
+        // Algoritmo Guloso AGMG
         case 10:{
             retorno = grafo->AGMG();
+            break;
+        }
+        // Algoritmo Guloso AGMG Randomizado
+        case 11:{
+            cout << "Ainda nao implementado" << endl;
+            break;
+        }
+        // Algoritmo Guloso AGMG Randomizado Reativo
+        case 12:{
+            cout << "Ainda nao implementado" << endl;
             break;
         }
         case 0:{
@@ -235,7 +290,7 @@ int mainMenu(ofstream& arquivo_saida, Grafo* grafo){
 //        system("@cls||clear");
         selecao = menu();
 
-        if(arquivo_saida.is_open()){
+        if(arquivo_saida.is_open()) {
             selecionar(selecao, grafo, arquivo_saida);
         }else{
             cout << "Erro ao abrir o arquivo de saida!" << endl;
@@ -277,12 +332,10 @@ int main(int argc, char const *argv[]) {
 
     // Verificando se conseguiu abrir o arquivo de entrada
     if(arquivo_entrada.is_open()) {
-        grafo = leitura(arquivo_entrada, atoi(argv[3]), atoi(argv[4]), atoi(argv[5]));
+        grafo = leituraInstancias(arquivo_entrada, atoi(argv[3]), atoi(argv[4]), atoi(argv[5]));
     }else {
         cout << "Nao foi possivel abrir o arquivo de entrada: " << argv[1];
     }
-
-    grafo->definirGrupos();
 
     // Chamando main menu
     mainMenu(arquivo_saida, grafo);

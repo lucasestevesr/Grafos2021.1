@@ -50,6 +50,7 @@ class Grafo{
         bool existeNoPorIdAux(int id_aux);
         bool existeAresta(int id_aux);
         void inserirNo(int id);
+        void inserirNoComGrupo(int grupo);
         void removerNo(int id);
         void inserirAresta(int id, int id_alvo, float peso);
 
