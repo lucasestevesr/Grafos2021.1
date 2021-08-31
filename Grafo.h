@@ -29,18 +29,19 @@ class Grafo{
         void arestaMenorPeso(stack<Aresta*>* pilha, Aresta* arestas[], int qtdArestas);
         int verificaSubarvore(int v,int auxBuscaCiclo[]);
         void auxFTIRec(int id, bool visitados[], string* retorno);
+        bool existeGrupo(int grupo);
 
     public:
         Grafo(int ordem, bool direcionado, bool aresta_ponderado, bool no_ponderado);
         ~Grafo();
         int getOrdem();
         int getNumArestas();
+        int getGrupos();
         bool getDirecionado();
         bool getArestaPonderado();
         bool getNoPonderado();
         No* getPrimeiroNo();
         No* getUltimoNo();
-        void definirGrupos();
 
         No* getNo(int id);
         No* getNoPorIdAux(int id_aux);

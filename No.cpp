@@ -17,21 +17,20 @@ No::No(int id, int id_aux) {
     this->prox_no = nullptr;
 };
 // Fim construtor No
-
-// Inicio construtor No com Grupo
-No::No(int id, int id_aux, int grupo) {
-    this->id = id;                  // -> Id interno do sistema (ordem++)
-    this->id_aux = id_aux;          // -> Id personalizado do usuario
-    this->peso = 0;
-    this->grupo = grupo;
-    this->grupo = 0;
-    this->grau_entrada = 0;
-    this->grau_saida = 0;
-    this->primeira_aresta = nullptr;
-    this->ultima_aresta = nullptr;
-    this->prox_no = nullptr;
-};
-// Fim construtor No com Grupo
+//
+//// Inicio construtor No com Grupo
+//No::No(int id, int id_aux, int grupo) {
+//    this->id = id;                  // -> Id interno do sistema (ordem++)
+//    this->id_aux = id_aux;          // -> Id personalizado do usuario
+//    this->peso = 0;
+//    this->grupo = grupo;
+//    this->grau_entrada = 0;
+//    this->grau_saida = 0;
+//    this->primeira_aresta = nullptr;
+//    this->ultima_aresta = nullptr;
+//    this->prox_no = nullptr;
+//};
+//// Fim construtor No com Grupo
 
 // Inicio destrutor No
 No::~No(){

@@ -99,13 +99,7 @@ Grafo* leituraInstancias(ifstream& arquivo, int direcionado, int aresta_ponderad
     }
 
     cout << "Leitura concluida com sucesso! Nos: " << grafo->getOrdem() << " e Arestas: " << grafo->getNumArestas() << endl;
-    int num_vertices = grafo->getOrdem();
-    int num_esperado_arestas = ((num_vertices * (num_vertices - 1)) / 2);
-    if(num_esperado_arestas == grafo->getNumArestas()) {
-        cout << "O numero de arestas esta correto!" << endl;
-    }else {
-        cout << "O numero de arestas esta errado! Era esperado: " << num_esperado_arestas << " arestas" << endl;
-    }
+    cout << "Quantidade de Grupos: " << grafo->getGrupos() << endl;
 
     return grafo;
 }

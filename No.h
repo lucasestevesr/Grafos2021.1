@@ -19,7 +19,7 @@ class No{
 
     public:
         No(int id, int id_aux);
-        No(int id, int id_aux, int grupo);
+//        No(int id, int id_aux, int grupo);
         ~No();
         int getId();
         int getIdAux();
