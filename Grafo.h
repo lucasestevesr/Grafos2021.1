@@ -36,7 +36,7 @@ class Grafo{
         ~Grafo();
         int getOrdem();
         int getNumArestas();
-        int getGrupos();
+        int getQtdGrupos();
         bool getDirecionado();
         bool getArestaPonderado();
         bool getNoPonderado();

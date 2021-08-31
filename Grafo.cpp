@@ -25,6 +25,7 @@ Grafo::Grafo(int ordem, bool direcionado, bool aresta_ponderado, bool no_pondera
     this->no_ponderado = no_ponderado;
     this->primeiro_no = this->ultimo_no = nullptr;
     this->num_arestas = 0;
+    this->qtdGrupos = 0;
 }
 // Fim construtor do Grafo
 
@@ -50,7 +51,7 @@ int Grafo::getNumArestas() {
     return this->num_arestas;
 }
 
-int Grafo::getGrupos() {
+int Grafo::getQtdGrupos() {
     return this->qtdGrupos;
 }
 

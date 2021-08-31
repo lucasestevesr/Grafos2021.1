@@ -99,7 +99,7 @@ Grafo* leituraInstancias(ifstream& arquivo, int direcionado, int aresta_ponderad
     }
 
     cout << "Leitura concluida com sucesso! Nos: " << grafo->getOrdem() << " e Arestas: " << grafo->getNumArestas() << endl;
-    cout << "Quantidade de Grupos: " << grafo->getGrupos() << endl;
+    cout << "Quantidade de Grupos: " << grafo->getQtdGrupos() << endl;
 
     return grafo;
 }
