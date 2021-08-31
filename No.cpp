@@ -70,6 +70,14 @@ void No::setPeso(float peso) {
 void No::setProxNo(No *prox_no) {
     this->prox_no = prox_no;
 }
+
+void No::setGrupo(int grupo){
+    this->grupo = grupo;
+}
+
+int No::getGrupo(){
+    return this->grupo;
+}
 // Fim getters e setters
 
 // Inicio funcao inserir aresta

@@ -89,6 +89,7 @@ int menu() {
     cout << "[7] Arvore do Caminhamento em Profundidade" << endl;
     cout << "[8] Imprimir Ordenacao Topologica" << endl;
     cout << "[9] Imprimir Grafo de Entrada" << endl;
+    cout << "[10] Algoritmo Guloso AGMG" << endl;
     cout << "[0] Sair" << endl;
 
     cin >> selecao;
@@ -201,6 +202,11 @@ void selecionar(int selecao, Grafo* grafo, ofstream& arquivo_saida) {
             retorno = grafo->imprimir();
             break;
         }
+        // Imprimir AGMG
+        case 10:{
+            retorno = grafo->AGMG();
+            break;
+        }
         case 0:{
             cout << "Encerrando o programa" << endl;
             return;
@@ -275,6 +281,8 @@ int main(int argc, char const *argv[]) {
     }else {
         cout << "Nao foi possivel abrir o arquivo de entrada: " << argv[1];
     }
+
+    grafo->definirGrupos();
 
     // Chamando main menu
     mainMenu(arquivo_saida, grafo);

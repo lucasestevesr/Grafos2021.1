@@ -337,6 +337,26 @@ string Grafo::imprimir() {
 }
 // Fim funcao imprimir Grafo
 
+void Grafo::definirGrupos() {
+    cout << "Informe a quantidade de grupos: " << endl;
+    int n;
+    cin >> n;
+    this->qtdGrupos = n;
+    cout << "Informe os grupos de cada vertice (grupos de 1 a " << n << ")" << endl;
+    for(No* no = this->primeiro_no; no != nullptr; no = no->getProxNo()){
+        cout << "Informe o grupo do vertice " << no->getIdAux() << ": " << endl;
+        int a;
+        cin >> a;
+        if(a < 1 || a > n){
+            while(a < 1 || a > n){
+                cout << "Valor invalido! Tente novamente!" << endl;
+                cout << "Informe o grupo do vertice " << no->getIdAux() << ": " << endl;
+                cin >> a;
+            }
+        }
+        no->setGrupo(a);
+    }
+}
 
 // Funcionalidades do trabalho
 
@@ -879,7 +899,7 @@ string Grafo::agmKruskal(){
         //Chama a função para identificar a subarvore dos vértices de origem e alvo da aresta
         int a = verificaSubarvore(atual->getIdOrigem(), subarvores);
         int b = verificaSubarvore(atual->getIdAlvo(), subarvores);
-        //Caso estejam em subarvores diferentes, adiciona a aresta na saida (resoloução)
+        //Caso estejam em subarvores diferentes, adiciona a aresta na saida (resolução)
         if(a != b){
             saida[contador] = atual;
             //Aumenta o número de arestas na saída
@@ -1150,3 +1170,125 @@ bool Grafo::verificarCiclo() {
     return false;
 }
 
+//Inicio Algoritmo Guloso AGMG
+
+string Grafo::AGMG(){
+    //Criando string de retorno
+    string retorno = "Algoritmo Guloso AGMG\n";
+    //Caso seja um grafo direcionado, retornar erro
+    if(this->direcionado){
+        retorno += "Erro! Grafo direcionado!";
+        return retorno;
+    }
+    //Criando pilha auxiliar para guardar as arestas não auxiliares do grafo.
+    stack<Aresta*> pilhaAux;
+    //Variável para guardar a quantidade de arestas
+    int qtdArestas = 0;
+    for(No* no = this->getPrimeiroNo(); no != nullptr; no = no->getProxNo()){
+        for(Aresta* aresta = no->getPrimeiraAresta(); aresta != nullptr; aresta = aresta->getProxAresta()){
+            if(!aresta->getAux()){
+                //Colocando as arestas na pilha e aumentando o valor de qtdArestas
+                pilhaAux.push(aresta);
+                qtdArestas++;
+            }
+        }
+    }
+    //Vetor de arestas saida com tamanho igual a quantidade de arestas, utilizado para imprimir o resultado mais a frente
+    Aresta* saida[qtdArestas];
+    //Caso o grafo não contenha arestas, imprimir somente os vertices isolados e retornar
+    if(qtdArestas == 0){
+        retorno += "strict graph { \n";
+        for(int i=0; i<this->ordem; i++){
+            retorno += "\t" + std::to_string(this->getIdAuxPorId(i)) + "\n";
+        }
+        retorno += "} \n";
+        retorno += "---------------------------------------";
+        return retorno;
+    }
+    //Vetor para armazenar as arestas do grafo
+    Aresta* arestas[qtdArestas];
+    int i = 0;
+    while(!pilhaAux.empty()){
+        arestas[i] = pilhaAux.top();
+        pilhaAux.pop();
+        i++;
+    }
+    int contador = 0;
+    //Laço para colocar as arestas em ordem de maior para menor peso
+    while(contador < qtdArestas){
+        arestaMenorPeso(&pilhaAux, arestas, qtdArestas);
+        contador++;
+    }
+    stack<Aresta*> pilha;
+    //Invertendo a ordem das arestas, para que o topo da pilha sempre seja a aresta de menor peso
+    while(!pilhaAux.empty()){
+        pilha.push(pilhaAux.top());
+        pilhaAux.pop();
+    }
+    int gama[this->qtdGrupos];
+    for(int i=0; i<this->qtdGrupos; i++){
+        gama[i] = -1;
+    }
+    //Cria vetor auxiliar para verificação de ciclos nas subarvores "criadas"
+    int subarvores[this->ordem];
+    for(No* noAux = this->getPrimeiroNo(); noAux != nullptr; noAux = noAux->getProxNo()){
+        //Cria subarvores com vertices sozinhos
+        subarvores[noAux->getId()] = noAux->getId();
+    }
+    contador = 0;
+    while(contador < this->qtdGrupos -1 && !pilha.empty()){
+        Aresta* atual = pilha.top();
+        pilha.pop();
+        No* noOrigem = this->getNo(atual->getIdOrigem());
+        No* noAlvo = this->getNo(atual->getIdAlvo());
+        if(gama[noAlvo->getGrupo()] == -1 && gama[noOrigem->getGrupo()] == -1){
+            if(noOrigem->getGrupo() != noAlvo->getGrupo()){
+                saida[contador] = atual;
+                gama[noOrigem->getGrupo()] = noOrigem->getId();
+                gama[noAlvo->getGrupo()] = noAlvo->getId();
+                contador++;
+            }
+        }
+        else if(gama[noAlvo->getGrupo()] == noAlvo->getId() && gama[noOrigem->getGrupo()] == -1){
+            saida[contador] = atual;
+            gama[noOrigem->getGrupo()] = noOrigem->getId();
+            contador++;
+        }
+        else if(gama[noAlvo->getGrupo()] == -1 && gama[noOrigem->getGrupo()] == noOrigem->getId()){
+            saida[contador] = atual;
+            gama[noAlvo->getGrupo()] = noAlvo->getId();
+            contador++;
+        }
+        else if(gama[noAlvo->getGrupo()] == noAlvo->getId() && gama[noOrigem->getGrupo()] == noOrigem->getId()){
+            //Chama a função para identificar a subarvore dos vértices de origem e alvo da aresta
+            int a = verificaSubarvore(noOrigem->getId(), subarvores);
+            int b = verificaSubarvore(noAlvo->getId(), subarvores);
+            //Caso estejam em subarvores diferentes, adiciona a aresta na saida (resolução)
+            if(a != b){
+                saida[contador] = atual;
+                contador++;
+                //Coloca os vértices na mesma subarvore
+                subarvores[a] = b;
+            }
+        }
+    }
+    //Cria o cabeçalho do arquivo .dot
+    string seta;
+    retorno += "strict graph { \n";
+    seta = " -- ";
+    //Imprime as arestas do retorno
+    for(int i=0; i<contador; i++){
+        retorno += "\t" + std::to_string(saida[i]->getIdAuxOrigem()) + seta + std::to_string(saida[i]->getIdAuxAlvo()) + " [label=" + std::to_string(saida[i]->getPeso()) + "]" + "\n";
+    }
+    //Imprime os vértices isolados da árvore
+    for(No* no = this->getPrimeiroNo(); no != nullptr; no = no->getProxNo()){
+        if(no->getPrimeiraAresta() == nullptr){
+            retorno += "\t" + std::to_string(no->getIdAux()) + "\n";
+        }
+    }
+    retorno += "} \n";
+    retorno += "---------------------------------------";
+    return retorno;
+}
+
+//Fim Algoritmo Guloso AGMG

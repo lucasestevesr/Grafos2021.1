@@ -10,6 +10,7 @@ class No{
         int id;             // -> Id interno do sistema (ordem++)
         int id_aux;         // -> Id personalizado do usuario
         float peso;
+        int grupo = 0;
         unsigned int grau_entrada;
         unsigned int grau_saida;
         Aresta* primeira_aresta;
@@ -29,6 +30,8 @@ class No{
         No* getProxNo();
         void setPeso(float peso);
         void setProxNo(No* prox_no);
+        void setGrupo(int grupo);
+        int getGrupo();
 
         void inserirAresta(int id_alvo, int id_aux_alvo, float peso, bool aux = false);
         void removerTodasArestas();

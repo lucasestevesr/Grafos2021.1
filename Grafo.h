@@ -17,6 +17,7 @@ class Grafo{
         bool no_ponderado;
         No* primeiro_no;
         No* ultimo_no;
+        int qtdGrupos;
 
         // Funcionalidades privadas do trabalho
         int distMinima(bool visitados[], float dist[]);
@@ -39,6 +40,7 @@ class Grafo{
         bool getNoPonderado();
         No* getPrimeiroNo();
         No* getUltimoNo();
+        void definirGrupos();
 
         No* getNo(int id);
         No* getNoPorIdAux(int id_aux);
@@ -64,6 +66,7 @@ class Grafo{
         string buscaProf(int id_aux_origem);
         Grafo* subgrafo(int vertices[], int tamanho);
         string ordTopologica();
+        string AGMG();
 };
 
 #endif // GRAFO_H_INCLUDED
