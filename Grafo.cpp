@@ -216,6 +216,10 @@ void Grafo::inserirNo(int id_aux) {
 
 // Inicio funcao inserir No
 void Grafo::inserirNoComGrupo(int grupo) {
+    // Incrementar quantidade de grupos
+    if(!this->existeGrupo(grupo)) {
+        this->qtdGrupos++;
+    }
 
     // Cria o No com Id interno (ordem) com grupo
     No* no = new No(this->ordem, this->ordem);
@@ -231,11 +235,7 @@ void Grafo::inserirNoComGrupo(int grupo) {
         this->ultimo_no->setProxNo(no);
         this->ultimo_no = no;
     }
-    // Incrementar quantidade de grupos
-    if(!this->existeGrupo(grupo)){
-        cout << "add " << no->getGrupo() << endl;
-        this->qtdGrupos++;
-    }
+
     // Incrementa a ordem do Grafo
     this->ordem ++;
 }
@@ -249,7 +249,6 @@ bool Grafo::existeGrupo(int grupo) {
         for (No* no = this->primeiro_no; no != nullptr ; no = no->getProxNo()) {
             // Se encontrar o No pelo grupo, retorna verdadeiro
             if(no->getGrupo() == grupo) {
-                cout << "aaaaaaaaaaaaaaaaaaa" << endl;
                 return true;
             }
         }

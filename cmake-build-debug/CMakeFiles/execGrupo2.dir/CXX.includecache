@@ -8,12 +8,48 @@
 
 C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/Aresta.h
 
-C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/No.cpp
+C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/Grafo.cpp
+Grafo.h
+C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/Grafo.h
 No.h
 C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/No.h
 Aresta.h
 C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/Aresta.h
 iostream
+-
+fstream
+-
+string
+-
+stack
+-
+iterator
+-
+queue
+-
+list
+-
+math.h
+-
+cstdlib
+-
+ctime
+-
+float.h
+-
+iomanip
+-
+limits
+-
+
+C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/Grafo.h
+No.h
+C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/No.h
+fstream
+-
+stack
+-
+list
 -
 
 C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/No.h
