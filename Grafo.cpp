@@ -692,7 +692,7 @@ int Grafo::distMinima(bool visitados[], float dist[]) {
     // Laco que percorre o grafo
     for(int i=0; i<this->ordem; i++){
         // Caso o vertice não tenha sido visitado e tenha distancia menor que a variavel 'min', o mesmo passa a ser o menor
-        if(visitados[i]==false && dist[i]<=min){
+        if(!visitados[i] && dist[i]<=min){
             min = dist[i];
             idMenor = i;
         }
@@ -701,6 +701,23 @@ int Grafo::distMinima(bool visitados[], float dist[]) {
     return idMenor;
 }
 // Fim função auxiliar menor distancia
+
+int Grafo::distMinimaOutroGrupo(bool visitados[], bool gruposVisitados[], float dist[]) {
+    // Variavel de valor minimo, inicializada como + infinito
+    float min = std::numeric_limits<float>::max();
+    // Variavel para gravar o id do menor vertice
+    int idMenor = -1;
+    // Laco que percorre o grafo
+    for(int i=0; i<this->ordem; i++){
+        // Caso o vertice não tenha sido visitado e tenha distancia menor que a variavel 'min', o mesmo passa a ser o menor
+        if(!visitados[i] && !gruposVisitados[this->getNo(i)->getGrupo()] && dist[i] <= min){
+            min = dist[i];
+            idMenor = i;
+        }
+    }
+    // Retorna o vertice de menor valor de distancia
+    return idMenor;
+}
 
 // Inicio Caminho Minimo por Floyd
 string Grafo::floyd(int id_aux_origem, int id_aux_alvo) {
@@ -1197,52 +1214,65 @@ bool Grafo::verificarCiclo() {
     return false;
 }
 
-string Grafo::AGMG() {
+string Grafo::AGMGPrim(int id_origem, int alfa) {
     string retorno = "AGMG\n";
     if(this->direcionado){
         retorno += "Erro! Grafo direcionado!";
         return retorno;
     }
+
+
+
+
     bool visitados[this->ordem];
+    bool gruposVisitados[this->qtdGrupos];
     float distancia[this->ordem];
     int caminho[this->ordem];
     float infinito = std::numeric_limits<float>::max();
     float menorPeso = infinito;
-    Aresta* menorAresta;
-    for(No* no = this->getPrimeiroNo(); no != nullptr; no = no->getProxNo()){
-        for(Aresta* aresta = no->getPrimeiraAresta(); aresta != nullptr; aresta = aresta->getProxAresta()){
-            if(aresta->getPeso() <= menorPeso){
-                menorPeso = aresta->getPeso();
-                menorAresta = aresta;
-            }
-        }
-    }
-    int id_origem = menorAresta->getIdOrigem();
+
     for(int i=0; i < this->ordem; i++){
         visitados[i] = false;
         distancia[i] = infinito;
         caminho[i] = -1;
     }
+    for(int j=0; j < this->qtdGrupos; j++){
+        gruposVisitados[j] = false;
+    }
+
     distancia[id_origem] = 0;
-    for(int i=0; i < this->ordem; i++){
-        int u = distMinima(visitados, distancia);
+//    visitados[id_origem] = true;
+//    gruposVisitados[this->getNo(id_origem)->getGrupo()] = true;
+
+    for(int i=0; i < this->ordem; i++) {
+        int u = distMinimaOutroGrupo(visitados, gruposVisitados, distancia);
+        if(u == -1) {
+            break;
+        }
         visitados[u] = true;
+        cout << "no " << u << " visitado " << endl;
         No* noAux = this->getNo(u);
+        gruposVisitados[noAux->getGrupo()] = true;
+        cout << "grupo " << noAux->getGrupo() << " visitado " << endl;
         for(Aresta* adjacente = noAux->getPrimeiraAresta(); adjacente != nullptr; adjacente = adjacente->getProxAresta()){
             if(!visitados[adjacente->getIdAlvo()] && adjacente->getPeso() < distancia[adjacente->getIdAlvo()]){
+                cout << "atualiazndo do " << noAux->getId() << " com o " << adjacente->getIdAlvo() << endl;
                 distancia[adjacente->getIdAlvo()] = adjacente->getPeso();
                 caminho[adjacente->getIdAlvo()] = u;
+                cout << "balbla" << adjacente->getIdAlvo() << " igual a " << u << endl;
             }
         }
     }
+
+
+
+
     string seta = " -- ";
     retorno += "strict graph { \n";
 
     for(int i=0; i<this->ordem; i++){
-        if(caminho[i] != -1)
+        if(visitados[i] && i != id_origem)
             retorno += "\t" + std::to_string(this->getIdAuxPorId(i)) + seta + std::to_string(this->getIdAuxPorId(caminho[i])) + "\n";
-        else if(caminho[i] == -1 && i != id_origem)
-            retorno += "\t" + std::to_string(this->getIdAuxPorId(i)) + "\n";
     }
     retorno += "} \n";
     retorno += "---------------------------------------";
