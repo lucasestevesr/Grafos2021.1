@@ -85,13 +85,11 @@ Grafo* leituraInstancias(ifstream& arquivo, int direcionado, int aresta_ponderad
             inserindoNos = false;
         }
         if(inserindoNos) {
-            cout << "Inserindo No: " << grafo->getOrdem() << " no grupo: " << stoi(line) << endl;
             grafo->inserirNoComGrupo(stoi(line));
         }else {
             int id_no_origem, id_no_alvo;
             float peso_aresta;
             while(arquivo >> id_no_origem >> id_no_alvo >> peso_aresta) {
-                cout << "Inserindo Aresta com origem em: " << id_no_origem << " e destino: " << id_no_alvo << " com peso: " << peso_aresta << endl;
                 grafo->inserirAresta(id_no_origem, id_no_alvo, peso_aresta);
             }
             break;
@@ -243,7 +241,7 @@ void selecionar(int selecao, Grafo* grafo, ofstream& arquivo_saida) {
         }
         // Algoritmo Guloso AGMG
         case 10:{
-            retorno = grafo->AGMGPrim(24, 1);
+            retorno = grafo->AGMGPrim();
             break;
         }
         // Algoritmo Guloso AGMG Randomizado

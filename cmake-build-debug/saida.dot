@@ -1,13 +1,25 @@
-AGMG
+AGMG - Prim
+// Vértice Inicial = 24
+// Custo Total = 11338.000000
+// Qtd. Grupos = 10
 strict graph { 
-	2 -- 22
-	22 -- 24
-	25 -- 41
-	29 -- 45
-	33 -- 2
-	34 -- 25
-	41 -- 47
-	45 -- 22
-	47 -- 24
+	2 [color=red]
+	2 -- 22 [label=828.000000]
+	22 [color=purple]
+	22 -- 24 [label=903.000000]
+	25 [color=green]
+	25 -- 41 [label=1363.000000]
+	29 [color=blue]
+	29 -- 45 [label=1609.000000]
+	33 [color=pink]
+	33 -- 2 [label=950.000000]
+	34 [color=orange]
+	34 -- 25 [label=1375.000000]
+	41 [color=violet]
+	41 -- 47 [label=1169.000000]
+	45 [color=beige]
+	45 -- 22 [label=1801.000000]
+	47 [color=yellow]
+	47 -- 24 [label=1340.000000]
 } 
 ---------------------------------------

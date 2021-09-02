@@ -21,7 +21,7 @@ class Grafo{
 
         // Funcionalidades privadas do trabalho
         int distMinima(bool visitados[], float dist[]);
-        int distMinimaOutroGrupo(bool visitados[], bool gruposVisitados[], float dist[]);
+        int distMinimaOutroGrupo(bool visitados[], bool gruposVisitados[], float distancia[]);
         void auxBuscaProf(int id_origem, bool visitados[], string* retorno, bool verificaCor[]);
         bool auxVerificarCiclo(int id_origem, bool visitados[], bool* auxRecursiva);
         bool auxBuscaVetor(int vertices[], int tamanho, int id_no);
@@ -69,7 +69,8 @@ class Grafo{
         string buscaProf(int id_aux_origem);
         Grafo* subgrafo(int vertices[], int tamanho);
         string ordTopologica();
-        string AGMGPrim(int id_origem, int alfa);
+        string AGMGPrim();
+        float auxAGMGPrim(int id_origem, float alfa, int solucao[]);
 };
 
 #endif // GRAFO_H_INCLUDED

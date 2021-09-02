@@ -702,16 +702,18 @@ int Grafo::distMinima(bool visitados[], float dist[]) {
 }
 // Fim função auxiliar menor distancia
 
-int Grafo::distMinimaOutroGrupo(bool visitados[], bool gruposVisitados[], float dist[]) {
+int Grafo::distMinimaOutroGrupo(bool visitados[], bool gruposVisitados[], float distancia[]) {
     // Variavel de valor minimo, inicializada como + infinito
     float min = std::numeric_limits<float>::max();
     // Variavel para gravar o id do menor vertice
     int idMenor = -1;
-    // Laco que percorre o grafo
-    for(int i=0; i<this->ordem; i++){
-        // Caso o vertice não tenha sido visitado e tenha distancia menor que a variavel 'min', o mesmo passa a ser o menor
-        if(!visitados[i] && !gruposVisitados[this->getNo(i)->getGrupo()] && dist[i] <= min){
-            min = dist[i];
+    // Percorrendo o grafo
+    for(int i = 0; i < this->ordem; i++){
+        /* Caso o vertice nem o seu grupo nao tenha sido visitado e tenha distancia
+        menor que a variavel 'min', o mesmo passa a ser o menor */
+        if(!visitados[i] && !gruposVisitados[this->getNo(i)->getGrupo()] && distancia[i] <= min) {
+            // Atualiza o min e o id menor
+            min = distancia[i];
             idMenor = i;
         }
     }
@@ -1214,69 +1216,119 @@ bool Grafo::verificarCiclo() {
     return false;
 }
 
-string Grafo::AGMGPrim(int id_origem, int alfa) {
-    string retorno = "AGMG\n";
+string Grafo::AGMGPrim() {
+
+    int id_origem = 0;
+    float alfa = 1;
+    float infinito = std::numeric_limits<float>::max();
+    float melhorCusto = infinito;
+    float custoSolucao = 0;
+    int solucao[this->ordem];
+    int melhorSolucao[this->ordem];
+
+    // Para testar com vertice especifico
+    id_origem = 24;
+    melhorCusto = this->auxAGMGPrim(id_origem, alfa, solucao);
+    for(int j = 0; j < this->ordem; j++) {
+        melhorSolucao[j] = solucao[j];
+    }
+//    for(int i = 0; i < this->ordem; i++) {
+//        custoSolucao = this->auxAGMGPrim(i, alfa, solucao);
+//        if(custoSolucao < melhorCusto) {
+//            for(int j = 0; j < this->ordem; j++) {
+//                melhorSolucao[j] = solucao[j];
+//            }
+//            id_origem = i;
+//            melhorCusto = custoSolucao;
+//        }
+//    }
+
+    string retorno = "AGMG - Prim\n";
     if(this->direcionado){
         retorno += "Erro! Grafo direcionado!";
         return retorno;
     }
 
-
-
-
-    bool visitados[this->ordem];
-    bool gruposVisitados[this->qtdGrupos];
-    float distancia[this->ordem];
-    int caminho[this->ordem];
-    float infinito = std::numeric_limits<float>::max();
-    float menorPeso = infinito;
-
-    for(int i=0; i < this->ordem; i++){
-        visitados[i] = false;
-        distancia[i] = infinito;
-        caminho[i] = -1;
-    }
-    for(int j=0; j < this->qtdGrupos; j++){
-        gruposVisitados[j] = false;
-    }
-
-    distancia[id_origem] = 0;
-//    visitados[id_origem] = true;
-//    gruposVisitados[this->getNo(id_origem)->getGrupo()] = true;
-
-    for(int i=0; i < this->ordem; i++) {
-        int u = distMinimaOutroGrupo(visitados, gruposVisitados, distancia);
-        if(u == -1) {
-            break;
-        }
-        visitados[u] = true;
-        cout << "no " << u << " visitado " << endl;
-        No* noAux = this->getNo(u);
-        gruposVisitados[noAux->getGrupo()] = true;
-        cout << "grupo " << noAux->getGrupo() << " visitado " << endl;
-        for(Aresta* adjacente = noAux->getPrimeiraAresta(); adjacente != nullptr; adjacente = adjacente->getProxAresta()){
-            if(!visitados[adjacente->getIdAlvo()] && adjacente->getPeso() < distancia[adjacente->getIdAlvo()]){
-                cout << "atualiazndo do " << noAux->getId() << " com o " << adjacente->getIdAlvo() << endl;
-                distancia[adjacente->getIdAlvo()] = adjacente->getPeso();
-                caminho[adjacente->getIdAlvo()] = u;
-                cout << "balbla" << adjacente->getIdAlvo() << " igual a " << u << endl;
-            }
-        }
-    }
-
-
-
-
     string seta = " -- ";
+    retorno += "// Vértice Inicial = " + std::to_string(id_origem) + "\n";
+    retorno += "// Custo Total = " + std::to_string(melhorCusto) + "\n";
+    retorno += "// Qtd. Grupos = " + std::to_string(this->qtdGrupos) + "\n";
     retorno += "strict graph { \n";
 
-    for(int i=0; i<this->ordem; i++){
-        if(visitados[i] && i != id_origem)
-            retorno += "\t" + std::to_string(this->getIdAuxPorId(i)) + seta + std::to_string(this->getIdAuxPorId(caminho[i])) + "\n";
+    string cores[10] = {"red", "orange", "blue", "yellow", "gray", "beige", "pink", "green", "violet", "purple"};
+    int grupo = 0;
+    for(int i = 0; i < this->ordem; i++) {
+        if(melhorSolucao[i] != -1) {
+            grupo = this->getNo(i)->getGrupo();
+            if(grupo <= this->qtdGrupos){
+                retorno += "\t" + std::to_string(i) + " [color=" + cores[grupo-1] + "]" + "\n";
+            }
+            retorno += "\t" + std::to_string(i) + seta + std::to_string(melhorSolucao[i]) + " [label=" + std::to_string(this->getNo(i)->getArestaEntre(melhorSolucao[i])->getPeso()) + "]" + "\n";
+        }
     }
     retorno += "} \n";
     retorno += "---------------------------------------";
     return retorno;
+}
+
+float Grafo::auxAGMGPrim(int id_origem, float alfa, int solucao[]) {
+    // Declarando vetores e parametros auxiliares
+    bool visitados[this->ordem];
+    bool gruposVisitados[this->qtdGrupos];
+    float distancia[this->ordem];
+    float infinito = std::numeric_limits<float>::max();
+    float menorPeso = infinito;
+    float custoTotal = 0;
+
+    // Inicializando os vetores
+    for(int i=0; i < this->ordem; i++){
+        visitados[i] = false;
+        distancia[i] = infinito;
+        solucao[i] = -1;
+    }
+    for(int i=0; i < this->qtdGrupos; i++){
+        gruposVisitados[i] = false;
+    }
+
+    // Inicializando a distancia para a origem como 0
+    distancia[id_origem] = 0;
+
+    // Percorrendo todos os vertices
+    for(int i=0; i < this->ordem; i++) {
+        // Usando funcao auxiliar para
+        int prox_id = distMinimaOutroGrupo(visitados, gruposVisitados, distancia);
+        // Se retornar -1 ja visitou todos os grupos
+        if(prox_id == -1) {
+            break;
+        }
+        // Busca o proximo vertice
+        No* noAux = this->getNo(prox_id);
+        // Marca o proximo vertice e o grupo dele como visitados
+        visitados[prox_id] = true;
+        gruposVisitados[noAux->getGrupo()] = true;
+        // Percorrendo todas arestas do proximo vertice
+        for(Aresta* adjacente = noAux->getPrimeiraAresta(); adjacente != nullptr; adjacente = adjacente->getProxAresta()) {
+            // Se algum vertice que liga com ele ainda nao foi visitado e tem uma distancia menor do que a distancia armazenada
+            if(!visitados[adjacente->getIdAlvo()] && adjacente->getPeso() < distancia[adjacente->getIdAlvo()]){
+                // Atualiza a distancia e o caminho
+                distancia[adjacente->getIdAlvo()] = adjacente->getPeso();
+                solucao[adjacente->getIdAlvo()] = prox_id;
+            }
+        }
+    }
+    // Limpando solucao e pegando custo total
+    for(int i = 0; i < this->ordem; i++) {
+        if(!visitados[i])
+            solucao[i] = -1;
+    }
+
+    for(int i = 0; i < this->ordem; i++) {
+        if(solucao[i] != -1)
+            custoTotal += this->getNo(i)->getArestaEntre(solucao[i])->getPeso();
+    }
+
+    // Retornando custo
+    return custoTotal;
 }
 
 //Inicio Algoritmo Guloso AGMG
