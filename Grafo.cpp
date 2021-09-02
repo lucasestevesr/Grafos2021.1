@@ -1227,21 +1227,21 @@ string Grafo::AGMGPrim() {
     int melhorSolucao[this->ordem];
 
     // Para testar com vertice especifico
-    id_origem = 24;
-    melhorCusto = this->auxAGMGPrim(id_origem, alfa, solucao);
-    for(int j = 0; j < this->ordem; j++) {
-        melhorSolucao[j] = solucao[j];
-    }
-//    for(int i = 0; i < this->ordem; i++) {
-//        custoSolucao = this->auxAGMGPrim(i, alfa, solucao);
-//        if(custoSolucao < melhorCusto) {
-//            for(int j = 0; j < this->ordem; j++) {
-//                melhorSolucao[j] = solucao[j];
-//            }
-//            id_origem = i;
-//            melhorCusto = custoSolucao;
-//        }
+//    id_origem = 24;
+//    melhorCusto = this->auxAGMGPrim(id_origem, alfa, solucao);
+//    for(int j = 0; j < this->ordem; j++) {
+//        melhorSolucao[j] = solucao[j];
 //    }
+    for(int i = 0; i < this->ordem; i++) {
+        custoSolucao = this->auxAGMGPrim(i, alfa, solucao);
+        if(custoSolucao < melhorCusto) {
+            for(int j = 0; j < this->ordem; j++) {
+                melhorSolucao[j] = solucao[j];
+            }
+            id_origem = i;
+            melhorCusto = custoSolucao;
+        }
+    }
 
     string retorno = "AGMG - Prim\n";
     if(this->direcionado){
@@ -1274,19 +1274,20 @@ string Grafo::AGMGPrim() {
 float Grafo::auxAGMGPrim(int id_origem, float alfa, int solucao[]) {
     // Declarando vetores e parametros auxiliares
     bool visitados[this->ordem];
-    bool gruposVisitados[this->qtdGrupos];
+    bool gruposVisitados[this->qtdGrupos+1];    // Grupos 1 a n
     float distancia[this->ordem];
     float infinito = std::numeric_limits<float>::max();
     float menorPeso = infinito;
     float custoTotal = 0;
 
     // Inicializando os vetores
-    for(int i=0; i < this->ordem; i++){
+    for(int i = 0; i < this->ordem; i++){
         visitados[i] = false;
         distancia[i] = infinito;
         solucao[i] = -1;
     }
-    for(int i=0; i < this->qtdGrupos; i++){
+    // Inicializando grupos visitados 1 a n (necessario ter o menor igual (<=))
+    for(int i = 0; i <= this->qtdGrupos; i++){
         gruposVisitados[i] = false;
     }
 
@@ -1294,7 +1295,7 @@ float Grafo::auxAGMGPrim(int id_origem, float alfa, int solucao[]) {
     distancia[id_origem] = 0;
 
     // Percorrendo todos os vertices
-    for(int i=0; i < this->ordem; i++) {
+    for(int i = 0; i < this->ordem; i++) {
         // Usando funcao auxiliar para
         int prox_id = distMinimaOutroGrupo(visitados, gruposVisitados, distancia);
         // Se retornar -1 ja visitou todos os grupos
