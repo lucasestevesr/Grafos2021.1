@@ -246,7 +246,7 @@ void selecionar(int selecao, Grafo* grafo, ofstream& arquivo_saida) {
         }
         // Algoritmo Guloso AGMG Randomizado
         case 11:{
-            cout << "Ainda nao implementado" << endl;
+            retorno = grafo->AGMGPrimRandomizado();
             break;
         }
         // Algoritmo Guloso AGMG Randomizado Reativo

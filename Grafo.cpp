@@ -1216,8 +1216,9 @@ bool Grafo::verificarCiclo() {
     return false;
 }
 
+// Inicio funcao agmg prim guluso
 string Grafo::AGMGPrim() {
-
+    // Declarando variaveis de controle
     int id_origem = 0;
     float alfa = 1;
     float infinito = std::numeric_limits<float>::max();
@@ -1226,15 +1227,13 @@ string Grafo::AGMGPrim() {
     int solucao[this->ordem];
     int melhorSolucao[this->ordem];
 
-    // Para testar com vertice especifico
-//    id_origem = 24;
-//    melhorCusto = this->auxAGMGPrim(id_origem, alfa, solucao);
-//    for(int j = 0; j < this->ordem; j++) {
-//        melhorSolucao[j] = solucao[j];
-//    }
+    // Percorrendo todos vertices do grafo
     for(int i = 0; i < this->ordem; i++) {
-        custoSolucao = this->auxAGMGPrim(i, alfa, solucao);
+        // Chama o agmg prim guloso para todos vertices do grafo
+        custoSolucao = this->auxAGMGPrim(i, solucao);
+        // Compara o custo recebido da solucao com o melhor custo
         if(custoSolucao < melhorCusto) {
+            // Se for melhor faz o backup da solucao
             for(int j = 0; j < this->ordem; j++) {
                 melhorSolucao[j] = solucao[j];
             }
@@ -1243,7 +1242,8 @@ string Grafo::AGMGPrim() {
         }
     }
 
-    string retorno = "AGMG - Prim\n";
+    // Daqui para baixo e so salvando a solucao no arquivo de saida
+    string retorno = "AGMG Guloso - Prim\n";
     if(this->direcionado){
         retorno += "Erro! Grafo direcionado!";
         return retorno;
@@ -1270,8 +1270,10 @@ string Grafo::AGMGPrim() {
     retorno += "---------------------------------------";
     return retorno;
 }
+// Fim funcao agmg prim guluso
 
-float Grafo::auxAGMGPrim(int id_origem, float alfa, int solucao[]) {
+// Inicio funcao aux do agmg prim guloso
+float Grafo::auxAGMGPrim(int id_origem, int solucao[]) {
     // Declarando vetores e parametros auxiliares
     bool visitados[this->ordem];
     bool gruposVisitados[this->qtdGrupos+1];    // Grupos 1 a n
@@ -1281,7 +1283,7 @@ float Grafo::auxAGMGPrim(int id_origem, float alfa, int solucao[]) {
     float custoTotal = 0;
 
     // Inicializando os vetores
-    for(int i = 0; i < this->ordem; i++){
+    for(int i = 0; i < this->ordem; i++) {
         visitados[i] = false;
         distancia[i] = infinito;
         solucao[i] = -1;
@@ -1331,6 +1333,298 @@ float Grafo::auxAGMGPrim(int id_origem, float alfa, int solucao[]) {
     // Retornando custo
     return custoTotal;
 }
+// Fim funcao aux do agmg prim guloso
+
+// Inicio funcao agmg prim randomizada
+string Grafo::AGMGPrimRandomizado() {
+    // Variavel de controle para o numero de iteracoes tera o algoritmo
+    int NUM_ITERACOES = 500;
+    // Variavel para incrementar a iteracao atual
+    int qnt_iteracoes = 0;
+    // Variavel de controle para armazenar o id do no de origem
+    int id_origem = 0;
+    // Variavel de controle para saber o index do alfa atual
+    int i_alfa = 0;
+    // Para armazenar o melhor alfa
+    int i_melhor_alfa = 0;
+    // Solucao do algoritmo que vai ser passa para funcao aux
+    int solucao[this->ordem];
+    // Armazenar o backup da melhor solucao
+    int melhorSolucao[this->ordem];
+    // Armazenar o melhor custo, comeca como + infinito para o primeiro custo entrar como melhor
+    float melhorCusto = std::numeric_limits<float>::max();
+    // Custo da solucao atual
+    float custoSolucao = 0;
+    // Vetor de alfas a serem testados
+    float alfas[5] = {0.05, 0.10, 0.15, 0.30, 0.50};
+
+    // Enquanto nao percorrer todas iteracoes nao acaba
+    while(NUM_ITERACOES > qnt_iteracoes) {
+        // Percorre passando o id de todos vertices do grafo
+        for (int i = 0; i < this->ordem; i++) {
+            // Verifica qual iteracao esta e troca o id do alfa
+            if(qnt_iteracoes >= 100 && qnt_iteracoes < 200)
+                i_alfa = 1;
+            else if(qnt_iteracoes >= 200 && qnt_iteracoes < 300)
+                i_alfa = 2;
+            else if(qnt_iteracoes >= 300 && qnt_iteracoes < 400)
+                i_alfa = 3;
+            else if(qnt_iteracoes >= 400)
+                i_alfa = 4;
+            // Chama o algoritmo e armazena o custo dele
+            custoSolucao = this->auxAGMGPrimRandomizado(i, alfas[i_alfa], solucao);
+            // Incrementa o quantidade de iteracoes
+            qnt_iteracoes++;
+            // Se o custo for melhor do que o melhor custo
+            if (custoSolucao < melhorCusto) {
+                // Faz o backup da solucao
+                for (int j = 0; j < this->ordem; j++) {
+                    melhorSolucao[j] = solucao[j];
+                }
+                // Pega o id de origem da atual melhor solucao
+                id_origem = i;
+                // Atualiza o melhor custo
+                melhorCusto = custoSolucao;
+                // Salva o alfa da melhor solucao
+                i_melhor_alfa = i_alfa;
+            }
+        }
+    }
+
+    // Daqui para baixo e so salvando a solucao no arquivo de saida
+    string retorno = "AGMG Guloso Randomizado - Prim\n";
+    if(this->direcionado){
+        retorno += "Erro! Grafo direcionado!";
+        return retorno;
+    }
+
+    string seta = " -- ";
+    retorno += "// Vértice Inicial = " + std::to_string(id_origem) + "\n";
+    retorno += "// Custo Total = " + std::to_string(melhorCusto) + "\n";
+    retorno += "// Qtd. Grupos = " + std::to_string(this->qtdGrupos) + "\n";
+    retorno += "// Alfa = " + std::to_string(alfas[i_melhor_alfa]) + "\n";
+    retorno += "strict graph { \n";
+
+    string cores[10] = {"red", "orange", "blue", "yellow", "gray", "beige", "pink", "green", "violet", "purple"};
+    int grupo = 0;
+    for(int i = 0; i < this->ordem; i++) {
+        if(melhorSolucao[i] != -1) {
+            grupo = this->getNo(i)->getGrupo();
+            if(grupo <= this->qtdGrupos){
+                retorno += "\t" + std::to_string(i) + " [color=" + cores[grupo-1] + "]" + "\n";
+            }
+            retorno += "\t" + std::to_string(i) + seta + std::to_string(melhorSolucao[i]) + " [label=" + std::to_string(this->getNo(i)->getArestaEntre(melhorSolucao[i])->getPeso()) + "]" + "\n";
+        }
+    }
+    retorno += "} \n";
+    retorno += "---------------------------------------";
+    return retorno;
+}
+// Fim funcao agmg prim randomizada
+
+// Inicio da funcao auxiliar do agmg prim randomizado
+float Grafo::auxAGMGPrimRandomizado(int id_origem, float alfa, int solucao[]) {
+    // Declarando variaveis de controle para rodar o algoritmo
+    bool possiveisNos[this->ordem];
+    bool gruposVisitados[this->qtdGrupos+1];
+    // Custo total do algoritmo comeca como 0
+    float custoTotal = 0;
+
+    // Inicializa o vetor solucao
+    for(int i = 0; i < this->ordem; i++) {
+        solucao[i] = -1;
+    }
+    // Inicializa o vetor de grupos visitados
+    for(int i = 0; i <= this->qtdGrupos; i++) {
+        gruposVisitados[i] = false;
+    }
+
+    // Define a solucao inicial partindo dele mesmo
+    solucao[id_origem] = id_origem;
+    // Define o grupo do No inicial como visitado
+    gruposVisitados[this->getNo(id_origem)->getGrupo()] = true;
+
+    // Variavel para alimentar o loop
+    bool rodando = true;
+    // Loop principal do algoritmo do agmg randomizado de prim
+    while(rodando) {
+        // Chama funcao que percorre o grafo das possiveis solucoes e retorna se deve continuar rodando
+        rodando = percorrerGrafo(alfa, solucao, gruposVisitados, possiveisNos);
+        // Se deve continuar rodando
+        if(rodando) {
+            // Pega o proximo no
+            int prox_id = proximoNoAGMGrandomizado(possiveisNos);
+            // Pega o alvo desse vertice com base na aresta de menor peso
+            int id_alvo = escolherArestaAGMGrandomizado(prox_id, solucao, gruposVisitados);
+            // Se tiver retornado um alvo
+            if(id_alvo != -1){
+                // Atualiza o vetor solucao
+                solucao[prox_id] = id_alvo;
+                // Marca o grupo do proximo no como visitado
+                gruposVisitados[this->getNo(prox_id)->getGrupo()] = true;
+            }
+        }
+    }
+    // Retira o vertice inicial da solucao
+    solucao[id_origem] = -1;
+
+    // Calcula o custo total do grafo solucao
+    // Percorre o vetor solucao
+    for(int i = 0; i < this->ordem; i++) {
+        // Se o vertice atual tem solucao
+        if(solucao[i] != -1) {
+            // Incrementa o custo total
+            custoTotal += this->getNo(i)->getArestaEntre(solucao[i])->getPeso();
+        }
+    }
+
+    // Retorna o custo total
+    return custoTotal;
+}
+// Fim da funcao auxiliar do agmg prim randomizado
+
+// Inicio da funcao para percorrer o grafo no agmg randomizado e retorna o status do algoritmo
+bool Grafo::percorrerGrafo(float alfa, int solucao[], bool gruposVisitados[], bool possiveisNos[]) {
+    // Declara variaveis referencia de menor e maior peso
+    float min_peso, max_peso;
+    // Variavel para saber se esta na primeira iteracao
+    bool primeiraIt = true;
+
+    // For para inicializar todos nos possiveis como false
+    for(int i = 0; i < this->getOrdem(); i++) {
+        possiveisNos[i] = false;
+    }
+
+    // Percorrendo todos nos
+    for(No* no = this->primeiro_no; no != nullptr; no = no->getProxNo()) {
+        // Se o no ja foi visitado, ou seja, esta na solucao
+        if(solucao[no->getId()] != -1) {
+            // Percorre todas arestas dele
+            for(Aresta* aresta = no->getPrimeiraAresta(); aresta != nullptr; aresta = aresta->getProxAresta()) {
+                // Se o alvo da aresta nem seu respectivo grupo ainda nao foram visitados
+                if(solucao[aresta->getIdAlvo()] == -1 && !gruposVisitados[this->getNo(aresta->getIdAlvo())->getGrupo()]) {
+                    // Se for a primeira iteracao
+                    if(primeiraIt){
+                        // Define o menor e o maior peso como o peso do alvo da aresta atual
+                        min_peso = aresta->getPeso();
+                        max_peso = aresta->getPeso();
+                        // Muda a variavel de controle da primeira iteracao
+                        primeiraIt = false;
+                    }else {
+                        // Se nao for a primeira iteracao faz a comparacao com a referencia salva
+                        if(min_peso > aresta->getPeso()) {
+                            // Atualiza a referencia de menor peso
+                            min_peso = aresta->getPeso();
+                        }
+                        if(max_peso < aresta->getPeso()) {
+                            // Atualiza a referencia de maior peso
+                            max_peso = aresta->getPeso();
+                        }
+                    }
+                }
+            }
+        }
+    }
+    // Variavel de controle que vai retornar para o loop principal
+    bool rodando = false;
+
+    // Se nao for a primeira iteracao
+    if(!primeiraIt) {
+        // Calcula o D_MAX com base na formula
+        float d_max = min_peso + (alfa * (max_peso - min_peso));
+
+        // Percorre todos os nos do grafo
+        for(No* no = this->primeiro_no; no != nullptr; no = no->getProxNo()) {
+            // Se ele nao tiver na solucao ainda, logo nao foi visitado
+            if(solucao[no->getId()] != -1) {
+                // Percorre todas arestas desse No
+                for(Aresta* aresta = no->getPrimeiraAresta(); aresta != nullptr; aresta = aresta->getProxAresta()) {
+                    // Se a aresta tem o peso menor que o peso calculado da formula e o alvo dela nao foi visitada nem o grupo
+                    if (aresta->getPeso() <= d_max && solucao[aresta->getIdAlvo()] == -1 && !gruposVisitados[this->getNo(aresta->getIdAlvo())->getGrupo()]) {
+                        // O alvo da aresta entra como possivel no
+                        possiveisNos[aresta->getIdAlvo()] = true;
+                        // Variavel de controle do algoritmo fica rodando
+                        rodando = true;
+                    }
+                }
+            }
+        }
+    }
+    // Retorna o controle do algoritmo
+    return rodando;
+}
+// Fim da funcao para percorrer o grafo no agmg randomizado e retorna o status do algoritmo
+
+// Inicio da funcao para sortear um prox no com base nos nos possiveis
+int Grafo::proximoNoAGMGrandomizado(bool possiveisNos[]) {
+    // Declarando variaveis de controle
+    int qntPossiveis = 0;
+    int noEscolhido = -1;
+
+    // Contando quantos nos vao entrar no vetor de possiveis sorteados
+    for(int i = 0; i < this->ordem; i++) {
+        // Se ele estiver como possivel de ser sorteado incrementa a variavel
+        if(possiveisNos[i])
+            qntPossiveis++;
+    }
+
+    // Se tiver algum no para ser sorteado
+    if(qntPossiveis != 0) {
+        // Declara o vetor para sortear o no
+        int nosSorteados[qntPossiveis];
+
+        // Faz a copia dos nos possiveis para dentro do vetor que vai sortear um no
+        int k = 0;
+        for(int i = 0; i < this->ordem; i++) {
+            if(possiveisNos[i]) {
+                nosSorteados[k] = i;
+                k++;
+            }
+        }
+        // Seta a seed do aleatorio
+        srand(time(0));
+        // Pega um no aleatorio
+        noEscolhido = nosSorteados[rand()%qntPossiveis];
+    }
+    // Retorna o no aleatorio
+    return noEscolhido;
+}
+// Fim da funcao para sortear um prox no com base nos nos possiveis
+
+// Inicio da funcao para pegar o no da aresta de menor peso
+int Grafo::escolherArestaAGMGrandomizado(int prox_id, int solucao[], bool gruposVisitados[]) {
+    // Declarando variavel de peso minimo sendo + infinito
+    float min_peso = std::numeric_limits<float>::max();
+    // Instanciando variaveis de controle
+    float peso_atual;
+    int noEscolhido = -1;
+
+    // Percorrendo todos vertices
+    for(No* no = this->primeiro_no; no != nullptr; no = no->getProxNo()) {
+        // Se ele ja tiver sido visitado, ou seja, esta na solucao
+        if(solucao[no->getId()] != -1) {
+            // Verifica se existe aresta entre o no atual do loop com o prox no do algoritmo de prim
+            if(no->existeArestaEntre(prox_id)){
+                // Pega o peso
+                peso_atual = no->getArestaEntre(prox_id)->getPeso();
+                // Compara com o menor peso, se for a primeira vez vai entrar porque comeca com + infinito
+                if(min_peso > peso_atual){
+                    // Atualiza o menor peso e pega o no
+                    min_peso = peso_atual;
+                    noEscolhido = no->getId();
+                }
+            }
+        }
+    }
+    // Retorna o No escolhido
+    return noEscolhido;
+}
+// Fim da funcao para pegar o no da aresta de menor peso
+
+
+
+
+
 
 //Inicio Algoritmo Guloso AGMG
 

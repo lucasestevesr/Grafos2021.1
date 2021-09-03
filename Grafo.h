@@ -69,8 +69,17 @@ class Grafo{
         string buscaProf(int id_aux_origem);
         Grafo* subgrafo(int vertices[], int tamanho);
         string ordTopologica();
+
+        // Guloso
         string AGMGPrim();
-        float auxAGMGPrim(int id_origem, float alfa, int solucao[]);
+        float auxAGMGPrim(int id_origem, int solucao[]);
+
+        // Guloso Randomizado
+        string AGMGPrimRandomizado();
+        float auxAGMGPrimRandomizado(int id_origem, float alfa, int solucao[]);
+        bool percorrerGrafo(float alfa, int solucao[], bool gruposVisitados[], bool possiveisNos[]);
+        int proximoNoAGMGrandomizado(bool possiveisNos[]);
+        int escolherArestaAGMGrandomizado(int prox_id, int solucao[], bool gruposVisitados[]);
 };
 
 #endif // GRAFO_H_INCLUDED
