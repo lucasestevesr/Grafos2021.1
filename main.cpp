@@ -246,7 +246,7 @@ void selecionar(int selecao, Grafo* grafo, ofstream& arquivo_saida) {
         }
         // Algoritmo Guloso AGMG Randomizado
         case 11:{
-            retorno = grafo->AGMGPrimRandomizado();
+            retorno = grafo->AGMGPrimRandomizado(0.5, 500);
             break;
         }
         // Algoritmo Guloso AGMG Randomizado Reativo
