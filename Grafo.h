@@ -80,6 +80,9 @@ class Grafo{
         bool percorrerGrafo(float alfa, int solucao[], bool gruposVisitados[], bool possiveisNos[]);
         int proximoNoAGMGrandomizado(bool possiveisNos[]);
         int escolherArestaAGMGrandomizado(int prox_id, int solucao[], bool gruposVisitados[]);
+
+        // Guloso Randomizado Reativo
+        string AGMGPrimRandomizadoReativo();
 };
 
 #endif // GRAFO_H_INCLUDED

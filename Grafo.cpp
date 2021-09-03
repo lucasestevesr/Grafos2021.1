@@ -1601,6 +1601,106 @@ int Grafo::escolherArestaAGMGrandomizado(int prox_id, int solucao[], bool grupos
 }
 // Fim da funcao para pegar o no da aresta de menor peso
 
+// Inicio funcao agmg prim randomizado reativo
+string Grafo::AGMGPrimRandomizadoReativo() {
+    // Variavel de controle para o numero de iteracoes tera o algoritmo
+    int NUM_ITERACOES = 500;
+    // Variavel para incrementar a iteracao atual
+    int qnt_iteracoes = 0;
+    // Variavel de controle para armazenar o id do no de origem
+    int id_origem = 0;
+    // Variavel de controle para saber o index do alfa atual
+    int i_alfa = 0;
+    // Para armazenar o melhor alfa
+    int i_melhor_alfa = 0;
+    // Solucao do algoritmo que vai ser passa para funcao aux
+    int solucao[this->ordem];
+    // Armazenar o backup da melhor solucao
+    int melhorSolucao[this->ordem];
+    // Armazenar o melhor custo, comeca como + infinito para o primeiro custo entrar como melhor
+    float melhorCusto = std::numeric_limits<float>::max();
+    // Custo da solucao atual
+    float custoSolucao = 0;
+    // Vetor de alfas a serem testados
+    float alfas[5] = {0.05, 0.10, 0.15, 0.30, 0.50};
+
+    // Enquanto nao percorrer todas iteracoes nao acaba
+    while(NUM_ITERACOES > qnt_iteracoes) {
+        // Percorre passando o id de todos vertices do grafo
+        for (int i = 0; i < this->ordem; i++) {
+            // Verifica qual iteracao esta e troca o id do alfa
+            if(qnt_iteracoes >= 100 && qnt_iteracoes < 200)
+                i_alfa = 1;
+            else if(qnt_iteracoes >= 200 && qnt_iteracoes < 300)
+                i_alfa = 2;
+            else if(qnt_iteracoes >= 300 && qnt_iteracoes < 400)
+                i_alfa = 3;
+            else if(qnt_iteracoes >= 400)
+                i_alfa = 4;
+            // Chama o algoritmo e armazena o custo dele
+            custoSolucao = this->auxAGMGPrimRandomizado(i, alfas[i_alfa], solucao);
+            // Incrementa o quantidade de iteracoes
+            qnt_iteracoes++;
+            // Se o custo for melhor do que o melhor custo
+            if (custoSolucao < melhorCusto) {
+                // Faz o backup da solucao
+                for (int j = 0; j < this->ordem; j++) {
+                    melhorSolucao[j] = solucao[j];
+                }
+                // Pega o id de origem da atual melhor solucao
+                id_origem = i;
+                // Atualiza o melhor custo
+                melhorCusto = custoSolucao;
+                // Salva o alfa da melhor solucao
+                i_melhor_alfa = i_alfa;
+            }
+        }
+    }
+
+    // Daqui para baixo e so salvando a solucao no arquivo de saida
+    string retorno = "AGMG Guloso Randomizado Reativo - Prim\n";
+    if(this->direcionado){
+        retorno += "Erro! Grafo direcionado!";
+        return retorno;
+    }
+
+    string seta = " -- ";
+    retorno += "// Vértice Inicial = " + std::to_string(id_origem) + "\n";
+    retorno += "// Custo Total = " + std::to_string(melhorCusto) + "\n";
+    retorno += "// Qtd. Grupos = " + std::to_string(this->qtdGrupos) + "\n";
+    retorno += "// Alfa = " + std::to_string(alfas[i_melhor_alfa]) + "\n";
+    retorno += "strict graph { \n";
+
+    string cores[10] = {"red", "orange", "blue", "yellow", "gray", "beige", "pink", "green", "violet", "purple"};
+    int grupo = 0;
+    for(int i = 0; i < this->ordem; i++) {
+        if(melhorSolucao[i] != -1) {
+            grupo = this->getNo(i)->getGrupo();
+            if(grupo <= this->qtdGrupos){
+                retorno += "\t" + std::to_string(i) + " [color=" + cores[grupo-1] + "]" + "\n";
+            }
+            retorno += "\t" + std::to_string(i) + seta + std::to_string(melhorSolucao[i]) + " [label=" + std::to_string(this->getNo(i)->getArestaEntre(melhorSolucao[i])->getPeso()) + "]" + "\n";
+        }
+    }
+    retorno += "} \n";
+    retorno += "---------------------------------------";
+    return retorno;
+}
+// Fim funcao agmg prim randomizado reativo
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
