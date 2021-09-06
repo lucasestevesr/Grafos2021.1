@@ -1335,39 +1335,22 @@ float Grafo::auxAGMGPrim(int id_origem, int solucao[]) {
 }
 // Fim funcao aux do agmg prim guloso
 
-// Inicio funcao agmg prim randomizada
-string Grafo::AGMGPrimRandomizado(float alfa, int num_iteracoes) {
-    // Variavel para incrementar a iteracao atual
-    int qnt_iteracoes = 0;
-    // Variavel de controle para armazenar o id do no de origem
-    int id_origem = 0;
-    // Solucao do algoritmo que vai ser passa para funcao aux
-    int solucao[this->ordem];
-    // Armazenar o backup da melhor solucao
+string Grafo::AGMGRandomizado(){
+    float alfa[5] = {0.05, 0.10, 0.15, 0.30, 0.50};
     int melhorSolucao[this->ordem];
-    // Armazenar o melhor custo, comeca como + infinito para o primeiro custo entrar como melhor
+    int solucaoFinal[this->ordem];
     float melhorCusto = std::numeric_limits<float>::max();
-    // Custo da solucao atual
     float custoSolucao = 0;
-
-    // Enquanto nao percorrer todas iteracoes nao acaba
-    while(num_iteracoes > qnt_iteracoes) {
-        // Percorre passando o id de todos vertices do grafo
-        for (int i = 0; i < this->ordem; i++) {
-            // Chama o algoritmo e armazena o custo dele
-            custoSolucao = this->auxAGMGPrimRandomizado(i, alfa, solucao);
-            // Incrementa o quantidade de iteracoes
-            qnt_iteracoes++;
-            // Se o custo for melhor do que o melhor custo
-            if (custoSolucao < melhorCusto) {
-                // Faz o backup da solucao
-                for (int j = 0; j < this->ordem; j++) {
-                    melhorSolucao[j] = solucao[j];
-                }
-                // Pega o id de origem da atual melhor solucao
-                id_origem = i;
-                // Atualiza o melhor custo
+    int id_origem = 0;
+    for(int j=0; j<5; j++){
+        for(int k=0; k<10; k++){
+            custoSolucao = AGMGPrimRandomizado(alfa[j], 500, melhorSolucao);
+            if(custoSolucao < melhorCusto){
                 melhorCusto = custoSolucao;
+                for(int i=0; i<this->ordem; i++){
+                    solucaoFinal[i] = melhorSolucao[i];
+                    melhorSolucao[i] = 0;
+                }
             }
         }
     }
@@ -1399,6 +1382,45 @@ string Grafo::AGMGPrimRandomizado(float alfa, int num_iteracoes) {
     retorno += "} \n";
     retorno += "---------------------------------------";
     return retorno;
+}
+
+// Inicio funcao agmg prim randomizada
+float Grafo::AGMGPrimRandomizado(float alfa, int num_iteracoes, int melhorSolucao[]) {
+    // Variavel para incrementar a iteracao atual
+    int qnt_iteracoes = 0;
+    // Variavel de controle para armazenar o id do no de origem
+    int id_origem = 0;
+    // Solucao do algoritmo que vai ser passa para funcao aux
+    int solucao[this->ordem];
+    // Armazenar o melhor custo, comeca como + infinito para o primeiro custo entrar como melhor
+    float melhorCusto = std::numeric_limits<float>::max();
+    // Custo da solucao atual
+    float custoSolucao = 0;
+
+    // Enquanto nao percorrer todas iteracoes nao acaba
+    while(num_iteracoes > qnt_iteracoes) {
+        // Percorre passando o id de todos vertices do grafo
+        for (int i = 0; i < this->ordem; i++) {
+            // Chama o algoritmo e armazena o custo dele
+            custoSolucao = this->auxAGMGPrimRandomizado(i, alfa, solucao);
+            // Incrementa o quantidade de iteracoes
+            qnt_iteracoes++;
+            // Se o custo for melhor do que o melhor custo
+            if (custoSolucao < melhorCusto) {
+                // Faz o backup da solucao
+                for (int j = 0; j < this->ordem; j++) {
+                    melhorSolucao[j] = solucao[j];
+                }
+                // Pega o id de origem da atual melhor solucao
+                id_origem = i;
+                // Atualiza o melhor custo
+                melhorCusto = custoSolucao;
+            }
+        }
+    }
+    return melhorCusto;
+
+
 }
 // Fim funcao agmg prim randomizada
 
@@ -1602,17 +1624,13 @@ int Grafo::escolherArestaAGMGrandomizado(int prox_id, int solucao[], bool grupos
 // Fim da funcao para pegar o no da aresta de menor peso
 
 // Inicio funcao agmg prim randomizado reativo
-string Grafo::AGMGPrimRandomizadoReativo() {
+float Grafo::AGMGPrimRandomizadoReativo(int solucaoAtual[], int* id_origem, int* i_melhor_alfa) {
     // Variavel de controle para o numero de iteracoes tera o algoritmo
-    int NUM_ITERACOES = 500;
+    int NUM_ITERACOES = 2500;
     // Variavel para incrementar a iteracao atual
     int qnt_iteracoes = 0;
-    // Variavel de controle para armazenar o id do no de origem
-    int id_origem = 0;
     // Variavel de controle para saber o index do alfa atual
     int i_alfa = 0;
-    // Para armazenar o melhor alfa
-    int i_melhor_alfa = 0;
     // Solucao do algoritmo que vai ser passa para funcao aux
     int solucao[this->ordem];
     // Armazenar o backup da melhor solucao
@@ -1623,39 +1641,88 @@ string Grafo::AGMGPrimRandomizadoReativo() {
     float custoSolucao = 0;
     // Vetor de alfas a serem testados
     float alfas[5] = {0.05, 0.10, 0.15, 0.30, 0.50};
+    //Vetor para armazenar as medias de cada alfa
+    float medias[5] = {0.00, 0.00, 0.00, 0.00, 0.00};
+    //Vetor para armazenar a "qualidade" de cada alfa
+    float qualidades[5] = {0.00, 0.00, 0.00, 0.00, 0.00};
+    //Vetor para armazenar as probabilidades de cada alfa
+    int probabilidades[5] = {100, 100, 100, 100, 100};
+    //Quantidade de iteracoes em cada ciclo de 100 repeticoes
+    int qtd_ciclo = 0;
 
     // Enquanto nao percorrer todas iteracoes nao acaba
     while(NUM_ITERACOES > qnt_iteracoes) {
         // Percorre passando o id de todos vertices do grafo
         for (int i = 0; i < this->ordem; i++) {
             // Verifica qual iteracao esta e troca o id do alfa
-            if(qnt_iteracoes >= 100 && qnt_iteracoes < 200)
+            if(qtd_ciclo >= probabilidades[0] && qtd_ciclo < probabilidades[0] + probabilidades[1])
                 i_alfa = 1;
-            else if(qnt_iteracoes >= 200 && qnt_iteracoes < 300)
+            else if(qtd_ciclo >= probabilidades[0] + probabilidades[1] && qtd_ciclo < probabilidades[0] + probabilidades[1] + probabilidades[2])
                 i_alfa = 2;
-            else if(qnt_iteracoes >= 300 && qnt_iteracoes < 400)
+            else if(qtd_ciclo >= probabilidades[0] + probabilidades[1] + probabilidades[2] && qtd_ciclo < probabilidades[0] + probabilidades[1] + probabilidades[2] + probabilidades[3])
                 i_alfa = 3;
-            else if(qnt_iteracoes >= 400)
+            else if(qtd_ciclo >= probabilidades[0] + probabilidades[1] + probabilidades[2] + probabilidades[3] && qtd_ciclo < probabilidades[0] + probabilidades[1] + probabilidades[2] + probabilidades[3] + probabilidades[4])
                 i_alfa = 4;
+            else if(qtd_ciclo >= probabilidades[0] + probabilidades[1] + probabilidades[2] + probabilidades[3] + probabilidades[4] + probabilidades[5]){
+                float somaQualidades = 0;
+                for(int k=0; k<5; k++){
+                    medias[k] = medias[k]/probabilidades[k];
+                    qualidades[k] = melhorCusto/medias[k];
+                    somaQualidades += qualidades[k];
+                }
+                for(int k=0; k<5;k++){
+                    probabilidades[k] = (qualidades[k]/somaQualidades)*100;
+                }
+                i_alfa = 0;
+                qtd_ciclo = 0;
+            }
             // Chama o algoritmo e armazena o custo dele
             custoSolucao = this->auxAGMGPrimRandomizado(i, alfas[i_alfa], solucao);
+            medias[i_alfa] += custoSolucao;
             // Incrementa o quantidade de iteracoes
             qnt_iteracoes++;
+            //Incrementa o quantidade de iteracoes no ciclo
+            qtd_ciclo++;
             // Se o custo for melhor do que o melhor custo
             if (custoSolucao < melhorCusto) {
                 // Faz o backup da solucao
                 for (int j = 0; j < this->ordem; j++) {
-                    melhorSolucao[j] = solucao[j];
+                    solucaoAtual[j] = solucao[j];
                 }
                 // Pega o id de origem da atual melhor solucao
-                id_origem = i;
+                *id_origem = i;
                 // Atualiza o melhor custo
                 melhorCusto = custoSolucao;
                 // Salva o alfa da melhor solucao
-                i_melhor_alfa = i_alfa;
+                *i_melhor_alfa = i_alfa;
             }
         }
     }
+     return melhorCusto;
+}
+// Fim funcao agmg prim randomizado reativo
+
+string Grafo::AGMGRandReativo(){
+    // Para armazenar o melhor alfa
+    int i_melhor_alfa = 0;
+    // Variavel de controle para armazenar o id do no de origem
+    int id_origem = 0;
+    float alfas[5] = {0.05, 0.10, 0.15, 0.30, 0.50};
+    int melhorSolucao[this->ordem];
+    float melhorCusto = std::numeric_limits<float>::max();
+    int solucaoAtual[this->ordem];
+    float custoSolucao;
+    for(int i=0; i<10; i++){
+        custoSolucao = AGMGPrimRandomizadoReativo(solucaoAtual, &id_origem, &i_melhor_alfa);
+        if(custoSolucao < melhorCusto){
+            melhorCusto = custoSolucao;
+            for(int i=0; i<this->ordem; i++){
+                melhorSolucao[i] = solucaoAtual[i];
+                solucaoAtual[i] = 0;
+            }
+        }
+    }
+
 
     // Daqui para baixo e so salvando a solucao no arquivo de saida
     string retorno = "AGMG Guloso Randomizado Reativo - Prim\n";
@@ -1686,9 +1753,6 @@ string Grafo::AGMGPrimRandomizadoReativo() {
     retorno += "---------------------------------------";
     return retorno;
 }
-// Fim funcao agmg prim randomizado reativo
-
-
 
 
 

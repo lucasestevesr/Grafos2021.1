@@ -75,14 +75,16 @@ class Grafo{
         float auxAGMGPrim(int id_origem, int solucao[]);
 
         // Guloso Randomizado
-        string AGMGPrimRandomizado(float alfa, int num_iteracoes);
+        float AGMGPrimRandomizado(float alfa, int num_iteracoes, int melhorSolucao[]);
+        string AGMGRandomizado();
         float auxAGMGPrimRandomizado(int id_origem, float alfa, int solucao[]);
         bool percorrerGrafo(float alfa, int solucao[], bool gruposVisitados[], bool possiveisNos[]);
         int proximoNoAGMGrandomizado(bool possiveisNos[]);
         int escolherArestaAGMGrandomizado(int prox_id, int solucao[], bool gruposVisitados[]);
 
         // Guloso Randomizado Reativo
-        string AGMGPrimRandomizadoReativo();
+        float AGMGPrimRandomizadoReativo(int solucaoAtual[], int* id_origem, int* i_melhor_alfa);
+        string AGMGRandReativo();
 };
 
 #endif // GRAFO_H_INCLUDED
