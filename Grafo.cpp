@@ -14,6 +14,7 @@
 #include <float.h>
 #include <iomanip>
 # include <limits>
+#include <chrono>
 
 using namespace std;
 
@@ -1218,6 +1219,7 @@ bool Grafo::verificarCiclo() {
 
 // Inicio funcao agmg prim guluso
 string Grafo::AGMGPrim() {
+    auto start = std::chrono::high_resolution_clock::now();
     // Declarando variaveis de controle
     int id_origem = 0;
     float alfa = 1;
@@ -1225,7 +1227,7 @@ string Grafo::AGMGPrim() {
     float melhorCusto = infinito;
     float custoSolucao = 0;
     int solucao[this->ordem];
-    int melhorSolucao[this->ordem];
+//    int melhorSolucao[this->ordem];
 
     // Percorrendo todos vertices do grafo
     for(int i = 0; i < this->ordem; i++) {
@@ -1234,13 +1236,16 @@ string Grafo::AGMGPrim() {
         // Compara o custo recebido da solucao com o melhor custo
         if(custoSolucao < melhorCusto) {
             // Se for melhor faz o backup da solucao
-            for(int j = 0; j < this->ordem; j++) {
-                melhorSolucao[j] = solucao[j];
-            }
+//            for(int j = 0; j < this->ordem; j++) {
+//                melhorSolucao[j] = solucao[j];
+//            }
             id_origem = i;
             melhorCusto = custoSolucao;
         }
     }
+    //Calculando o tempo de execução
+    auto end = std::chrono::high_resolution_clock::now();
+    auto int_s = std::chrono::duration_cast<std::chrono::seconds>(end - start);
 
     // Daqui para baixo e so salvando a solucao no arquivo de saida
     string retorno = "AGMG Guloso - Prim\n";
@@ -1253,21 +1258,22 @@ string Grafo::AGMGPrim() {
     retorno += "// Vértice Inicial = " + std::to_string(id_origem) + "\n";
     retorno += "// Custo Total = " + std::to_string(melhorCusto) + "\n";
     retorno += "// Qtd. Grupos = " + std::to_string(this->qtdGrupos) + "\n";
-    retorno += "strict graph { \n";
-
-    string cores[10] = {"red", "orange", "blue", "yellow", "gray", "beige", "pink", "green", "violet", "purple"};
-    int grupo = 0;
-    for(int i = 0; i < this->ordem; i++) {
-        if(melhorSolucao[i] != -1) {
-            grupo = this->getNo(i)->getGrupo();
-            if(grupo <= this->qtdGrupos){
-                retorno += "\t" + std::to_string(i) + " [color=" + cores[grupo-1] + "]" + "\n";
-            }
-            retorno += "\t" + std::to_string(i) + seta + std::to_string(melhorSolucao[i]) + " [label=" + std::to_string(this->getNo(i)->getArestaEntre(melhorSolucao[i])->getPeso()) + "]" + "\n";
-        }
-    }
-    retorno += "} \n";
-    retorno += "---------------------------------------";
+    retorno += "// Tempo de Execucao (Segundos) = " + std::to_string(int_s.count()) + "\n";
+//    retorno += "strict graph { \n";
+//
+//    string cores[10] = {"red", "orange", "blue", "yellow", "gray", "beige", "pink", "green", "violet", "purple"};
+//    int grupo = 0;
+//    for(int i = 0; i < this->ordem; i++) {
+//        if(melhorSolucao[i] != -1) {
+//            grupo = this->getNo(i)->getGrupo();
+//            if(grupo <= this->qtdGrupos){
+//                retorno += "\t" + std::to_string(i) + " [color=" + cores[grupo-1] + "]" + "\n";
+//            }
+//            retorno += "\t" + std::to_string(i) + seta + std::to_string(melhorSolucao[i]) + " [label=" + std::to_string(this->getNo(i)->getArestaEntre(melhorSolucao[i])->getPeso()) + "]" + "\n";
+//        }
+//    }
+//    retorno += "} \n";
+//    retorno += "---------------------------------------";
     return retorno;
 }
 // Fim funcao agmg prim guluso
@@ -1336,6 +1342,7 @@ float Grafo::auxAGMGPrim(int id_origem, int solucao[]) {
 // Fim funcao aux do agmg prim guloso
 
 string Grafo::AGMGRandomizado(){
+    auto start = std::chrono::high_resolution_clock::now();
     float alfa[5] = {0.05, 0.10, 0.15, 0.30, 0.50};
     int melhorSolucao[this->ordem];
     int solucaoFinal[this->ordem];
@@ -1347,13 +1354,15 @@ string Grafo::AGMGRandomizado(){
             custoSolucao = AGMGPrimRandomizado(alfa[j], 500, melhorSolucao);
             if(custoSolucao < melhorCusto){
                 melhorCusto = custoSolucao;
-                for(int i=0; i<this->ordem; i++){
-                    solucaoFinal[i] = melhorSolucao[i];
-                    melhorSolucao[i] = 0;
-                }
+//                for(int i=0; i<this->ordem; i++){
+//                    solucaoFinal[i] = melhorSolucao[i];
+//                    melhorSolucao[i] = 0;
+//                }
             }
         }
     }
+    auto end = std::chrono::high_resolution_clock::now();
+    auto int_s = std::chrono::duration_cast<std::chrono::seconds>(end - start);
 
     // Daqui para baixo e so salvando a solucao no arquivo de saida
     string retorno = "AGMG Guloso Randomizado - Prim\n";
@@ -1366,21 +1375,22 @@ string Grafo::AGMGRandomizado(){
     retorno += "// Vértice Inicial = " + std::to_string(id_origem) + "\n";
     retorno += "// Custo Total = " + std::to_string(melhorCusto) + "\n";
     retorno += "// Qtd. Grupos = " + std::to_string(this->qtdGrupos) + "\n";
-    retorno += "strict graph { \n";
-
-    string cores[10] = {"red", "orange", "blue", "yellow", "gray", "beige", "pink", "green", "violet", "purple"};
-    int grupo = 0;
-    for(int i = 0; i < this->ordem; i++) {
-        if(melhorSolucao[i] != -1) {
-            grupo = this->getNo(i)->getGrupo();
-            if(grupo <= this->qtdGrupos){
-                retorno += "\t" + std::to_string(i) + " [color=" + cores[grupo-1] + "]" + "\n";
-            }
-            retorno += "\t" + std::to_string(i) + seta + std::to_string(melhorSolucao[i]) + " [label=" + std::to_string(this->getNo(i)->getArestaEntre(melhorSolucao[i])->getPeso()) + "]" + "\n";
-        }
-    }
-    retorno += "} \n";
-    retorno += "---------------------------------------";
+    retorno += "// Tempo de Execucao (Segundos) = " + std::to_string(int_s.count()) + "\n";
+//    retorno += "strict graph { \n";
+//
+//    string cores[10] = {"red", "orange", "blue", "yellow", "gray", "beige", "pink", "green", "violet", "purple"};
+//    int grupo = 0;
+//    for(int i = 0; i < this->ordem; i++) {
+//        if(melhorSolucao[i] != -1) {
+//            grupo = this->getNo(i)->getGrupo();
+//            if(grupo <= this->qtdGrupos){
+//                retorno += "\t" + std::to_string(i) + " [color=" + cores[grupo-1] + "]" + "\n";
+//            }
+//            retorno += "\t" + std::to_string(i) + seta + std::to_string(melhorSolucao[i]) + " [label=" + std::to_string(this->getNo(i)->getArestaEntre(melhorSolucao[i])->getPeso()) + "]" + "\n";
+//        }
+//    }
+//    retorno += "} \n";
+//    retorno += "---------------------------------------";
     return retorno;
 }
 
@@ -1408,9 +1418,9 @@ float Grafo::AGMGPrimRandomizado(float alfa, int num_iteracoes, int melhorSoluca
             // Se o custo for melhor do que o melhor custo
             if (custoSolucao < melhorCusto) {
                 // Faz o backup da solucao
-                for (int j = 0; j < this->ordem; j++) {
-                    melhorSolucao[j] = solucao[j];
-                }
+//                for (int j = 0; j < this->ordem; j++) {
+//                    melhorSolucao[j] = solucao[j];
+//                }
                 // Pega o id de origem da atual melhor solucao
                 id_origem = i;
                 // Atualiza o melhor custo
@@ -1686,9 +1696,9 @@ float Grafo::AGMGPrimRandomizadoReativo(int solucaoAtual[], int* id_origem, int*
             // Se o custo for melhor do que o melhor custo
             if (custoSolucao < melhorCusto) {
                 // Faz o backup da solucao
-                for (int j = 0; j < this->ordem; j++) {
-                    solucaoAtual[j] = solucao[j];
-                }
+//                for (int j = 0; j < this->ordem; j++) {
+//                    solucaoAtual[j] = solucao[j];
+//                }
                 // Pega o id de origem da atual melhor solucao
                 *id_origem = i;
                 // Atualiza o melhor custo
@@ -1703,6 +1713,8 @@ float Grafo::AGMGPrimRandomizadoReativo(int solucaoAtual[], int* id_origem, int*
 // Fim funcao agmg prim randomizado reativo
 
 string Grafo::AGMGRandReativo(){
+    //Inicializando o cronômetro
+    auto start = std::chrono::high_resolution_clock::now();
     // Para armazenar o melhor alfa
     int i_melhor_alfa = 0;
     // Variavel de controle para armazenar o id do no de origem
@@ -1716,13 +1728,16 @@ string Grafo::AGMGRandReativo(){
         custoSolucao = AGMGPrimRandomizadoReativo(solucaoAtual, &id_origem, &i_melhor_alfa);
         if(custoSolucao < melhorCusto){
             melhorCusto = custoSolucao;
-            for(int i=0; i<this->ordem; i++){
-                melhorSolucao[i] = solucaoAtual[i];
-                solucaoAtual[i] = 0;
-            }
+//            for(int i=0; i<this->ordem; i++){
+//                melhorSolucao[i] = solucaoAtual[i];
+//                solucaoAtual[i] = 0;
+//            }
         }
     }
-
+    //finalizando o cronómetro
+    auto end = std::chrono::high_resolution_clock::now();
+    //calculando o tempo
+    auto int_s = std::chrono::duration_cast<std::chrono::seconds>(end - start);
 
     // Daqui para baixo e so salvando a solucao no arquivo de saida
     string retorno = "AGMG Guloso Randomizado Reativo - Prim\n";
@@ -1736,21 +1751,22 @@ string Grafo::AGMGRandReativo(){
     retorno += "// Custo Total = " + std::to_string(melhorCusto) + "\n";
     retorno += "// Qtd. Grupos = " + std::to_string(this->qtdGrupos) + "\n";
     retorno += "// Alfa = " + std::to_string(alfas[i_melhor_alfa]) + "\n";
-    retorno += "strict graph { \n";
-
-    string cores[10] = {"red", "orange", "blue", "yellow", "gray", "beige", "pink", "green", "violet", "purple"};
-    int grupo = 0;
-    for(int i = 0; i < this->ordem; i++) {
-        if(melhorSolucao[i] != -1) {
-            grupo = this->getNo(i)->getGrupo();
-            if(grupo <= this->qtdGrupos){
-                retorno += "\t" + std::to_string(i) + " [color=" + cores[grupo-1] + "]" + "\n";
-            }
-            retorno += "\t" + std::to_string(i) + seta + std::to_string(melhorSolucao[i]) + " [label=" + std::to_string(this->getNo(i)->getArestaEntre(melhorSolucao[i])->getPeso()) + "]" + "\n";
-        }
-    }
-    retorno += "} \n";
-    retorno += "---------------------------------------";
+    retorno += "// Tempo de Execucao (Segundos) = " + std::to_string(int_s.count()) + "\n";
+//    retorno += "strict graph { \n";
+//
+//    string cores[10] = {"red", "orange", "blue", "yellow", "gray", "beige", "pink", "green", "violet", "purple"};
+//    int grupo = 0;
+//    for(int i = 0; i < this->ordem; i++) {
+//        if(melhorSolucao[i] != -1) {
+//            grupo = this->getNo(i)->getGrupo();
+//            if(grupo <= this->qtdGrupos){
+//                retorno += "\t" + std::to_string(i) + " [color=" + cores[grupo-1] + "]" + "\n";
+//            }
+//            retorno += "\t" + std::to_string(i) + seta + std::to_string(melhorSolucao[i]) + " [label=" + std::to_string(this->getNo(i)->getArestaEntre(melhorSolucao[i])->getPeso()) + "]" + "\n";
+//        }
+//    }
+//    retorno += "} \n";
+//    retorno += "---------------------------------------";
     return retorno;
 }
 

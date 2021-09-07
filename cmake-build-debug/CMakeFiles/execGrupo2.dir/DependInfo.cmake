@@ -1,26 +1,18 @@
-
-# Consider dependencies only in project.
-set(CMAKE_DEPENDS_IN_PROJECT_ONLY OFF)
-
 # The set of languages for which implicit dependencies are needed:
 set(CMAKE_DEPENDS_LANGUAGES
   "CXX"
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "C:/Users/Gabriel/Documents/Projetos CLion/Grafos2021.1-main/Aresta.cpp" "C:/Users/Gabriel/Documents/Projetos CLion/Grafos2021.1-main/cmake-build-debug/CMakeFiles/execGrupo2.dir/Aresta.cpp.obj"
-  "C:/Users/Gabriel/Documents/Projetos CLion/Grafos2021.1-main/Grafo.cpp" "C:/Users/Gabriel/Documents/Projetos CLion/Grafos2021.1-main/cmake-build-debug/CMakeFiles/execGrupo2.dir/Grafo.cpp.obj"
-  "C:/Users/Gabriel/Documents/Projetos CLion/Grafos2021.1-main/No.cpp" "C:/Users/Gabriel/Documents/Projetos CLion/Grafos2021.1-main/cmake-build-debug/CMakeFiles/execGrupo2.dir/No.cpp.obj"
-  "C:/Users/Gabriel/Documents/Projetos CLion/Grafos2021.1-main/main.cpp" "C:/Users/Gabriel/Documents/Projetos CLion/Grafos2021.1-main/cmake-build-debug/CMakeFiles/execGrupo2.dir/main.cpp.obj"
+  "C:/Users/Lucas/Desktop/UFJF/DCC/Teoria dos Grafos/Grafos2021.1-main/Aresta.cpp" "C:/Users/Lucas/Desktop/UFJF/DCC/Teoria dos Grafos/Grafos2021.1-main/cmake-build-debug/CMakeFiles/execGrupo2.dir/Aresta.cpp.obj"
+  "C:/Users/Lucas/Desktop/UFJF/DCC/Teoria dos Grafos/Grafos2021.1-main/Grafo.cpp" "C:/Users/Lucas/Desktop/UFJF/DCC/Teoria dos Grafos/Grafos2021.1-main/cmake-build-debug/CMakeFiles/execGrupo2.dir/Grafo.cpp.obj"
+  "C:/Users/Lucas/Desktop/UFJF/DCC/Teoria dos Grafos/Grafos2021.1-main/No.cpp" "C:/Users/Lucas/Desktop/UFJF/DCC/Teoria dos Grafos/Grafos2021.1-main/cmake-build-debug/CMakeFiles/execGrupo2.dir/No.cpp.obj"
+  "C:/Users/Lucas/Desktop/UFJF/DCC/Teoria dos Grafos/Grafos2021.1-main/main.cpp" "C:/Users/Lucas/Desktop/UFJF/DCC/Teoria dos Grafos/Grafos2021.1-main/cmake-build-debug/CMakeFiles/execGrupo2.dir/main.cpp.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
-  )
-
-# The set of dependency files which are needed:
-set(CMAKE_DEPENDS_DEPENDENCY_FILES
   )
 
 # Targets to which this target links.

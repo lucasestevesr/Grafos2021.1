@@ -1,3 +1,3 @@
-C:/Users/Gabriel/Documents/Projetos CLion/Grafos2021.1-main/cmake-build-debug/CMakeFiles/execGrupo2.dir
-C:/Users/Gabriel/Documents/Projetos CLion/Grafos2021.1-main/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/Gabriel/Documents/Projetos CLion/Grafos2021.1-main/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+C:/Users/Lucas/Desktop/UFJF/DCC/Teoria dos Grafos/Grafos2021.1-main/cmake-build-debug/CMakeFiles/execGrupo2.dir
+C:/Users/Lucas/Desktop/UFJF/DCC/Teoria dos Grafos/Grafos2021.1-main/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Lucas/Desktop/UFJF/DCC/Teoria dos Grafos/Grafos2021.1-main/cmake-build-debug/CMakeFiles/rebuild_cache.dir
