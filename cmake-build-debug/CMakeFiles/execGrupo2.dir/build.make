@@ -52,19 +52,19 @@ cmake_force:
 SHELL = cmd.exe
 
 # The CMake executable.
-CMAKE_COMMAND = "C:\Program Files\JetBrains\CLion 2021.1.2\bin\cmake\win\bin\cmake.exe"
+CMAKE_COMMAND = "C:\Program Files\JetBrains\CLion 2021.1.3\bin\cmake\win\bin\cmake.exe"
 
 # The command to remove a file.
-RM = "C:\Program Files\JetBrains\CLion 2021.1.2\bin\cmake\win\bin\cmake.exe" -E rm -f
+RM = "C:\Program Files\JetBrains\CLion 2021.1.3\bin\cmake\win\bin\cmake.exe" -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "C:\Users\Lucas\Desktop\UFJF\DCC\Teoria dos Grafos\Grafos2021.1-main"
+CMAKE_SOURCE_DIR = "C:\Users\pedro\Documents\Ufjf - Ead\Grafos\Grafos2021.1"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "C:\Users\Lucas\Desktop\UFJF\DCC\Teoria dos Grafos\Grafos2021.1-main\cmake-build-debug"
+CMAKE_BINARY_DIR = "C:\Users\pedro\Documents\Ufjf - Ead\Grafos\Grafos2021.1\cmake-build-debug"
 
 # Include any dependencies generated for this target.
 include CMakeFiles/execGrupo2.dir/depend.make
@@ -77,55 +77,55 @@ include CMakeFiles/execGrupo2.dir/flags.make
 
 CMakeFiles/execGrupo2.dir/main.cpp.obj: CMakeFiles/execGrupo2.dir/flags.make
 CMakeFiles/execGrupo2.dir/main.cpp.obj: ../main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="C:\Users\Lucas\Desktop\UFJF\DCC\Teoria dos Grafos\Grafos2021.1-main\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/execGrupo2.dir/main.cpp.obj"
-	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\execGrupo2.dir\main.cpp.obj -c "C:\Users\Lucas\Desktop\UFJF\DCC\Teoria dos Grafos\Grafos2021.1-main\main.cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="C:\Users\pedro\Documents\Ufjf - Ead\Grafos\Grafos2021.1\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/execGrupo2.dir/main.cpp.obj"
+	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\execGrupo2.dir\main.cpp.obj -c "C:\Users\pedro\Documents\Ufjf - Ead\Grafos\Grafos2021.1\main.cpp"
 
 CMakeFiles/execGrupo2.dir/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/execGrupo2.dir/main.cpp.i"
-	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\Lucas\Desktop\UFJF\DCC\Teoria dos Grafos\Grafos2021.1-main\main.cpp" > CMakeFiles\execGrupo2.dir\main.cpp.i
+	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\pedro\Documents\Ufjf - Ead\Grafos\Grafos2021.1\main.cpp" > CMakeFiles\execGrupo2.dir\main.cpp.i
 
 CMakeFiles/execGrupo2.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/execGrupo2.dir/main.cpp.s"
-	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\Lucas\Desktop\UFJF\DCC\Teoria dos Grafos\Grafos2021.1-main\main.cpp" -o CMakeFiles\execGrupo2.dir\main.cpp.s
+	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\pedro\Documents\Ufjf - Ead\Grafos\Grafos2021.1\main.cpp" -o CMakeFiles\execGrupo2.dir\main.cpp.s
 
 CMakeFiles/execGrupo2.dir/Aresta.cpp.obj: CMakeFiles/execGrupo2.dir/flags.make
 CMakeFiles/execGrupo2.dir/Aresta.cpp.obj: ../Aresta.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="C:\Users\Lucas\Desktop\UFJF\DCC\Teoria dos Grafos\Grafos2021.1-main\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/execGrupo2.dir/Aresta.cpp.obj"
-	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\execGrupo2.dir\Aresta.cpp.obj -c "C:\Users\Lucas\Desktop\UFJF\DCC\Teoria dos Grafos\Grafos2021.1-main\Aresta.cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="C:\Users\pedro\Documents\Ufjf - Ead\Grafos\Grafos2021.1\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/execGrupo2.dir/Aresta.cpp.obj"
+	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\execGrupo2.dir\Aresta.cpp.obj -c "C:\Users\pedro\Documents\Ufjf - Ead\Grafos\Grafos2021.1\Aresta.cpp"
 
 CMakeFiles/execGrupo2.dir/Aresta.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/execGrupo2.dir/Aresta.cpp.i"
-	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\Lucas\Desktop\UFJF\DCC\Teoria dos Grafos\Grafos2021.1-main\Aresta.cpp" > CMakeFiles\execGrupo2.dir\Aresta.cpp.i
+	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\pedro\Documents\Ufjf - Ead\Grafos\Grafos2021.1\Aresta.cpp" > CMakeFiles\execGrupo2.dir\Aresta.cpp.i
 
 CMakeFiles/execGrupo2.dir/Aresta.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/execGrupo2.dir/Aresta.cpp.s"
-	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\Lucas\Desktop\UFJF\DCC\Teoria dos Grafos\Grafos2021.1-main\Aresta.cpp" -o CMakeFiles\execGrupo2.dir\Aresta.cpp.s
+	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\pedro\Documents\Ufjf - Ead\Grafos\Grafos2021.1\Aresta.cpp" -o CMakeFiles\execGrupo2.dir\Aresta.cpp.s
 
 CMakeFiles/execGrupo2.dir/No.cpp.obj: CMakeFiles/execGrupo2.dir/flags.make
 CMakeFiles/execGrupo2.dir/No.cpp.obj: ../No.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="C:\Users\Lucas\Desktop\UFJF\DCC\Teoria dos Grafos\Grafos2021.1-main\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/execGrupo2.dir/No.cpp.obj"
-	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\execGrupo2.dir\No.cpp.obj -c "C:\Users\Lucas\Desktop\UFJF\DCC\Teoria dos Grafos\Grafos2021.1-main\No.cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="C:\Users\pedro\Documents\Ufjf - Ead\Grafos\Grafos2021.1\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/execGrupo2.dir/No.cpp.obj"
+	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\execGrupo2.dir\No.cpp.obj -c "C:\Users\pedro\Documents\Ufjf - Ead\Grafos\Grafos2021.1\No.cpp"
 
 CMakeFiles/execGrupo2.dir/No.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/execGrupo2.dir/No.cpp.i"
-	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\Lucas\Desktop\UFJF\DCC\Teoria dos Grafos\Grafos2021.1-main\No.cpp" > CMakeFiles\execGrupo2.dir\No.cpp.i
+	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\pedro\Documents\Ufjf - Ead\Grafos\Grafos2021.1\No.cpp" > CMakeFiles\execGrupo2.dir\No.cpp.i
 
 CMakeFiles/execGrupo2.dir/No.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/execGrupo2.dir/No.cpp.s"
-	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\Lucas\Desktop\UFJF\DCC\Teoria dos Grafos\Grafos2021.1-main\No.cpp" -o CMakeFiles\execGrupo2.dir\No.cpp.s
+	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\pedro\Documents\Ufjf - Ead\Grafos\Grafos2021.1\No.cpp" -o CMakeFiles\execGrupo2.dir\No.cpp.s
 
 CMakeFiles/execGrupo2.dir/Grafo.cpp.obj: CMakeFiles/execGrupo2.dir/flags.make
 CMakeFiles/execGrupo2.dir/Grafo.cpp.obj: ../Grafo.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="C:\Users\Lucas\Desktop\UFJF\DCC\Teoria dos Grafos\Grafos2021.1-main\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/execGrupo2.dir/Grafo.cpp.obj"
-	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\execGrupo2.dir\Grafo.cpp.obj -c "C:\Users\Lucas\Desktop\UFJF\DCC\Teoria dos Grafos\Grafos2021.1-main\Grafo.cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="C:\Users\pedro\Documents\Ufjf - Ead\Grafos\Grafos2021.1\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/execGrupo2.dir/Grafo.cpp.obj"
+	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\execGrupo2.dir\Grafo.cpp.obj -c "C:\Users\pedro\Documents\Ufjf - Ead\Grafos\Grafos2021.1\Grafo.cpp"
 
 CMakeFiles/execGrupo2.dir/Grafo.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/execGrupo2.dir/Grafo.cpp.i"
-	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\Lucas\Desktop\UFJF\DCC\Teoria dos Grafos\Grafos2021.1-main\Grafo.cpp" > CMakeFiles\execGrupo2.dir\Grafo.cpp.i
+	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\pedro\Documents\Ufjf - Ead\Grafos\Grafos2021.1\Grafo.cpp" > CMakeFiles\execGrupo2.dir\Grafo.cpp.i
 
 CMakeFiles/execGrupo2.dir/Grafo.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/execGrupo2.dir/Grafo.cpp.s"
-	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\Lucas\Desktop\UFJF\DCC\Teoria dos Grafos\Grafos2021.1-main\Grafo.cpp" -o CMakeFiles\execGrupo2.dir\Grafo.cpp.s
+	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\pedro\Documents\Ufjf - Ead\Grafos\Grafos2021.1\Grafo.cpp" -o CMakeFiles\execGrupo2.dir\Grafo.cpp.s
 
 # Object files for target execGrupo2
 execGrupo2_OBJECTS = \
@@ -145,7 +145,7 @@ execGrupo2.exe: CMakeFiles/execGrupo2.dir/build.make
 execGrupo2.exe: CMakeFiles/execGrupo2.dir/linklibs.rsp
 execGrupo2.exe: CMakeFiles/execGrupo2.dir/objects1.rsp
 execGrupo2.exe: CMakeFiles/execGrupo2.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="C:\Users\Lucas\Desktop\UFJF\DCC\Teoria dos Grafos\Grafos2021.1-main\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable execGrupo2.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="C:\Users\pedro\Documents\Ufjf - Ead\Grafos\Grafos2021.1\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable execGrupo2.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\execGrupo2.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -158,6 +158,6 @@ CMakeFiles/execGrupo2.dir/clean:
 .PHONY : CMakeFiles/execGrupo2.dir/clean
 
 CMakeFiles/execGrupo2.dir/depend:
-	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" "C:\Users\Lucas\Desktop\UFJF\DCC\Teoria dos Grafos\Grafos2021.1-main" "C:\Users\Lucas\Desktop\UFJF\DCC\Teoria dos Grafos\Grafos2021.1-main" "C:\Users\Lucas\Desktop\UFJF\DCC\Teoria dos Grafos\Grafos2021.1-main\cmake-build-debug" "C:\Users\Lucas\Desktop\UFJF\DCC\Teoria dos Grafos\Grafos2021.1-main\cmake-build-debug" "C:\Users\Lucas\Desktop\UFJF\DCC\Teoria dos Grafos\Grafos2021.1-main\cmake-build-debug\CMakeFiles\execGrupo2.dir\DependInfo.cmake" --color=$(COLOR)
+	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" "C:\Users\pedro\Documents\Ufjf - Ead\Grafos\Grafos2021.1" "C:\Users\pedro\Documents\Ufjf - Ead\Grafos\Grafos2021.1" "C:\Users\pedro\Documents\Ufjf - Ead\Grafos\Grafos2021.1\cmake-build-debug" "C:\Users\pedro\Documents\Ufjf - Ead\Grafos\Grafos2021.1\cmake-build-debug" "C:\Users\pedro\Documents\Ufjf - Ead\Grafos\Grafos2021.1\cmake-build-debug\CMakeFiles\execGrupo2.dir\DependInfo.cmake" --color=$(COLOR)
 .PHONY : CMakeFiles/execGrupo2.dir/depend
 

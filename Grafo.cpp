@@ -1350,7 +1350,7 @@ string Grafo::AGMGRandomizado(){
     float custoSolucao = 0;
     int id_origem = 0;
     for(int j=0; j<5; j++){
-        for(int k=0; k<10; k++){
+        for(int k=0; k<1; k++){
             custoSolucao = AGMGPrimRandomizado(alfa[j], 500, melhorSolucao);
             if(custoSolucao < melhorCusto){
                 melhorCusto = custoSolucao;
@@ -1724,7 +1724,7 @@ string Grafo::AGMGRandReativo(){
     float melhorCusto = std::numeric_limits<float>::max();
     int solucaoAtual[this->ordem];
     float custoSolucao;
-    for(int i=0; i<10; i++){
+    for(int i=0; i<1; i++){
         custoSolucao = AGMGPrimRandomizadoReativo(solucaoAtual, &id_origem, &i_melhor_alfa);
         if(custoSolucao < melhorCusto){
             melhorCusto = custoSolucao;
