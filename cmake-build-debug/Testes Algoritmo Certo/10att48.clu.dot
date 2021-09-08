@@ -1,0 +1,80 @@
+AGMG Guloso - Prim
+// Vértice Inicial = 24
+// Custo Total = 11338.000000
+// Qtd. Grupos = 10
+// Tempo de Execucao (Segundos) = 0
+strict graph { 
+	2 [color=red]
+	2 -- 22 [label=828.000000]
+	22 [color=purple]
+	22 -- 24 [label=903.000000]
+	25 [color=green]
+	25 -- 41 [label=1363.000000]
+	29 [color=blue]
+	29 -- 45 [label=1609.000000]
+	33 [color=pink]
+	33 -- 2 [label=950.000000]
+	34 [color=orange]
+	34 -- 25 [label=1375.000000]
+	41 [color=violet]
+	41 -- 47 [label=1169.000000]
+	45 [color=beige]
+	45 -- 22 [label=1801.000000]
+	47 [color=yellow]
+	47 -- 24 [label=1340.000000]
+} 
+---------------------------------------
+AGMG Guloso Randomizado - Prim
+// Vértice Inicial = 0
+// Custo Total = 11419.000000
+// Qtd. Grupos = 10
+// Tempo de Execucao (Segundos) = 14
+strict graph { 
+	2 [color=red]
+	2 -- 13 [label=1103.000000]
+	5 [color=blue]
+	5 -- 11 [label=2266.000000]
+	11 [color=purple]
+	11 -- 2 [label=1520.000000]
+	25 [color=green]
+	25 -- 41 [label=1363.000000]
+	34 [color=orange]
+	34 -- 25 [label=1375.000000]
+	40 [color=pink]
+	40 -- 2 [label=1395.000000]
+	41 [color=violet]
+	41 -- 47 [label=1169.000000]
+	45 [color=beige]
+	45 -- 11 [label=827.000000]
+	47 [color=yellow]
+	47 -- 13 [label=1592.000000]
+} 
+---------------------------------------
+AGMG Guloso Randomizado Reativo - Prim
+// Vértice Inicial = 2
+// Custo Total = 10935.000000
+// Qtd. Grupos = 10
+// Alfa = 0.050000
+// Tempo de Execucao (Segundos) = 15
+strict graph { 
+	13 [color=gray]
+	13 -- 33 [label=838.000000]
+	25 [color=green]
+	25 -- 41 [label=1363.000000]
+	29 [color=blue]
+	29 -- 45 [label=1609.000000]
+	33 [color=pink]
+	33 -- 2 [label=950.000000]
+	34 [color=orange]
+	34 -- 25 [label=1375.000000]
+	39 [color=purple]
+	39 -- 2 [label=1027.000000]
+	41 [color=violet]
+	41 -- 47 [label=1169.000000]
+	45 [color=beige]
+	45 -- 39 [label=1012.000000]
+	47 [color=yellow]
+	47 -- 13 [label=1592.000000]
+} 
+---------------------------------------
+
