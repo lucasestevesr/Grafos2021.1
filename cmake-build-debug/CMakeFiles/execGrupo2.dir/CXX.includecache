@@ -58,3 +58,29 @@ C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/No.h
 Aresta.h
 C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/Aresta.h
 
+C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/main.cpp
+iostream
+-
+fstream
+-
+string
+-
+math.h
+-
+utility
+-
+tuple
+-
+iomanip
+-
+stdlib.h
+-
+chrono
+-
+vector
+-
+Grafo.h
+C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/Grafo.h
+No.h
+C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/No.h
+

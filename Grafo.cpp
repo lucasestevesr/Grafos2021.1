@@ -1404,6 +1404,7 @@ string Grafo::AGMGPrimRandomizado(float alfa, int num_iteracoes) {
 
                 cout << "Melhor custo encontrado: " << melhorCusto << endl;
                 cout << "Horario: " << asctime (timeinfo) << endl;
+                cout << "Iteracao: " << qnt_iteracoes << endl;
             }
         }
         if(num_iteracoes <= qnt_iteracoes) {
@@ -1420,6 +1421,7 @@ string Grafo::AGMGPrimRandomizado(float alfa, int num_iteracoes) {
     retorno += "// Vértice Inicial = " + std::to_string(id_origem) + "\n";
     retorno += "// Custo Total = " + std::to_string(melhorCusto) + "\n";
     retorno += "// Qtd. Grupos = " + std::to_string(this->qtdGrupos) + "\n";
+    retorno += "// Alfa = " + std::to_string(alfa) + "\n";
     retorno += "// Tempo de Execucao (Segundos) = " + std::to_string(int_s.count()) + "\n";
     return retorno;
 }
@@ -1627,7 +1629,7 @@ int Grafo::escolherArestaAGMGrandomizado(int prox_id, int solucao[], bool grupos
 // Inicio funcao agmg prim randomizado reativo
 float Grafo::AGMGPrimRandomizadoReativo(int solucaoAtual[], int* id_origem, int* i_melhor_alfa) {
     // Variavel de controle para o numero de iteracoes tera o algoritmo
-    int NUM_ITERACOES = 1000;
+    int NUM_ITERACOES = 500;
     // Variavel para incrementar a iteracao atual
     int qnt_iteracoes = 0;
     // Variavel de controle para saber o index do alfa atual
