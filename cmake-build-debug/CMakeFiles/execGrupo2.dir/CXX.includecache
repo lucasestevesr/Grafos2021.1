@@ -6,21 +6,15 @@
 
 #IncludeRegexTransform: 
 
-C:/Users/Lucas/Desktop/UFJF/DCC/Teoria dos Grafos/Grafos2021.1/Aresta.cpp
-Aresta.h
-C:/Users/Lucas/Desktop/UFJF/DCC/Teoria dos Grafos/Grafos2021.1/Aresta.h
-iostream
--
+C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/Aresta.h
 
-C:/Users/Lucas/Desktop/UFJF/DCC/Teoria dos Grafos/Grafos2021.1/Aresta.h
-
-C:/Users/Lucas/Desktop/UFJF/DCC/Teoria dos Grafos/Grafos2021.1/Grafo.cpp
+C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/Grafo.cpp
 Grafo.h
-C:/Users/Lucas/Desktop/UFJF/DCC/Teoria dos Grafos/Grafos2021.1/Grafo.h
+C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/Grafo.h
 No.h
-C:/Users/Lucas/Desktop/UFJF/DCC/Teoria dos Grafos/Grafos2021.1/No.h
+C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/No.h
 Aresta.h
-C:/Users/Lucas/Desktop/UFJF/DCC/Teoria dos Grafos/Grafos2021.1/Aresta.h
+C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/Aresta.h
 iostream
 -
 fstream
@@ -50,9 +44,9 @@ limits
 chrono
 -
 
-C:/Users/Lucas/Desktop/UFJF/DCC/Teoria dos Grafos/Grafos2021.1/Grafo.h
+C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/Grafo.h
 No.h
-C:/Users/Lucas/Desktop/UFJF/DCC/Teoria dos Grafos/Grafos2021.1/No.h
+C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/No.h
 fstream
 -
 stack
@@ -60,41 +54,7 @@ stack
 list
 -
 
-C:/Users/Lucas/Desktop/UFJF/DCC/Teoria dos Grafos/Grafos2021.1/No.cpp
-No.h
-C:/Users/Lucas/Desktop/UFJF/DCC/Teoria dos Grafos/Grafos2021.1/No.h
+C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/No.h
 Aresta.h
-C:/Users/Lucas/Desktop/UFJF/DCC/Teoria dos Grafos/Grafos2021.1/Aresta.h
-iostream
--
-
-C:/Users/Lucas/Desktop/UFJF/DCC/Teoria dos Grafos/Grafos2021.1/No.h
-Aresta.h
-C:/Users/Lucas/Desktop/UFJF/DCC/Teoria dos Grafos/Grafos2021.1/Aresta.h
-
-C:/Users/Lucas/Desktop/UFJF/DCC/Teoria dos Grafos/Grafos2021.1/main.cpp
-iostream
--
-fstream
--
-string
--
-math.h
--
-utility
--
-tuple
--
-iomanip
--
-stdlib.h
--
-chrono
--
-vector
--
-Grafo.h
-C:/Users/Lucas/Desktop/UFJF/DCC/Teoria dos Grafos/Grafos2021.1/Grafo.h
-No.h
-C:/Users/Lucas/Desktop/UFJF/DCC/Teoria dos Grafos/Grafos2021.1/No.h
+C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/Aresta.h
 

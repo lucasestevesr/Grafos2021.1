@@ -1,6 +1,7 @@
-AGMG Guloso - Prim
-// Vértice Inicial = 325
-// Custo Total = 18058.000000
-// Qtd. Grupos = 145
-// Tempo de Execucao (Segundos) = 173
+AGMG Guloso Randomizado Reativo - Prim
+// Vértice Inicial = 2
+// Custo Total = 10996.000000
+// Qtd. Grupos = 10
+// Alfa = 0.050000
+// Tempo de Execucao (Segundos) = 0
 

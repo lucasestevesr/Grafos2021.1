@@ -248,7 +248,13 @@ void selecionar(int selecao, Grafo *grafo, ofstream &arquivo_saida) {
         }
             // Algoritmo Guloso AGMG Randomizado
         case 11: {
-            retorno = grafo->AGMGRandomizado();
+            int qnt_it;
+            cout << "Digite a quantidade de iteracoes: " << endl;
+            cin >> qnt_it;
+            float alfa;
+            cout << "Digite o alfa: " << endl;
+            cin >> alfa;
+            retorno = grafo->AGMGPrimRandomizado(alfa, qnt_it);
             break;
         }
             // Algoritmo Guloso AGMG Randomizado Reativo

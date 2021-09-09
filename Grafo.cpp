@@ -1219,14 +1219,21 @@ bool Grafo::verificarCiclo() {
 
 // Inicio funcao agmg prim guluso
 string Grafo::AGMGPrim() {
+    string retorno = "AGMG Guloso - Prim\n";
+    if(this->direcionado){
+        retorno += "Erro! Grafo direcionado!";
+        return retorno;
+    }
+
+    // Inicializando variável de contar o tempo de execução
     auto start = std::chrono::high_resolution_clock::now();
     // Declarando variaveis de controle
     int id_origem = 0;
-    float alfa = 1;
     float infinito = std::numeric_limits<float>::max();
     float melhorCusto = infinito;
     float custoSolucao = 0;
     int solucao[this->ordem];
+    // Caso queira imprimir o grafo da melhor solução
 //    int melhorSolucao[this->ordem];
 
     // Percorrendo todos vertices do grafo
@@ -1235,12 +1242,22 @@ string Grafo::AGMGPrim() {
         custoSolucao = this->auxAGMGPrim(i, solucao);
         // Compara o custo recebido da solucao com o melhor custo
         if(custoSolucao < melhorCusto) {
-            // Se for melhor faz o backup da solucao
+            // Caso queira imprimir o grafo da melhor solução
 //            for(int j = 0; j < this->ordem; j++) {
 //                melhorSolucao[j] = solucao[j];
 //            }
+            // Salva o id de origem e o melhor custo
             id_origem = i;
             melhorCusto = custoSolucao;
+
+            time_t rawtime;
+            struct tm * timeinfo;
+
+            time ( &rawtime );
+            timeinfo = localtime ( &rawtime );
+
+            cout << "Melhor custo encontrado: " << melhorCusto << endl;
+            cout << "Horario: " << asctime (timeinfo) << endl;
         }
     }
     //Calculando o tempo de execução
@@ -1248,17 +1265,13 @@ string Grafo::AGMGPrim() {
     auto int_s = std::chrono::duration_cast<std::chrono::seconds>(end - start);
 
     // Daqui para baixo e so salvando a solucao no arquivo de saida
-    string retorno = "AGMG Guloso - Prim\n";
-    if(this->direcionado){
-        retorno += "Erro! Grafo direcionado!";
-        return retorno;
-    }
 
     string seta = " -- ";
     retorno += "// Vértice Inicial = " + std::to_string(id_origem) + "\n";
     retorno += "// Custo Total = " + std::to_string(melhorCusto) + "\n";
     retorno += "// Qtd. Grupos = " + std::to_string(this->qtdGrupos) + "\n";
     retorno += "// Tempo de Execucao (Segundos) = " + std::to_string(int_s.count()) + "\n";
+    // Caso queira imprimir o grafo da melhor solução
 //    retorno += "strict graph { \n";
 //
 //    string cores[10] = {"red", "orange", "blue", "yellow", "gray", "beige", "pink", "green", "violet", "purple"};
@@ -1341,61 +1354,17 @@ float Grafo::auxAGMGPrim(int id_origem, int solucao[]) {
 }
 // Fim funcao aux do agmg prim guloso
 
-string Grafo::AGMGRandomizado(){
-    auto start = std::chrono::high_resolution_clock::now();
-    float alfa[5] = {0.05, 0.10, 0.15, 0.30, 0.50};
-    int melhorSolucao[this->ordem];
-    int solucaoFinal[this->ordem];
-    float melhorCusto = std::numeric_limits<float>::max();
-    float custoSolucao = 0;
-    int id_origem = 0;
-    for(int j=0; j<5; j++){
-        for(int k=0; k<1; k++){
-            custoSolucao = AGMGPrimRandomizado(alfa[j], 500, melhorSolucao);
-            if(custoSolucao < melhorCusto){
-                melhorCusto = custoSolucao;
-//                for(int i=0; i<this->ordem; i++){
-//                    solucaoFinal[i] = melhorSolucao[i];
-//                    melhorSolucao[i] = 0;
-//                }
-            }
-        }
-    }
-    auto end = std::chrono::high_resolution_clock::now();
-    auto int_s = std::chrono::duration_cast<std::chrono::seconds>(end - start);
-
-    // Daqui para baixo e so salvando a solucao no arquivo de saida
+// Inicio funcao agmg prim randomizada
+string Grafo::AGMGPrimRandomizado(float alfa, int num_iteracoes) {
+    // Verificando condição do grafo antes de iniciar
     string retorno = "AGMG Guloso Randomizado - Prim\n";
     if(this->direcionado){
         retorno += "Erro! Grafo direcionado!";
         return retorno;
     }
 
-    string seta = " -- ";
-    retorno += "// Vértice Inicial = " + std::to_string(id_origem) + "\n";
-    retorno += "// Custo Total = " + std::to_string(melhorCusto) + "\n";
-    retorno += "// Qtd. Grupos = " + std::to_string(this->qtdGrupos) + "\n";
-    retorno += "// Tempo de Execucao (Segundos) = " + std::to_string(int_s.count()) + "\n";
-//    retorno += "strict graph { \n";
-//
-//    string cores[10] = {"red", "orange", "blue", "yellow", "gray", "beige", "pink", "green", "violet", "purple"};
-//    int grupo = 0;
-//    for(int i = 0; i < this->ordem; i++) {
-//        if(melhorSolucao[i] != -1) {
-//            grupo = this->getNo(i)->getGrupo();
-//            if(grupo <= this->qtdGrupos){
-//                retorno += "\t" + std::to_string(i) + " [color=" + cores[grupo-1] + "]" + "\n";
-//            }
-//            retorno += "\t" + std::to_string(i) + seta + std::to_string(melhorSolucao[i]) + " [label=" + std::to_string(this->getNo(i)->getArestaEntre(melhorSolucao[i])->getPeso()) + "]" + "\n";
-//        }
-//    }
-//    retorno += "} \n";
-//    retorno += "---------------------------------------";
-    return retorno;
-}
-
-// Inicio funcao agmg prim randomizada
-float Grafo::AGMGPrimRandomizado(float alfa, int num_iteracoes, int melhorSolucao[]) {
+    // Declarando variável de contagem de execução de tempo
+    auto start = std::chrono::high_resolution_clock::now();
     // Variavel para incrementar a iteracao atual
     int qnt_iteracoes = 0;
     // Variavel de controle para armazenar o id do no de origem
@@ -1406,6 +1375,7 @@ float Grafo::AGMGPrimRandomizado(float alfa, int num_iteracoes, int melhorSoluca
     float melhorCusto = std::numeric_limits<float>::max();
     // Custo da solucao atual
     float custoSolucao = 0;
+    //    int melhorSolucao[this->ordem];
 
     // Enquanto nao percorrer todas iteracoes nao acaba
     while(num_iteracoes > qnt_iteracoes) {
@@ -1425,12 +1395,33 @@ float Grafo::AGMGPrimRandomizado(float alfa, int num_iteracoes, int melhorSoluca
                 id_origem = i;
                 // Atualiza o melhor custo
                 melhorCusto = custoSolucao;
+
+                time_t rawtime;
+                struct tm * timeinfo;
+
+                time ( &rawtime );
+                timeinfo = localtime ( &rawtime );
+
+                cout << "Melhor custo encontrado: " << melhorCusto << endl;
+                cout << "Horario: " << asctime (timeinfo) << endl;
             }
         }
+        if(num_iteracoes <= qnt_iteracoes) {
+            break;
+        }
     }
-    return melhorCusto;
+
+    auto end = std::chrono::high_resolution_clock::now();
+    auto int_s = std::chrono::duration_cast<std::chrono::seconds>(end - start);
+    // Daqui para baixo e so salvando a solucao no arquivo de saida
 
 
+    string seta = " -- ";
+    retorno += "// Vértice Inicial = " + std::to_string(id_origem) + "\n";
+    retorno += "// Custo Total = " + std::to_string(melhorCusto) + "\n";
+    retorno += "// Qtd. Grupos = " + std::to_string(this->qtdGrupos) + "\n";
+    retorno += "// Tempo de Execucao (Segundos) = " + std::to_string(int_s.count()) + "\n";
+    return retorno;
 }
 // Fim funcao agmg prim randomizada
 
@@ -1636,7 +1627,7 @@ int Grafo::escolherArestaAGMGrandomizado(int prox_id, int solucao[], bool grupos
 // Inicio funcao agmg prim randomizado reativo
 float Grafo::AGMGPrimRandomizadoReativo(int solucaoAtual[], int* id_origem, int* i_melhor_alfa) {
     // Variavel de controle para o numero de iteracoes tera o algoritmo
-    int NUM_ITERACOES = 2500;
+    int NUM_ITERACOES = 1000;
     // Variavel para incrementar a iteracao atual
     int qnt_iteracoes = 0;
     // Variavel de controle para saber o index do alfa atual
@@ -1705,6 +1696,17 @@ float Grafo::AGMGPrimRandomizadoReativo(int solucaoAtual[], int* id_origem, int*
                 melhorCusto = custoSolucao;
                 // Salva o alfa da melhor solucao
                 *i_melhor_alfa = i_alfa;
+                time_t rawtime;
+                struct tm * timeinfo;
+
+                time ( &rawtime );
+                timeinfo = localtime ( &rawtime );
+
+                cout << "Melhor custo encontrado: " << melhorCusto << endl;
+                cout << "Horario: " << asctime (timeinfo) << endl;
+            }
+            if(NUM_ITERACOES <= qnt_iteracoes) {
+                break;
             }
         }
     }
@@ -1713,6 +1715,11 @@ float Grafo::AGMGPrimRandomizadoReativo(int solucaoAtual[], int* id_origem, int*
 // Fim funcao agmg prim randomizado reativo
 
 string Grafo::AGMGRandReativo(){
+    string retorno = "AGMG Guloso Randomizado Reativo - Prim\n";
+    if(this->direcionado){
+        retorno += "Erro! Grafo direcionado!";
+        return retorno;
+    }
     //Inicializando o cronômetro
     auto start = std::chrono::high_resolution_clock::now();
     // Para armazenar o melhor alfa
@@ -1720,10 +1727,10 @@ string Grafo::AGMGRandReativo(){
     // Variavel de controle para armazenar o id do no de origem
     int id_origem = 0;
     float alfas[5] = {0.05, 0.10, 0.15, 0.30, 0.50};
-    int melhorSolucao[this->ordem];
+//    int melhorSolucao[this->ordem];
     float melhorCusto = std::numeric_limits<float>::max();
     int solucaoAtual[this->ordem];
-    float custoSolucao;
+    float custoSolucao = 0;
     for(int i=0; i<1; i++){
         custoSolucao = AGMGPrimRandomizadoReativo(solucaoAtual, &id_origem, &i_melhor_alfa);
         if(custoSolucao < melhorCusto){
@@ -1740,11 +1747,7 @@ string Grafo::AGMGRandReativo(){
     auto int_s = std::chrono::duration_cast<std::chrono::seconds>(end - start);
 
     // Daqui para baixo e so salvando a solucao no arquivo de saida
-    string retorno = "AGMG Guloso Randomizado Reativo - Prim\n";
-    if(this->direcionado){
-        retorno += "Erro! Grafo direcionado!";
-        return retorno;
-    }
+
 
     string seta = " -- ";
     retorno += "// Vértice Inicial = " + std::to_string(id_origem) + "\n";
