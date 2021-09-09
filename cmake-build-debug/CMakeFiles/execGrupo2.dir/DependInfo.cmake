@@ -4,10 +4,10 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/Aresta.cpp" "C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/cmake-build-debug/CMakeFiles/execGrupo2.dir/Aresta.cpp.obj"
-  "C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/Grafo.cpp" "C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/cmake-build-debug/CMakeFiles/execGrupo2.dir/Grafo.cpp.obj"
-  "C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/No.cpp" "C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/cmake-build-debug/CMakeFiles/execGrupo2.dir/No.cpp.obj"
-  "C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/main.cpp" "C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/cmake-build-debug/CMakeFiles/execGrupo2.dir/main.cpp.obj"
+  "C:/Users/Lucas/Desktop/UFJF/DCC/Teoria dos Grafos/Grafos2021.1/Aresta.cpp" "C:/Users/Lucas/Desktop/UFJF/DCC/Teoria dos Grafos/Grafos2021.1/cmake-build-debug/CMakeFiles/execGrupo2.dir/Aresta.cpp.obj"
+  "C:/Users/Lucas/Desktop/UFJF/DCC/Teoria dos Grafos/Grafos2021.1/Grafo.cpp" "C:/Users/Lucas/Desktop/UFJF/DCC/Teoria dos Grafos/Grafos2021.1/cmake-build-debug/CMakeFiles/execGrupo2.dir/Grafo.cpp.obj"
+  "C:/Users/Lucas/Desktop/UFJF/DCC/Teoria dos Grafos/Grafos2021.1/No.cpp" "C:/Users/Lucas/Desktop/UFJF/DCC/Teoria dos Grafos/Grafos2021.1/cmake-build-debug/CMakeFiles/execGrupo2.dir/No.cpp.obj"
+  "C:/Users/Lucas/Desktop/UFJF/DCC/Teoria dos Grafos/Grafos2021.1/main.cpp" "C:/Users/Lucas/Desktop/UFJF/DCC/Teoria dos Grafos/Grafos2021.1/cmake-build-debug/CMakeFiles/execGrupo2.dir/main.cpp.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
