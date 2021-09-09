@@ -1,0 +1,43 @@
+AGMG Guloso - Prim
+// Vértice Inicial = 211
+// Custo Total = 17595.000000
+// Qtd. Grupos = 64
+// Tempo de Execucao (Segundos) = 19
+
+AGMG Guloso Randomizado - Prim
+// Vértice Inicial = 178
+// Custo Total = 18621.000000
+// Qtd. Grupos = 64
+// Alfa = 0.050000
+// Tempo de Execucao (Segundos) = 266
+
+AGMG Guloso Randomizado - Prim
+// Vértice Inicial = 194
+// Custo Total = 19846.000000
+// Qtd. Grupos = 64
+// Alfa = 0.100000
+// Tempo de Execucao (Segundos) = 288
+
+AGMG Guloso Randomizado - Prim
+// Vértice Inicial = 193
+// Custo Total = 21239.000000
+// Qtd. Grupos = 64
+// Alfa = 0.150000
+// Tempo de Execucao (Segundos) = 294
+
+AGMG Guloso Randomizado - Prim
+// Vértice Inicial = 53
+// Custo Total = 24329.000000
+// Qtd. Grupos = 64
+// Alfa = 0.300000
+// Tempo de Execucao (Segundos) = 352
+
+AGMG Guloso Randomizado - Prim
+// Vértice Inicial = 142
+// Custo Total = 25156.000000
+// Qtd. Grupos = 64
+// Alfa = 0.500000
+// Tempo de Execucao (Segundos) = 428
+
+ Execucao (Segundos) = 195
+

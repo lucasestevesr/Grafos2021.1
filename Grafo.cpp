@@ -1629,7 +1629,7 @@ int Grafo::escolherArestaAGMGrandomizado(int prox_id, int solucao[], bool grupos
 // Inicio funcao agmg prim randomizado reativo
 float Grafo::AGMGPrimRandomizadoReativo(int solucaoAtual[], int* id_origem, int* i_melhor_alfa) {
     // Variavel de controle para o numero de iteracoes tera o algoritmo
-    int NUM_ITERACOES = 500;
+    int NUM_ITERACOES = 2500;
     // Variavel para incrementar a iteracao atual
     int qnt_iteracoes = 0;
     // Variavel de controle para saber o index do alfa atual
@@ -1733,7 +1733,7 @@ string Grafo::AGMGRandReativo(){
     float melhorCusto = std::numeric_limits<float>::max();
     int solucaoAtual[this->ordem];
     float custoSolucao = 0;
-    for(int i=0; i<1; i++){
+    for(int i=0; i<10; i++){
         custoSolucao = AGMGPrimRandomizadoReativo(solucaoAtual, &id_origem, &i_melhor_alfa);
         if(custoSolucao < melhorCusto){
             melhorCusto = custoSolucao;
