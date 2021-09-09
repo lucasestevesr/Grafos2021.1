@@ -36,9 +36,13 @@ Alunos:</br>
 
 # Trabalho 02: Algoritmos para o Problema da Árvore Geradora Mínima Generaliza
 
+### Padrão de compilação em linha de comando
+
+	g++ *.cpp -o execGrupo2
+
 ### Padrão de execução em linha de comando
 
-"diretório da pasta do arquivo\execGrupo2.exe" <arquivo_entrada> saida.dot 0 1 0
+	"diretório da pasta do arquivo\execGrupo2.exe" <arquivo_entrada> saida.dot 0 1 0
 
 ### Em que:
 	• Diretório do arquivo de entrada é o diretório no qual se encontra a pasta do arquivo contendo o trabalho;
