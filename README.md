@@ -21,6 +21,7 @@ Alunos:</br>
     • [6] Arvore Geradora Minima de Kruskal;
     • [7] Arvore pelo Caminhamento em Profundidade;
     • [8] Imprimir Ordenacao Topologica;
+    
 
 ## Padrão do arquivo de entrada
     • Tipo 1: vértices e arestas sem peso
@@ -31,3 +32,8 @@ Alunos:</br>
         • id_vértice_origem peso_vértice_origem id_vértice_alvo peso_vértice_alvo
     • Tipo 4: vértices e arestas com peso
         • id_vértice_origem peso_vértice_origem id_vértice_alvo peso_vértice_alvo peso_aresta
+	
+
+## Trabalho 02: Algoritmos para o Problema da Árvore Geradora Mínima Generaliza
+
+
