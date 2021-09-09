@@ -6,35 +6,29 @@
 
 #IncludeRegexTransform: 
 
-<<<<<<< HEAD
 C:/Users/Lucas/Desktop/UFJF/DCC/Teoria dos Grafos/Grafos2021.1/Aresta.h
 
+C:/Users/Lucas/Desktop/UFJF/DCC/Teoria dos Grafos/Grafos2021.1/Grafo.cpp
+Grafo.h
 C:/Users/Lucas/Desktop/UFJF/DCC/Teoria dos Grafos/Grafos2021.1/Grafo.h
 No.h
 C:/Users/Lucas/Desktop/UFJF/DCC/Teoria dos Grafos/Grafos2021.1/No.h
-=======
-C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/Aresta.h
-
-C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/Grafo.cpp
-Grafo.h
-C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/Grafo.h
-No.h
-C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/No.h
 Aresta.h
-C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/Aresta.h
+C:/Users/Lucas/Desktop/UFJF/DCC/Teoria dos Grafos/Grafos2021.1/Aresta.h
 iostream
 -
->>>>>>> e5abafccc7a392d932331b1614f318cae16f1aa2
 fstream
+-
+string
 -
 stack
 -
+iterator
+-
+queue
+-
 list
 -
-<<<<<<< HEAD
-
-C:/Users/Lucas/Desktop/UFJF/DCC/Teoria dos Grafos/Grafos2021.1/No.h
-=======
 math.h
 -
 cstdlib
@@ -50,9 +44,9 @@ limits
 chrono
 -
 
-C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/Grafo.h
+C:/Users/Lucas/Desktop/UFJF/DCC/Teoria dos Grafos/Grafos2021.1/Grafo.h
 No.h
-C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/No.h
+C:/Users/Lucas/Desktop/UFJF/DCC/Teoria dos Grafos/Grafos2021.1/No.h
 fstream
 -
 stack
@@ -60,12 +54,11 @@ stack
 list
 -
 
-C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/No.h
->>>>>>> e5abafccc7a392d932331b1614f318cae16f1aa2
+C:/Users/Lucas/Desktop/UFJF/DCC/Teoria dos Grafos/Grafos2021.1/No.h
 Aresta.h
-C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/Aresta.h
+C:/Users/Lucas/Desktop/UFJF/DCC/Teoria dos Grafos/Grafos2021.1/Aresta.h
 
-C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/main.cpp
+C:/Users/Lucas/Desktop/UFJF/DCC/Teoria dos Grafos/Grafos2021.1/main.cpp
 iostream
 -
 fstream
@@ -87,7 +80,7 @@ chrono
 vector
 -
 Grafo.h
-C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/Grafo.h
+C:/Users/Lucas/Desktop/UFJF/DCC/Teoria dos Grafos/Grafos2021.1/Grafo.h
 No.h
-C:/Users/pedro/Documents/Ufjf - Ead/Grafos/Grafos2021.1/No.h
+C:/Users/Lucas/Desktop/UFJF/DCC/Teoria dos Grafos/Grafos2021.1/No.h
 

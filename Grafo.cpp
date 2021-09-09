@@ -1406,9 +1406,9 @@ string Grafo::AGMGPrimRandomizado(float alfa, int num_iteracoes) {
                 cout << "Horario: " << asctime (timeinfo) << endl;
                 cout << "Iteracao: " << qnt_iteracoes << endl;
             }
-        }
-        if(num_iteracoes <= qnt_iteracoes) {
-            break;
+            if(num_iteracoes <= qnt_iteracoes) {
+                break;
+            }
         }
     }
 
