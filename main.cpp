@@ -70,7 +70,10 @@ Grafo *leitura(ifstream &arquivo, int direcionado, int aresta_ponderado, int no_
 // Fim da funcao para leitura do arquivo de entrada
 
 // Inicio da funcao para leitura do arquivo de entrada do segundo trabalho
-Grafo *leituraInstancias(ifstream &arquivo, int direcionado, int aresta_ponderado, int no_ponderado) {
+Grafo *leituraInstancias(ifstream &arquivo) {
+    int direcionado = 0;
+    int aresta_ponderado = 1;
+    int no_ponderado = 0;
 
     // Criando objeto grafo
     int ordem = 0;
@@ -117,18 +120,18 @@ int menu() {
 
     cout << "MENU" << endl;
     cout << "----" << endl;
-    cout << "[1] Fecho Transitivo Direto" << endl;
-    cout << "[2] Fecho Transitivo Indireto" << endl;
-    cout << "[3] Caminho Minimo entre dois vertices - Dijkstra" << endl;
-    cout << "[4] Caminho Minimo entre dois vertices - Floyd" << endl;
-    cout << "[5] Arvore Geradora Minima de Prim" << endl;
-    cout << "[6] Arvore Geradora Minima de Kruskal" << endl;
-    cout << "[7] Arvore do Caminhamento em Profundidade" << endl;
-    cout << "[8] Imprimir Ordenacao Topologica" << endl;
-    cout << "[9] Imprimir Grafo de Entrada" << endl;
-    cout << "[10] Algoritmo Guloso AGMG" << endl;
-    cout << "[11] Algoritmo Guloso AGMG Randomizado" << endl;
-    cout << "[12] Algoritmo Guloso AGMG Randomizado Reativo" << endl;
+//    cout << "[1] Fecho Transitivo Direto" << endl;
+//    cout << "[2] Fecho Transitivo Indireto" << endl;
+//    cout << "[3] Caminho Minimo entre dois vertices - Dijkstra" << endl;
+//    cout << "[4] Caminho Minimo entre dois vertices - Floyd" << endl;
+//    cout << "[5] Arvore Geradora Minima de Prim" << endl;
+//    cout << "[6] Arvore Geradora Minima de Kruskal" << endl;
+//    cout << "[7] Arvore do Caminhamento em Profundidade" << endl;
+//    cout << "[8] Imprimir Ordenacao Topologica" << endl;
+//    cout << "[9] Imprimir Grafo de Entrada" << endl;
+    cout << "[1] Algoritmo Guloso AGMG" << endl;
+    cout << "[2] Algoritmo Guloso AGMG Randomizado" << endl;
+    cout << "[3] Algoritmo Guloso AGMG Randomizado Reativo" << endl;
     cout << "[0] Sair" << endl;
 
     cin >> selecao;
@@ -156,114 +159,109 @@ void selecionar(int selecao, Grafo *grafo, ofstream &arquivo_saida) {
     string retorno = "";
     switch (selecao) {
         // Fecho Transitivo Direto
-        case 1: {
-            cout << "Digite o ID do vertice de origem: " << endl;
-            int id;
-            cin >> id;
-            retorno = grafo->fechoTD(id);
-            break;
-        }
-            // Fecho Transitivo Indireto
-        case 2: {
-            cout << "Digite o ID do vertice de origem: " << endl;
-            int id;
-            cin >> id;
-            retorno = grafo->fechoTIRec(id);
-            break;
-        }
-            // Caminho Minimo entre dois vertices - Dijkstra
-        case 3: {
-            cout << "Digite o ID do vertice de origem: " << endl;
-            int id;
-            cin >> id;
-            cout << "Digite o ID do vertice alvo: " << endl;
-            int id_alvo;
-            cin >> id_alvo;
-            retorno = grafo->djikstra(id, id_alvo);
-            break;
-        }
-            // Caminho Minimo entre dois vertices - Floyd
-        case 4: {
-            cout << "Digite o ID do vertice de origem: " << endl;
-            int id;
-            cin >> id;
-            cout << "Digite o ID do vertice alvo: " << endl;
-            int id_alvo;
-            cin >> id_alvo;
-            retorno = grafo->floyd(id, id_alvo);
-            break;
-        }
-            // Arvore Geradora Minima de Prim
-        case 5: {
-            cout << "Digite a ordem do subgrafo de entrada: ";
-            int tamanho;
-            cin >> tamanho;
-            int vertices[tamanho];
-            for (int i = 0; i < tamanho; i++) {
-                cout << "Digite o " << std::to_string(i + 1) << "o vertice: ";
-                cin >> vertices[i];
-                cout << endl;
-            }
-            Grafo *subGrafo = grafo->subgrafo(vertices, tamanho);
-            retorno = subGrafo->agmPrim();
-            break;
-        }
-            // Arvore Geradora Minima de Kruskal
-        case 6: {
-            cout << "Digite a ordem do subgrafo de entrada: ";
-            int tamanho;
-            cin >> tamanho;
-            int vertices[tamanho];
-            for (int i = 0; i < tamanho; i++) {
-                cout << "Digite o " << std::to_string(i + 1) << "o vertice: ";
-                cin >> vertices[i];
-                cout << endl;
-            }
-            Grafo *subGrafo = grafo->subgrafo(vertices, tamanho);
-            retorno = subGrafo->agmKruskal();
-            break;
-        }
-            // Arvore pelo Caminhamento em Profundidade
-        case 7: {
-            int id;
-            cout << "Digite o id de origem: ";
-            cin >> id;
-            retorno = grafo->buscaProf(id);
-            break;
-        }
-            // Imprimir Ordenacao Topologica
-        case 8: {
-            retorno = grafo->ordTopologica();
-            break;
-        }
-            // Imprimir Grafo de Entrada
-        case 9: {
-            retorno = grafo->imprimir();
-            break;
-        }
+//        case 1: {
+//            cout << "Digite o ID do vertice de origem: " << endl;
+//            int id;
+//            cin >> id;
+//            retorno = grafo->fechoTD(id);
+//            break;
+//        }
+//            // Fecho Transitivo Indireto
+//        case 2: {
+//            cout << "Digite o ID do vertice de origem: " << endl;
+//            int id;
+//            cin >> id;
+//            retorno = grafo->fechoTIRec(id);
+//            break;
+//        }
+//            // Caminho Minimo entre dois vertices - Dijkstra
+//        case 3: {
+//            cout << "Digite o ID do vertice de origem: " << endl;
+//            int id;
+//            cin >> id;
+//            cout << "Digite o ID do vertice alvo: " << endl;
+//            int id_alvo;
+//            cin >> id_alvo;
+//            retorno = grafo->djikstra(id, id_alvo);
+//            break;
+//        }
+//            // Caminho Minimo entre dois vertices - Floyd
+//        case 4: {
+//            cout << "Digite o ID do vertice de origem: " << endl;
+//            int id;
+//            cin >> id;
+//            cout << "Digite o ID do vertice alvo: " << endl;
+//            int id_alvo;
+//            cin >> id_alvo;
+//            retorno = grafo->floyd(id, id_alvo);
+//            break;
+//        }
+//            // Arvore Geradora Minima de Prim
+//        case 5: {
+//            cout << "Digite a ordem do subgrafo de entrada: ";
+//            int tamanho;
+//            cin >> tamanho;
+//            int vertices[tamanho];
+//            for (int i = 0; i < tamanho; i++) {
+//                cout << "Digite o " << std::to_string(i + 1) << "o vertice: ";
+//                cin >> vertices[i];
+//                cout << endl;
+//            }
+//            Grafo *subGrafo = grafo->subgrafo(vertices, tamanho);
+//            retorno = subGrafo->agmPrim();
+//            break;
+//        }
+//            // Arvore Geradora Minima de Kruskal
+//        case 6: {
+//            cout << "Digite a ordem do subgrafo de entrada: ";
+//            int tamanho;
+//            cin >> tamanho;
+//            int vertices[tamanho];
+//            for (int i = 0; i < tamanho; i++) {
+//                cout << "Digite o " << std::to_string(i + 1) << "o vertice: ";
+//                cin >> vertices[i];
+//                cout << endl;
+//            }
+//            Grafo *subGrafo = grafo->subgrafo(vertices, tamanho);
+//            retorno = subGrafo->agmKruskal();
+//            break;
+//        }
+//            // Arvore pelo Caminhamento em Profundidade
+//        case 7: {
+//            int id;
+//            cout << "Digite o id de origem: ";
+//            cin >> id;
+//            retorno = grafo->buscaProf(id);
+//            break;
+//        }
+//            // Imprimir Ordenacao Topologica
+//        case 8: {
+//            retorno = grafo->ordTopologica();
+//            break;
+//        }
+//            // Imprimir Grafo de Entrada
+//        case 9: {
+//            retorno = grafo->imprimir();
+//            break;
+//        }
             // Algoritmo Guloso AGMG
-        case 10: {
+        case 1: {
             retorno = grafo->AGMGPrim();
             break;
         }
             // Algoritmo Guloso AGMG Randomizado
-        case 11: {
-//            int qnt_it;
-//            cout << "Digite a quantidade de iteracoes: " << endl;
-//            cin >> qnt_it;
-//            float alfa;
-//            cout << "Digite o alfa: " << endl;
-//            cin >> alfa;
-//            retorno = grafo->AGMGPrimRandomizado(alfa, qnt_it);
-            retorno = grafo->AGMGPrimRandomizado(0.05, 500);
-            retorno += "\n" + grafo->AGMGPrimRandomizado(0.1, 500);
-            retorno += "\n" + grafo->AGMGPrimRandomizado(0.15, 500);
-            retorno += "\n" + grafo->AGMGPrimRandomizado(0.3, 500);
-            retorno += "\n" + grafo->AGMGPrimRandomizado(0.5, 500);
+        case 2: {
+            int qnt_it;
+            cout << "Digite a quantidade de iteracoes: " << endl;
+            cin >> qnt_it;
+            float alfa;
+            cout << "Digite o alfa: " << endl;
+            cin >> alfa;
+            retorno = grafo->AGMGPrimRandomizado(alfa, qnt_it);
             break;
         }
             // Algoritmo Guloso AGMG Randomizado Reativo
-        case 12: {
+        case 3: {
             retorno = grafo->AGMGRandReativo();
             break;
         }
@@ -312,9 +310,10 @@ int mainMenu(ofstream &arquivo_saida, Grafo *grafo) {
 int main(int argc, char const *argv[]) {
 
     // Verifica se todos parametros necessarios para compilar foram definidos
-    if (argc != 6) {
+    if (argc != 3) {
         cout
-                << "Erro: Esperando: ./<program_name> <arquivo_entrada> <arquivo_saida> <direcionado> <aresta_ponderado> <no_ponderado> "
+//                << "Erro: Esperando: ./<program_name> <arquivo_entrada> <arquivo_saida> <direcionado> <aresta_ponderado> <no_ponderado> "
+                << "Erro: Esperando: ./<program_name> <arquivo_entrada> <arquivo_saida>"
                 << endl;
         return 1;
     }
@@ -339,7 +338,8 @@ int main(int argc, char const *argv[]) {
 
     // Verificando se conseguiu abrir o arquivo de entrada
     if (arquivo_entrada.is_open()) {
-        grafo = leituraInstancias(arquivo_entrada, atoi(argv[3]), atoi(argv[4]), atoi(argv[5]));
+//        grafo = leituraInstancias(arquivo_entrada, atoi(argv[3]), atoi(argv[4]), atoi(argv[5]));
+        grafo = leituraInstancias(arquivo_entrada);
     } else {
         cout << "Nao foi possivel abrir o arquivo de entrada: " << argv[1];
     }
